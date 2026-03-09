@@ -36,17 +36,17 @@ export default function DashboardPage() {
     }, []);
 
     const statCards = [
-        { label: 'Resumes Analyzed', value: stats?.resumeCount || 0, icon: FiFileText, color: '#6c5ce7', href: '/dashboard/resume' },
-        { label: 'Repos Reviewed', value: stats?.githubCount || 0, icon: FiGithub, color: '#00d2ff', href: '/dashboard/github' },
-        { label: 'Jobs Matched', value: stats?.jobCount || 0, icon: FiBriefcase, color: '#00b894', href: '/dashboard/jobs' },
-        { label: 'Interviews Done', value: stats?.interviewCount || 0, icon: FiMic, color: '#fdcb6e', href: '/dashboard/interview' },
+        { label: 'Resumes Analyzed', value: stats?.resumeCount || 0, icon: FiFileText, color: '#ffb606', href: '/dashboard/resume' },
+        { label: 'Repos Reviewed', value: stats?.githubCount || 0, icon: FiGithub, color: '#3a3a3a', href: '/dashboard/github' },
+        { label: 'Jobs Matched', value: stats?.jobCount || 0, icon: FiBriefcase, color: '#28a745', href: '/dashboard/jobs' },
+        { label: 'Interviews Done', value: stats?.interviewCount || 0, icon: FiMic, color: '#ff9800', href: '/dashboard/interview' },
     ];
 
     const quickActions = [
-        { title: 'Analyze Resume', desc: 'Get AI-powered resume scoring and optimization tips', icon: FiFileText, href: '/dashboard/resume', color: '#6c5ce7' },
-        { title: 'Review GitHub Repo', desc: 'AI code review and architecture analysis', icon: FiGithub, href: '/dashboard/github', color: '#00d2ff' },
-        { title: 'Find Jobs', desc: 'Get personalized AI job recommendations', icon: FiBriefcase, href: '/dashboard/jobs', color: '#00b894' },
-        { title: 'Practice Interview', desc: 'Real-time AI interview with feedback', icon: FiMic, href: '/dashboard/interview', color: '#fdcb6e' },
+        { title: 'Analyze Resume', desc: 'Get AI-powered resume scoring and optimization tips', icon: FiFileText, href: '/dashboard/resume', color: '#ffb606' },
+        { title: 'Review GitHub Repo', desc: 'AI code review and architecture analysis', icon: FiGithub, href: '/dashboard/github', color: '#3a3a3a' },
+        { title: 'Find Jobs', desc: 'Get personalized AI job recommendations', icon: FiBriefcase, href: '/dashboard/jobs', color: '#28a745' },
+        { title: 'Practice Interview', desc: 'Real-time AI interview with feedback', icon: FiMic, href: '/dashboard/interview', color: '#ff9800' },
     ];
 
     return (

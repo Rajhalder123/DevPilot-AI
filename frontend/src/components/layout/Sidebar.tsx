@@ -27,14 +27,15 @@ export default function Sidebar() {
         <aside style={{
             width: 260,
             height: '100vh',
-            background: 'var(--card)',
-            borderRight: '1px solid var(--border-color)',
+            background: '#FFFFFF',
+            borderRight: '1px solid #e8e8e8',
             display: 'flex',
             flexDirection: 'column',
             position: 'fixed',
             top: 0,
             left: 0,
             zIndex: 50,
+            boxShadow: '2px 0 10px rgba(0,0,0,0.04)',
         }}>
             {/* Logo */}
             <Link href="/dashboard" style={{
@@ -43,13 +44,13 @@ export default function Sidebar() {
                 gap: 10,
                 padding: '24px 20px',
                 textDecoration: 'none',
-                borderBottom: '1px solid var(--border-color)',
+                borderBottom: '1px solid #e8e8e8',
             }}>
                 <div style={{
                     width: 36,
                     height: 36,
-                    borderRadius: 10,
-                    background: 'var(--gradient-primary)',
+                    borderRadius: 0,
+                    background: '#ffb606',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -57,12 +58,13 @@ export default function Sidebar() {
                     <FiZap size={20} color="#fff" />
                 </div>
                 <span style={{
-                    fontFamily: 'var(--font-display)',
+                    fontFamily: "'Open Sans', sans-serif",
                     fontSize: '1.25rem',
-                    fontWeight: 700,
-                    color: 'var(--foreground)',
+                    fontWeight: 800,
+                    color: '#3a3a3a',
+                    textTransform: 'uppercase' as const,
                 }}>
-                    DevPilot <span style={{ color: 'var(--accent)' }}>AI</span>
+                    DevPilot
                 </span>
             </Link>
 
@@ -79,29 +81,19 @@ export default function Sidebar() {
                                     alignItems: 'center',
                                     gap: 12,
                                     padding: '12px 16px',
-                                    borderRadius: 10,
-                                    background: active ? 'rgba(108, 92, 231, 0.15)' : 'transparent',
-                                    color: active ? 'var(--accent)' : 'var(--muted)',
-                                    fontWeight: active ? 600 : 400,
+                                    borderRadius: 0,
+                                    background: active ? 'rgba(255, 182, 6, 0.12)' : 'transparent',
+                                    color: active ? '#ffb606' : '#a5a5a5',
+                                    fontWeight: active ? 700 : 500,
                                     fontSize: '0.9rem',
+                                    fontFamily: "'Open Sans', sans-serif",
                                     transition: 'all 0.2s ease',
                                     cursor: 'pointer',
+                                    borderLeft: active ? '4px solid #ffb606' : '4px solid transparent',
                                 }}
                             >
                                 <item.icon size={18} />
                                 {item.label}
-                                {active && (
-                                    <motion.div
-                                        layoutId="sidebar-indicator"
-                                        style={{
-                                            marginLeft: 'auto',
-                                            width: 4,
-                                            height: 20,
-                                            borderRadius: 2,
-                                            background: 'var(--gradient-primary)',
-                                        }}
-                                    />
-                                )}
                             </motion.div>
                         </Link>
                     );
@@ -111,21 +103,21 @@ export default function Sidebar() {
             {/* User section */}
             <div style={{
                 padding: '16px 12px',
-                borderTop: '1px solid var(--border-color)',
+                borderTop: '1px solid #e8e8e8',
             }}>
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: 12,
                     padding: '12px 16px',
-                    borderRadius: 10,
-                    background: 'rgba(108, 92, 231, 0.05)',
+                    borderRadius: 0,
+                    background: 'rgba(255, 182, 6, 0.06)',
                 }}>
                     <div style={{
                         width: 36,
                         height: 36,
                         borderRadius: '50%',
-                        background: 'var(--gradient-primary)',
+                        background: '#ffb606',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -136,10 +128,10 @@ export default function Sidebar() {
                         {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--foreground)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#3a3a3a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             {user?.name || 'User'}
                         </div>
-                        <div style={{ fontSize: '0.75rem', color: 'var(--muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        <div style={{ fontSize: '0.75rem', color: '#a5a5a5', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             {user?.email || ''}
                         </div>
                     </div>
@@ -149,14 +141,14 @@ export default function Sidebar() {
                         style={{
                             background: 'none',
                             border: 'none',
-                            color: 'var(--muted)',
+                            color: '#a5a5a5',
                             cursor: 'pointer',
                             padding: 4,
-                            borderRadius: 6,
+                            borderRadius: 0,
                             transition: 'color 0.2s',
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--danger)')}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = '#dc3545')}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = '#a5a5a5')}
                     >
                         <FiLogOut size={16} />
                     </button>

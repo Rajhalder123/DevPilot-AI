@@ -23,13 +23,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'var(--background)',
+                background: '#FFFFFF',
             }}>
                 <div className="animate-pulse-glow" style={{
                     width: 48,
                     height: 48,
-                    borderRadius: 12,
-                    background: 'var(--gradient-primary)',
+                    borderRadius: 0,
+                    background: '#ffb606',
                 }} />
             </div>
         );
@@ -38,7 +38,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     if (!user) return null;
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh' }}>
+        <div style={{ display: 'flex', minHeight: '100vh', background: '#f8f8f8' }}>
             <Sidebar />
             <div style={{ flex: 1, marginLeft: 260 }}>
                 <Navbar />

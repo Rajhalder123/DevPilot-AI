@@ -9,8 +9,8 @@ export default function Navbar() {
     return (
         <header style={{
             height: 64,
-            background: 'var(--card)',
-            borderBottom: '1px solid var(--border-color)',
+            background: '#FFFFFF',
+            borderBottom: '1px solid #e8e8e8',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -18,19 +18,20 @@ export default function Navbar() {
             position: 'sticky',
             top: 0,
             zIndex: 40,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
         }}>
             {/* Search */}
             <div style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: 10,
-                background: 'var(--background)',
-                border: '1px solid var(--border-color)',
-                borderRadius: 10,
+                background: '#f8f8f8',
+                border: '1px solid #e8e8e8',
+                borderRadius: 0,
                 padding: '8px 16px',
                 width: 320,
             }}>
-                <FiSearch size={16} color="var(--muted)" />
+                <FiSearch size={16} color="#a5a5a5" />
                 <input
                     type="text"
                     placeholder="Search features..."
@@ -38,8 +39,9 @@ export default function Navbar() {
                         background: 'transparent',
                         border: 'none',
                         outline: 'none',
-                        color: 'var(--foreground)',
+                        color: '#3a3a3a',
                         fontSize: '0.85rem',
+                        fontFamily: "'Roboto', sans-serif",
                         width: '100%',
                     }}
                 />
@@ -49,11 +51,11 @@ export default function Navbar() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                 <button style={{
                     background: 'none',
-                    border: '1px solid var(--border-color)',
-                    borderRadius: 10,
+                    border: '1px solid #e8e8e8',
+                    borderRadius: 0,
                     padding: 8,
                     cursor: 'pointer',
-                    color: 'var(--muted)',
+                    color: '#a5a5a5',
                     position: 'relative',
                     transition: 'all 0.2s',
                 }}>
@@ -65,7 +67,7 @@ export default function Navbar() {
                         width: 8,
                         height: 8,
                         borderRadius: '50%',
-                        background: 'var(--danger)',
+                        background: '#ffb606',
                     }} />
                 </button>
                 <div style={{
@@ -73,8 +75,8 @@ export default function Navbar() {
                     alignItems: 'center',
                     gap: 10,
                 }}>
-                    <span style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>
-                        Welcome, <span style={{ color: 'var(--foreground)', fontWeight: 600 }}>{user?.name?.split(' ')[0] || 'User'}</span>
+                    <span style={{ fontSize: '0.85rem', color: '#a5a5a5', fontFamily: "'Roboto', sans-serif" }}>
+                        Welcome, <span style={{ color: '#3a3a3a', fontWeight: 600 }}>{user?.name?.split(' ')[0] || 'User'}</span>
                     </span>
                 </div>
             </div>
