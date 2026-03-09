@@ -1,0 +1,16 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+export const env = {
+    PORT: parseInt(process.env.PORT || '5000', 10),
+    MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/devpilot',
+    JWT_SECRET: process.env.JWT_SECRET || 'devpilot-secret-change-me',
+    JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '7d',
+    GROQ_API_KEY: process.env.GROQ_API_KEY || '',
+    GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID || '',
+    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET || '',
+    GITHUB_CALLBACK_URL: process.env.GITHUB_CALLBACK_URL || 'http://localhost:5000/api/auth/github/callback',
+    FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:3000',
+    NODE_ENV: process.env.NODE_ENV || 'development',
+};
