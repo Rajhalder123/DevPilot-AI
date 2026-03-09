@@ -46,8 +46,8 @@ export default function SignupPage() {
             position: 'relative',
         }}>
             <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
-                <div style={{ position: 'absolute', top: '30%', right: '20%', width: 300, height: 300, borderRadius: '50%', background: 'rgba(255,182,6,0.06)', filter: 'blur(100px)' }} />
-                <div style={{ position: 'absolute', bottom: '30%', left: '20%', width: 250, height: 250, borderRadius: '50%', background: 'rgba(255,152,0,0.06)', filter: 'blur(100px)' }} />
+                <div style={{ position: 'absolute', top: '30%', right: '20%', width: 300, height: 300, borderRadius: '50%', background: 'rgba(255,141,172,0.06)', filter: 'blur(100px)' }} />
+                <div style={{ position: 'absolute', bottom: '30%', left: '20%', width: 250, height: 250, borderRadius: '50%', background: 'rgba(255,92,138,0.06)', filter: 'blur(100px)' }} />
             </div>
 
             <motion.div
@@ -57,7 +57,7 @@ export default function SignupPage() {
             >
                 <div style={{ textAlign: 'center', marginBottom: 32 }}>
                     <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 32 }}>
-                        <div style={{ width: 40, height: 40, borderRadius: 0, background: '#ffb606', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ width: 40, height: 40, borderRadius: 0, background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <FiZap size={22} color="#fff" />
                         </div>
                         <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', fontWeight: 700, color: 'var(--foreground)' }}>

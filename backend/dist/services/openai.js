@@ -6,10 +6,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateSkillRoadmap = exports.generateCoverLetter = exports.generateInterviewQuestion = exports.recommendJobs = exports.analyzeGitHubRepo = exports.analyzeResume = void 0;
 const openai_1 = __importDefault(require("openai"));
 const env_1 = require("../config/env");
-const openai = new openai_1.default({ apiKey: env_1.env.OPENAI_API_KEY });
+// Using Groq API (OpenAI-compatible)
+const openai = new openai_1.default({
+    apiKey: env_1.env.GROQ_API_KEY,
+    baseURL: 'https://api.groq.com/openai/v1',
+});
+const MODEL = 'llama-3.3-70b-versatile';
+// Strip markdown code fences that LLMs sometimes add despite instructions
+const parseJSON = (raw) => {
+    const cleaned = raw
+        .replace(/^```(?:json)?\s*/i, '')
+        .replace(/\s*```$/i, '')
+        .trim();
+    return JSON.parse(cleaned);
+};
 const analyzeResume = async (resumeText) => {
     const response = await openai.chat.completions.create({
-        model: 'gpt-4o',
+        model: MODEL,
         messages: [
             {
                 role: 'system',
@@ -26,14 +39,14 @@ const analyzeResume = async (resumeText) => {
             { role: 'user', content: resumeText },
         ],
         temperature: 0.3,
-        max_tokens: 2000,
+        max_completion_tokens: 2000,
     });
-    return JSON.parse(response.choices[0].message.content || '{}');
+    return parseJSON(response.choices[0].message.content || '{}');
 };
 exports.analyzeResume = analyzeResume;
 const analyzeGitHubRepo = async (repoData) => {
     const response = await openai.chat.completions.create({
-        model: 'gpt-4o',
+        model: MODEL,
         messages: [
             {
                 role: 'system',
@@ -51,14 +64,14 @@ const analyzeGitHubRepo = async (repoData) => {
             { role: 'user', content: JSON.stringify(repoData) },
         ],
         temperature: 0.3,
-        max_tokens: 2000,
+        max_completion_tokens: 2000,
     });
-    return JSON.parse(response.choices[0].message.content || '{}');
+    return parseJSON(response.choices[0].message.content || '{}');
 };
 exports.analyzeGitHubRepo = analyzeGitHubRepo;
 const recommendJobs = async (userProfile) => {
     const response = await openai.chat.completions.create({
-        model: 'gpt-4o',
+        model: MODEL,
         messages: [
             {
                 role: 'system',
@@ -76,9 +89,9 @@ const recommendJobs = async (userProfile) => {
             { role: 'user', content: JSON.stringify(userProfile) },
         ],
         temperature: 0.7,
-        max_tokens: 3000,
+        max_completion_tokens: 3000,
     });
-    return JSON.parse(response.choices[0].message.content || '[]');
+    return parseJSON(response.choices[0].message.content || '[]');
 };
 exports.recommendJobs = recommendJobs;
 const generateInterviewQuestion = async (topic, difficulty, type, previousMessages) => {
@@ -93,17 +106,17 @@ const generateInterviewQuestion = async (topic, difficulty, type, previousMessag
         ...previousMessages,
     ];
     const response = await openai.chat.completions.create({
-        model: 'gpt-4o',
+        model: MODEL,
         messages,
         temperature: 0.6,
-        max_tokens: 800,
+        max_completion_tokens: 800,
     });
     return response.choices[0].message.content || 'Could you elaborate on that?';
 };
 exports.generateInterviewQuestion = generateInterviewQuestion;
 const generateCoverLetter = async (data) => {
     const response = await openai.chat.completions.create({
-        model: 'gpt-4o',
+        model: MODEL,
         messages: [
             {
                 role: 'system',
@@ -118,14 +131,14 @@ const generateCoverLetter = async (data) => {
             },
         ],
         temperature: 0.7,
-        max_tokens: 1000,
+        max_completion_tokens: 1000,
     });
     return response.choices[0].message.content || '';
 };
 exports.generateCoverLetter = generateCoverLetter;
 const generateSkillRoadmap = async (skills, targetRole) => {
     const response = await openai.chat.completions.create({
-        model: 'gpt-4o',
+        model: MODEL,
         messages: [
             {
                 role: 'system',
@@ -143,9 +156,9 @@ const generateSkillRoadmap = async (skills, targetRole) => {
             },
         ],
         temperature: 0.5,
-        max_tokens: 2000,
+        max_completion_tokens: 2000,
     });
-    return JSON.parse(response.choices[0].message.content || '{}');
+    return parseJSON(response.choices[0].message.content || '{}');
 };
 exports.generateSkillRoadmap = generateSkillRoadmap;
 //# sourceMappingURL=openai.js.map

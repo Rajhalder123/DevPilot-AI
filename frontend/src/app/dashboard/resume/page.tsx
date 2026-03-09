@@ -141,7 +141,7 @@ export default function ResumePage() {
             {analysis && (
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                     {/* Score cards */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 20, marginBottom: 32 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: 20, marginBottom: 32 }}>
                         {[
                             { label: 'Overall Score', value: analysis.overallScore, icon: FiAward },
                             { label: 'ATS Score', value: analysis.atsScore, icon: FiTarget },
@@ -163,7 +163,7 @@ export default function ResumePage() {
                     </div>
 
                     {/* Strengths & Improvements */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20, marginBottom: 24 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 20, marginBottom: 24 }}>
                         <div className="card">
                             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
                                 <FiCheckCircle size={18} color="var(--success)" /> Strengths

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 import Sidebar from './Sidebar';
@@ -15,6 +15,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             router.push('/login');
         }
     }, [loading, user, router]);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     if (loading) {
         return (
@@ -26,10 +27,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 background: '#FFFFFF',
             }}>
                 <div className="animate-pulse-glow" style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 0,
-                    background: '#ffb606',
+                    width: 32, height: 32, borderRadius: 8,
+                    background: 'var(--primary)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center'
                 }} />
             </div>
         );
@@ -39,10 +39,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
     return (
         <div style={{ display: 'flex', minHeight: '100vh', background: '#f8f8f8' }}>
-            <Sidebar />
-            <div style={{ flex: 1, marginLeft: 260 }}>
-                <Navbar />
-                <main style={{ padding: 32 }}>
+            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+            <div className="dashboard-main-content" style={{ flex: 1, marginLeft: 260, transition: 'margin 0.3s ease' }}>
+                <Navbar onMenuClick={() => setIsSidebarOpen(true)} />
+                <main className="main-padding">
                     {children}
                 </main>
             </div>

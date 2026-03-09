@@ -1,16 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import {
-  FiZap, FiFileText, FiGithub, FiBriefcase, FiMessageSquare,
-  FiCode, FiArrowRight, FiCheck, FiStar, FiUsers, FiAward,
-  FiTrendingUp, FiShield, FiCpu, FiTarget, FiUploadCloud,
-  FiBarChart2, FiSmile, FiMenu, FiX, FiMapPin, FiPhone, FiMail
+  FiZap, FiArrowRight, FiCheck,
+  FiMenu, FiX, FiMapPin, FiPhone, FiMail
 } from 'react-icons/fi';
 import { FaPinterest, FaLinkedinIn, FaInstagram, FaFacebookF, FaTwitter } from 'react-icons/fa';
+import Tilt from 'react-parallax-tilt';
+import Marquee from 'react-fast-marquee';
 
 /* ─── Animated Counter ─── */
 function useCounter(target: number, duration = 2000) {
@@ -49,9 +48,9 @@ const stats = [
 ];
 
 const testimonials = [
-  { name: 'Priya Sharma', role: 'Final Year CSE Student', text: 'DevPilot AI helped me improve my resume score from 45 to 92. I got 3 interview calls within a week!', rating: 5 },
-  { name: 'Arjun Patel', role: 'Self-taught Developer', text: 'The interview simulator is incredible. Practicing with AI gave me the confidence to ace my first tech interview.', rating: 5 },
-  { name: 'Sneha Reddy', role: 'BCA Graduate', text: 'As a student with no money for career coaching, DevPilot AI was a lifesaver. The GitHub reviewer improved my projects significantly.', rating: 5 },
+  { name: 'Priya Sharma', role: 'Software Engineer at TCS', text: 'DevPilot AI bridged the gap between my tier-3 college education and the real IT industry. The mock interviews were a game-changer.', rating: 5 },
+  { name: 'Arjun Patel', role: 'Self-taught Developer', text: 'Coming from a small village, I had no career guidance. The roadmap and GitHub analyzer gave me the exact steps to land my first remote dev job.', rating: 5 },
+  { name: 'Sneha Reddy', role: 'Frontend Developer', text: 'The resume analyzer transformed my generic CV into a professional, ATS-friendly document. I got 3 MNC interview calls in a week!', rating: 5 },
 ];
 
 const pricingPlans = [
@@ -89,7 +88,24 @@ const socialLinks = [
 ];
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } };
+const slideInLeft = { hidden: { opacity: 0, x: -100 }, visible: { opacity: 1, x: 0 } };
+const slideInRight = { hidden: { opacity: 0, x: 100 }, visible: { opacity: 1, x: 0 } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
+
+/* ─── Stat Card Component ─── */
+function StatCard({ stat, i }: { stat: typeof stats[0], i: number }) {
+  const { count, ref } = useCounter(stat.value);
+  return (
+    <motion.div ref={ref} initial="hidden" whileInView="visible" viewport={{ once: true }}
+      variants={{ ...fadeUp, visible: { ...fadeUp.visible, transition: { delay: i * 0.1 } } }}
+      style={{ textAlign: 'center', padding: '40px 20px' }}>
+      <div style={{ fontFamily: "'Outfit', sans-serif", fontSize: '2.8rem', fontWeight: 800, color: '#3a3a3a', lineHeight: 1 }}>
+        {count.toLocaleString()}{stat.suffix}
+      </div>
+      <div style={{ color: '#a5a5a5', fontSize: 14, marginTop: 12, fontWeight: 500 }}>{stat.label}</div>
+    </motion.div>
+  );
+}
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -115,29 +131,33 @@ export default function LandingPage() {
 
       {/* ═══════ HEADER ═══════ */}
       <header style={{
-        position: 'fixed', top: scrolled ? 15 : 45, left: '50%', transform: 'translateX(-50%)',
-        width: '100%', maxWidth: 1318, height: 104, background: '#FFFFFF', zIndex: 100,
-        display: 'flex', transition: 'all 200ms ease',
-        boxShadow: scrolled ? '0px 20px 49px rgba(0,0,0,0.17)' : '0px 20px 49px rgba(0,0,0,0.07)',
+        position: 'fixed', top: scrolled ? 20 : 40, left: '50%', transform: 'translateX(-50%)',
+        width: 'calc(100% - 40px)', maxWidth: 1200, height: 80,
+        background: scrolled ? 'rgba(255, 255, 255, 0.85)' : 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(16px)', zIndex: 100,
+        display: 'flex', transition: 'all 300ms cubic-bezier(0.16, 1, 0.3, 1)',
+        boxShadow: scrolled ? '0px 10px 40px rgba(0,0,0,0.08)' : '0px 8px 32px rgba(0,0,0,0.04)',
+        border: '1px solid rgba(255, 255, 255, 0.4)',
+        borderRadius: 100,
       }}>
         {/* Left: Logo + Nav */}
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', height: '100%', paddingLeft: 40 }}>
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', height: '100%', paddingLeft: 32 }}>
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-            <FiZap size={28} color="#ffb606" />
-            <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 26, fontWeight: 900, color: '#3a3a3a', textTransform: 'uppercase' as const }}>
+            <FiZap size={26} color="var(--primary)" />
+            <span style={{ fontFamily: "'Outfit', sans-serif", fontSize: 24, fontWeight: 900, color: '#3a3a3a', textTransform: 'uppercase' as const }}>
               DevPilot
             </span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav style={{ marginLeft: 'auto', paddingRight: 40, display: 'flex', gap: 0 }} className="nav-link-desktop">
+          <nav style={{ marginLeft: 48, display: 'flex', gap: 8 }} className="nav-link-desktop">
             {navLinks.map(link => (
               <Link key={link.label} href={link.href} style={{
-                fontFamily: "'Open Sans', sans-serif", fontSize: 14, textTransform: 'uppercase' as const,
-                fontWeight: 700, color: '#3a3a3a', padding: '8px 20px', transition: 'color 200ms ease', textDecoration: 'none',
+                fontFamily: "'Outfit', sans-serif", fontSize: 14, textTransform: 'uppercase' as const,
+                fontWeight: 600, color: '#3a3a3a', padding: '8px 16px', borderRadius: 100, transition: 'all 200ms ease', textDecoration: 'none',
               }}
-                onMouseEnter={e => (e.currentTarget.style.color = '#ffb606')}
-                onMouseLeave={e => (e.currentTarget.style.color = '#3a3a3a')}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,141,172,0.1)'; e.currentTarget.style.color = '#FF5C8A'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#3a3a3a'; }}
               >
                 {link.label}
               </Link>
@@ -145,14 +165,19 @@ export default function LandingPage() {
           </nav>
         </div>
 
-        {/* Right: Yellow CTA box */}
+        {/* Right: Modern Auth Buttons */}
         <div style={{
-          width: 279, height: '100%', background: '#ffb606',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12,
+          height: '100%', display: 'flex', alignItems: 'center', gap: 16, paddingRight: 16,
         }} className="nav-link-desktop">
-          <Link href="/login" style={{ color: '#fff', fontWeight: 600, fontSize: 16, textDecoration: 'none', marginRight: 8 }}>Log In</Link>
-          <span style={{ color: 'rgba(255,255,255,0.5)' }}>|</span>
-          <Link href="/signup" style={{ color: '#fff', fontWeight: 700, fontSize: 16, textDecoration: 'none', marginLeft: 8 }}>Sign Up</Link>
+          <Link href="/login" style={{
+            color: '#3a3a3a', fontWeight: 600, fontSize: 15, textDecoration: 'none', padding: '8px 16px',
+            fontFamily: "'Outfit', sans-serif", transition: 'color 200ms'
+          }} onMouseEnter={e => (e.currentTarget.style.color = '#3B82F6')} onMouseLeave={e => (e.currentTarget.style.color = '#3a3a3a')}>
+            Log In
+          </Link>
+          <Link href="/signup" className="btn-primary" style={{ padding: '12px 28px', fontSize: 14 }}>
+            Sign Up
+          </Link>
         </div>
 
         {/* Hamburger button for mobile */}
@@ -176,7 +201,7 @@ export default function LandingPage() {
         </button>
         {navLinks.map(link => (
           <Link key={link.label} href={link.href} onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'block', fontFamily: "'Open Sans', sans-serif", fontSize: 28, fontWeight: 700,
+            display: 'block', fontFamily: "'Outfit', sans-serif", fontSize: 28, fontWeight: 700,
             color: '#3a3a3a', marginBottom: 16, textDecoration: 'none', transition: 'color 200ms ease',
           }}>
             {link.label}
@@ -189,7 +214,7 @@ export default function LandingPage() {
         <div style={{ marginTop: 50, display: 'flex', gap: 24 }}>
           {socialLinks.map((s, i) => (
             <a key={i} href={s.href} style={{ color: '#3a3a3a', transition: 'color 200ms' }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#ffb606')}
+              onMouseEnter={e => (e.currentTarget.style.color = '#FF8DAC')}
               onMouseLeave={e => (e.currentTarget.style.color = '#3a3a3a')}>
               <s.icon size={18} />
             </a>
@@ -197,79 +222,144 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* ═══════ HERO SECTION ═══════ */}
-      <section style={{
-        width: '100%', height: '100vh', position: 'relative', display: 'flex',
-        alignItems: 'center', justifyContent: 'center',
+      {/* ═══════ HERO SECTION (EDU THEME) ═══════ */}
+      <section className="edu-bg" id="home" style={{
+        width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center', paddingTop: 120,
       }}>
-        {/* Background Image */}
-        <div style={{
-          position: 'absolute', inset: 0, backgroundImage: 'url(/images/slider_background.jpg)',
-          backgroundSize: 'cover', backgroundPosition: 'center',
-        }} />
-        {/* Overlay */}
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.35)' }} />
+        <div style={{ maxWidth: 1200, width: '100%', display: 'flex', alignItems: 'center', gap: 60, flexWrap: 'wrap', padding: '0 24px' }}>
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9 }}
-          style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: 900, padding: '0 24px' }}
-        >
-          <h1 style={{
-            fontSize: 'clamp(2.5rem, 6vw, 72px)', fontWeight: 400, color: '#FFFFFF', lineHeight: 1.2,
-          }}>
-            Launch Your <span style={{
-              background: '#ffb606', paddingLeft: 13, paddingRight: 13, marginLeft: -4, marginRight: -4,
-              display: 'inline', fontWeight: 700,
-            }}>Developer Career</span> Today!
-          </h1>
-          <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 'clamp(1rem, 2vw, 1.2rem)', marginTop: 24, lineHeight: 1.8, maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
-            AI-powered resume analysis, GitHub reviews, interview prep, and job matching — built for students who dream big.
-          </p>
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 40, flexWrap: 'wrap' }}>
-            <Link href="/signup" style={{ textDecoration: 'none' }}>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} className="btn-primary"
-                style={{ padding: '18px 48px', fontSize: 16, display: 'flex', alignItems: 'center', gap: 10 }}>
-                GET STARTED FREE <FiArrowRight size={18} />
-              </motion.button>
-            </Link>
-            <Link href="#features" style={{ textDecoration: 'none' }}>
-              <motion.button whileHover={{ scale: 1.05 }} className="btn-secondary"
-                style={{ padding: '18px 48px', fontSize: 16, borderColor: '#fff', color: '#fff' }}>
-                EXPLORE FEATURES
-              </motion.button>
-            </Link>
-          </div>
-        </motion.div>
+          {/* Left Text */}
+          <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.9 }}
+            style={{ flex: '1 1 400px', minWidth: 320, zIndex: 10 }}>
 
-        {/* Slider nav decorations */}
-        <div style={{
-          position: 'absolute', left: '4%', top: '50%', transform: 'translateY(-50%)',
-          width: 58, height: 58, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          cursor: 'pointer', transition: 'all 200ms', zIndex: 2,
-        }}
-          onMouseEnter={e => { e.currentTarget.style.background = '#ffb606'; (e.currentTarget.querySelector('span') as HTMLElement).style.color = '#fff'; }}
-          onMouseLeave={e => { e.currentTarget.style.background = '#fff'; (e.currentTarget.querySelector('span') as HTMLElement).style.color = '#121212'; }}
-        >
-          <span style={{ textTransform: 'uppercase' as const, fontSize: 12, fontWeight: 700, color: '#121212', transition: 'color 200ms' }}>prev</span>
+            <div style={{ display: 'flex', padding: '6px 16px', }}>
+
+            </div>
+
+            <h1 style={{ fontSize: 'clamp(3.5rem, 7vw, 84px)', fontWeight: 900, color: '#FFFFFF', lineHeight: 1, textShadow: '0 15px 45px rgba(0,0,0,0.4)', letterSpacing: '-2px' }}>
+              Stop Dreaming.<br />
+              <span style={{ color: '#3B82F6' }}>Get Hired by MNCs.</span>
+            </h1>
+
+            <p style={{ color: 'rgba(255,255,255,0.95)', fontSize: '1.25rem', marginTop: 24, lineHeight: 1.5, maxWidth: 520, fontWeight: 500, textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
+              The AI career accelerator used by elite candidates to ace interviews, optimize profiles, and land global offers from top-tier firms.
+            </p>
+
+            <div style={{ display: 'flex', gap: 16, marginTop: 40, flexWrap: 'wrap', alignItems: 'center' }}>
+              <Link href="/signup" style={{ textDecoration: 'none' }}>
+                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} className="btn-primary"
+                  style={{ padding: '16px 36px', fontSize: 16, display: 'flex', alignItems: 'center', gap: 10, boxShadow: '0 0 20px rgba(59,130,246,0.4)', borderRadius: 50 }}>
+                  START BUILDING CAREER <FiArrowRight size={18} />
+                </motion.button>
+              </Link>
+
+              {/* Social Proof Avatars */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginLeft: 8 }}>
+                <div style={{ display: 'flex' }}>
+                  {[1, 2, 3, 4].map(num => (
+                    <div key={num} style={{
+                      width: 36, height: 36, borderRadius: '50%', background: `hsl(${num * 40}, 70%, 60%)`,
+                      border: '2px solid #FFFFFF', marginLeft: num === 1 ? 0 : -12,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 12, fontWeight: 'bold'
+                    }}>
+                      {String.fromCharCode(64 + num)}
+                    </div>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', color: '#FFB74D', gap: 2, fontSize: 12 }}>
+                    {'★★★★★'}
+                  </div>
+                  <span style={{ color: 'var(--muted)', fontSize: 13, fontWeight: 500 }}>Join 12,000+ developers</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right Playground Interactive Dashboard */}
+          <motion.div initial={{ opacity: 0, scale: 0.9, x: 40 }} animate={{ opacity: 1, scale: 1, x: 0 }} transition={{ duration: 1, delay: 0.3 }}
+            style={{ flex: '1 1 500px', minWidth: 320, zIndex: 10, perspective: 2000 }}>
+            <Tilt tiltMaxAngleX={3} tiltMaxAngleY={3} glareEnable={true} glareMaxOpacity={0.1} glareColor="white" glarePosition="all" style={{ transformStyle: 'preserve-3d' }}>
+              <div style={{
+                borderRadius: 32, padding: 32,
+                background: 'rgba(255, 255, 255, 0.05)', backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                boxShadow: '0 50px 100px -20px rgba(0,0,0,0.5), 0 30px 60px -30px rgba(0,0,0,0.3)',
+                transform: 'translateZ(20px)'
+              }}>
+                {/* Dashboard Stats Row */}
+                <div style={{ display: 'flex', gap: 20, marginBottom: 24, flexWrap: 'wrap' }}>
+                  <div style={{
+                    flex: '1 1 180px', padding: 24, borderRadius: 24,
+                    background: 'rgba(255,255,255,0.95)', boxShadow: '0 10px 40px rgba(0,0,0,0.1)'
+                  }}>
+                    <div style={{ color: '#64748B', fontSize: 11, marginBottom: 12, textTransform: 'uppercase', letterSpacing: 2, fontWeight: 800 }}>Impact Score</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+                      <span style={{ fontSize: 48, fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>92</span>
+                      <span style={{ fontSize: 16, color: '#64748B', fontWeight: 600 }}>/100</span>
+                    </div>
+                    <div style={{ marginTop: 16, height: 8, background: '#F1F5F9', borderRadius: 10, overflow: 'hidden' }}>
+                      <motion.div initial={{ width: 0 }} animate={{ width: '92%' }} transition={{ duration: 1.5, delay: 1 }} style={{ height: '100%', background: 'linear-gradient(90deg, #3B82F6, #06B6D4)', borderRadius: 10 }} />
+                    </div>
+                  </div>
+                  <div style={{
+                    flex: '1 1 180px', padding: 24, borderRadius: 24,
+                    background: 'rgba(15,23,42,0.9)', boxShadow: '0 10px 40px rgba(0,0,0,0.2)'
+                  }}>
+                    <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 11, marginBottom: 12, textTransform: 'uppercase', letterSpacing: 2, fontWeight: 800 }}>Offers Secured</div>
+                    <div style={{ fontSize: 48, fontWeight: 900, color: '#FFFFFF', lineHeight: 1 }}>04</div>
+                    <div style={{ color: '#3B82F6', fontSize: 12, marginTop: 16, display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700 }}>
+                      <FiCheck size={14} /> Global MNC Placements
+                    </div>
+                  </div>
+                </div>
+
+                {/* AI Terminal Window */}
+                <div style={{ borderRadius: 20, overflow: 'hidden', boxShadow: '0 20px 50px rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <div style={{ background: '#1E293B', padding: '12px 20px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div style={{ width: 10, height: 10, borderRadius: 5, background: '#FF5F56' }} />
+                    <div style={{ width: 10, height: 10, borderRadius: 5, background: '#FFBD2E' }} />
+                    <div style={{ width: 10, height: 10, borderRadius: 5, background: '#27C93F' }} />
+                    <span style={{ marginLeft: 8, color: '#94A3B8', fontSize: 11, fontWeight: 600, fontFamily: 'monospace' }}>ai-code-auditor.py</span>
+                  </div>
+                  <div style={{ background: '#0F172A', padding: 24, fontFamily: "'JetBrains Mono', monospace", fontSize: 13, lineHeight: 1.6 }}>
+                    <div style={{ color: '#38BDF8', marginBottom: 12 }}>{`// Optimizing for High-Scale Production`}</div>
+                    <div style={{ color: '#94A3B8' }}>
+                      <span style={{ color: '#F43F5E' }}>- const</span> candidates = await getAllUnfiltered();<br />
+                      <span style={{ color: '#10B981' }}>+ const</span> winners = <span style={{ color: '#38BDF8' }}>await</span> filterByDevPilotAI();
+                    </div>
+                    <div style={{ marginTop: 12, color: '#3B82F6', fontWeight: 600 }}>Analyzing... 98.4% Match with Top MNC Standards</div>
+                  </div>
+                </div>
+              </div>
+            </Tilt>
+          </motion.div>
         </div>
-        <div style={{
-          position: 'absolute', right: '4%', top: '50%', transform: 'translateY(-50%)',
-          width: 58, height: 58, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          cursor: 'pointer', transition: 'all 200ms', zIndex: 2,
-        }}
-          onMouseEnter={e => { e.currentTarget.style.background = '#ffb606'; (e.currentTarget.querySelector('span') as HTMLElement).style.color = '#fff'; }}
-          onMouseLeave={e => { e.currentTarget.style.background = '#fff'; (e.currentTarget.querySelector('span') as HTMLElement).style.color = '#121212'; }}
-        >
-          <span style={{ textTransform: 'uppercase' as const, fontSize: 12, fontWeight: 700, color: '#121212', transition: 'color 200ms' }}>next</span>
+
+        {/* Marquee Logos */}
+        <div style={{ width: '100%', marginTop: 'auto', padding: '40px 0', borderTop: '1px solid var(--border-color)', background: 'transparent' }}>
+          <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.6)', fontSize: 12, textTransform: 'uppercase', letterSpacing: 4, marginBottom: 24, fontWeight: 800 }}>MNCs HIRE OUR BEST CANDIDATES</p>
+          <Marquee gradient={false} speed={30} style={{ opacity: 0.8 }}>
+            {['ACCENTURE', 'TCS', 'GOOGLE', 'INFOSYS', 'MICROSOFT', 'WIPRO', 'AMAZON', 'IBM', 'HCL', 'CAPGEMINI'].map((company, i) => (
+              <div key={i} style={{
+                margin: '0 50px', fontSize: 28, fontWeight: 900, color: 'rgba(255,255,255,0.4)',
+                fontFamily: "'Outfit', sans-serif", letterSpacing: 4, transition: 'color 300ms'
+              }}>
+                {company}
+              </div>
+            ))}
+          </Marquee>
         </div>
       </section>
 
       {/* ═══════ HERO BOXES ═══════ */}
       <div style={{ width: '100%', position: 'relative', zIndex: 9, marginTop: -80 }}>
         <div style={{ maxWidth: 1170, margin: '0 auto', padding: '0 15px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 0 }}>
+          <div style={{
+            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 0,
+            borderRadius: 'var(--radius)', overflow: 'hidden', boxShadow: '0 20px 50px rgba(15, 23, 42, 0.05)'
+          }}>
             {[
               { icon: '/images/earth-globe.svg', title: 'AI Resume Analysis', link: '/dashboard/resume', linkText: 'analyze now' },
               { icon: '/images/books.svg', title: 'GitHub Code Review', link: '/dashboard/github', linkText: 'review code' },
@@ -278,18 +368,18 @@ export default function LandingPage() {
               <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }}
                 variants={{ ...fadeUp, visible: { ...fadeUp.visible, transition: { delay: i * 0.15 } } }}
                 style={{
-                  height: 161, background: '#1a1a1a', display: 'flex', alignItems: 'center',
+                  height: 161, background: 'var(--card)', display: 'flex', alignItems: 'center',
                   paddingLeft: 50, gap: 20, cursor: 'pointer', transition: 'all 200ms',
                 }}
-                onMouseEnter={e => (e.currentTarget.style.background = '#ffb606')}
-                onMouseLeave={e => (e.currentTarget.style.background = '#1a1a1a')}
+                onMouseEnter={e => (e.currentTarget.style.background = '#F8FAFC')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'var(--card)')}
               >
-                <img src={box.icon} alt="" style={{ width: 62, height: 62, filter: 'brightness(0) invert(1)' }} />
+                <img src={box.icon} alt="" style={{ width: 62, height: 62, filter: 'brightness(0)' }} />
                 <div>
-                  <h2 style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 22, fontWeight: 700, color: '#FFFFFF', marginBottom: 4 }}>{box.title}</h2>
-                  <Link href={box.link} style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.7)', textDecoration: 'none', transition: 'color 200ms' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
-                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
+                  <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 22, fontWeight: 700, color: 'var(--foreground)', marginBottom: 4 }}>{box.title}</h2>
+                  <Link href={box.link} style={{ fontSize: 14, fontWeight: 600, color: 'var(--primary)', textDecoration: 'none', transition: 'color 200ms' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--primary-hover)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--primary)')}
                   >
                     {box.linkText}
                   </Link>
@@ -300,40 +390,51 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* ═══════ FEATURES / SERVICES ═══════ */}
-      <section id="features" style={{ padding: '100px 15px 80px' }}>
-        <div style={{ maxWidth: 1170, margin: '0 auto' }}>
+      {/* ═══════ BENTO BOX FEATURES / SERVICES ═══════ */}
+      <section id="features" style={{ padding: '100px 15px 80px', background: 'var(--background)' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} style={{ textAlign: 'center', marginBottom: 60 }}>
-            <h1 style={{ fontSize: 36, fontWeight: 700, color: '#3a3a3a' }}>Our Services</h1>
-            <div style={{ width: 37, height: 6, background: '#ffb606', margin: '15px auto 0' }} />
+            <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.3)', borderRadius: 100, color: '#3B82F6', fontSize: 13, fontWeight: 700, marginBottom: 16, letterSpacing: 1 }}>
+              POWERFUL FEATURES
+            </div>
+            <h1 style={{ fontSize: 'clamp(2rem, 4vw, 48px)', fontWeight: 700, color: 'var(--foreground)', marginBottom: 16 }}>Unlocking Your <span style={{ color: '#3B82F6' }}>Career Potential</span></h1>
+            <p style={{ color: 'var(--muted)', fontSize: 16, maxWidth: 600, margin: '0 auto' }}>Everything you need to land your dream job, packaged in an intelligent AI-driven ecosystem.</p>
           </motion.div>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 50 }}>
+            style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 24 }}>
             {features.map((f, i) => (
-              <motion.div key={i} variants={fadeUp} style={{ textAlign: 'left', cursor: 'default' }}>
-                <div style={{ marginBottom: 20, height: 60, display: 'flex', alignItems: 'flex-end' }}>
-                  <img src={f.icon} alt="" style={{ width: 50, height: 50 }} />
-                </div>
-                <h3 style={{ fontSize: 18, fontWeight: 700, color: '#3a3a3a', marginBottom: 12 }}>{f.title}</h3>
-                <p style={{ color: '#a5a5a5', fontSize: 14, lineHeight: 2.29 }}>{f.desc}</p>
-              </motion.div>
+              <Tilt key={i} tiltMaxAngleX={8} tiltMaxAngleY={8} glareEnable={true} glareMaxOpacity={0.05} scale={1.02} style={{ height: '100%' }}>
+                <motion.div variants={fadeUp} className="glass-panel" style={{
+                  height: '100%', padding: '40px 32px', borderRadius: 24, textAlign: 'left', cursor: 'default',
+                  background: 'var(--card)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden'
+                }}>
+                  {/* Subtle Background Glow for each card */}
+                  <div style={{ position: 'absolute', top: -50, right: -50, width: 100, height: 100, background: '#3B82F6', filter: 'blur(80px)', opacity: 0.15 }} />
+
+                  <div style={{ marginBottom: 24, height: 64, width: 64, borderRadius: 16, background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src={f.icon} alt="" style={{ width: 32, height: 32, filter: 'brightness(0) invert(40%) sepia(85%) saturate(830%) hue-rotate(210deg)' }} />
+                  </div>
+                  <h3 style={{ fontSize: 24, fontWeight: 700, color: 'var(--foreground)', marginBottom: 16 }}>{f.title}</h3>
+                  <p style={{ color: 'var(--muted)', fontSize: 15, lineHeight: 1.7, flex: 1 }}>{f.desc}</p>
+                </motion.div>
+              </Tilt>
             ))}
           </motion.div>
         </div>
       </section>
 
       {/* ═══════ REGISTER + SEARCH SPLIT ═══════ */}
-      <section id="about" style={{ width: '100%' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+      <section id="about" style={{ width: '100%', padding: '0 15px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', borderRadius: 'var(--radius)', overflow: 'hidden', boxShadow: '0 20px 50px rgba(15, 23, 42, 0.05)' }}>
           {/* Left: Register CTA */}
           <div style={{
-            background: '#ffb606', display: 'flex', flexDirection: 'column',
+            background: '#0F172A', display: 'flex', flexDirection: 'column',
             alignItems: 'center', justifyContent: 'center', padding: '80px 60px', textAlign: 'center',
             minHeight: 400,
           }}>
             <h1 style={{ fontSize: 'clamp(1.8rem, 3vw, 36px)', fontWeight: 700, color: '#FFFFFF', marginBottom: 20, lineHeight: 1.4 }}>
-              Start your AI career journey — <span style={{ fontSize: '120%' }}>Free</span> for students
+              Start your IT journey — <span style={{ fontSize: '120%' }}>Free</span> for students
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 14, lineHeight: 2, maxWidth: 450, marginBottom: 30 }}>
               Join thousands of students who are already using DevPilot AI to analyze resumes, prepare for interviews, and land their dream jobs. No credit card required.
@@ -382,21 +483,12 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════ STATS ═══════ */}
-      <section style={{ padding: '80px 15px', background: '#f8f8f8' }}>
+      <section style={{ padding: '80px 15px', background: 'var(--section-bg)' }}>
         <div style={{ maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 24 }}>
-          {stats.map((stat, i) => {
-            const { count, ref } = useCounter(stat.value);
-            return (
-              <motion.div key={i} ref={ref} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                variants={{ ...fadeUp, visible: { ...fadeUp.visible, transition: { delay: i * 0.1 } } }}
-                style={{ textAlign: 'center', padding: '40px 20px' }}>
-                <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: '2.8rem', fontWeight: 800, color: '#3a3a3a', lineHeight: 1 }}>
-                  {count.toLocaleString()}{stat.suffix}
-                </div>
-                <div style={{ color: '#a5a5a5', fontSize: 14, marginTop: 12, fontWeight: 500 }}>{stat.label}</div>
-              </motion.div>
-            );
-          })}
+
+          {stats.map((stat, i) => (
+            <StatCard key={i} stat={stat} i={i} />
+          ))}
         </div>
       </section>
 
@@ -407,31 +499,31 @@ export default function LandingPage() {
           position: 'absolute', inset: 0, backgroundImage: 'url(/images/testimonials_background.jpg)',
           backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed',
         }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(244, 247, 251, 0.9)' }} />
 
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 800, margin: '0 auto' }}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} style={{ textAlign: 'center', marginBottom: 60 }}>
-            <h1 style={{ fontSize: 36, fontWeight: 700, color: '#FFFFFF' }}>What our students say</h1>
-            <div style={{ width: 37, height: 6, background: '#ffb606', margin: '15px auto 0' }} />
+            <h1 style={{ fontSize: 36, fontWeight: 700, color: 'var(--foreground)' }}>What our students say</h1>
+            <div style={{ width: 37, height: 6, background: '#3B82F6', margin: '15px auto 0' }} />
           </motion.div>
 
           {/* Testimonial Slider */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 80, color: '#ffb606', fontFamily: 'Georgia, serif', lineHeight: 0.5, marginBottom: 30 }}>&ldquo;</div>
-            <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: 16, lineHeight: 2, maxWidth: 600, margin: '0 auto 35px', minHeight: 96, transition: 'all 300ms' }}>
+            <div style={{ fontSize: 80, color: '#3B82F6', fontFamily: 'Georgia, serif', lineHeight: 0.5, marginBottom: 30 }}>&ldquo;</div>
+            <p style={{ color: 'var(--muted)', fontSize: 16, lineHeight: 2, maxWidth: 600, margin: '0 auto 35px', minHeight: 96, transition: 'all 300ms' }}>
               {testimonials[activeTestimonial].text}
             </p>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
               <div style={{
-                width: 70, height: 70, borderRadius: '50%', background: '#ffb606',
+                width: 70, height: 70, borderRadius: '50%', background: '#3B82F6',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: 28, fontWeight: 700, color: '#fff',
               }}>
                 {testimonials[activeTestimonial].name.charAt(0)}
               </div>
               <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: 16, fontWeight: 700, color: '#FFFFFF', textTransform: 'capitalize' as const }}>{testimonials[activeTestimonial].name}</div>
-                <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)' }}>{testimonials[activeTestimonial].role}</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--foreground)', textTransform: 'capitalize' as const }}>{testimonials[activeTestimonial].name}</div>
+                <div style={{ fontSize: 14, color: 'var(--muted)' }}>{testimonials[activeTestimonial].role}</div>
               </div>
             </div>
             {/* Dots */}
@@ -439,7 +531,7 @@ export default function LandingPage() {
               {testimonials.map((_, i) => (
                 <button key={i} onClick={() => setActiveTestimonial(i)} style={{
                   width: i === activeTestimonial ? 24 : 10, height: 10, borderRadius: 5,
-                  background: i === activeTestimonial ? '#ffb606' : 'rgba(255,255,255,0.3)',
+                  background: i === activeTestimonial ? '#3B82F6' : 'rgba(15, 23, 42, 0.1)',
                   border: 'none', cursor: 'pointer', transition: 'all 300ms',
                 }} />
               ))}
@@ -449,11 +541,11 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════ PRICING ═══════ */}
-      <section id="pricing" style={{ padding: '100px 15px 80px', background: '#FFFFFF' }}>
+      <section id="pricing" style={{ padding: '100px 15px 80px', background: 'var(--background)' }}>
         <div style={{ maxWidth: 1170, margin: '0 auto' }}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} style={{ textAlign: 'center', marginBottom: 60 }}>
-            <h1 style={{ fontSize: 36, fontWeight: 700, color: '#3a3a3a' }}>Popular Plans</h1>
-            <div style={{ width: 37, height: 6, background: '#ffb606', margin: '15px auto 0' }} />
+            <h1 style={{ fontSize: 36, fontWeight: 700, color: 'var(--foreground)' }}>Popular Plans</h1>
+            <div style={{ width: 37, height: 6, background: '#3B82F6', margin: '15px auto 0' }} />
           </motion.div>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}
@@ -461,8 +553,8 @@ export default function LandingPage() {
             {pricingPlans.map((plan, i) => (
               <motion.div key={i} variants={fadeUp} whileHover={{ y: -8 }}
                 style={{
-                  background: '#fff', boxShadow: '0 1px 5px rgba(0,0,0,0.1)',
-                  transition: 'all 300ms', overflow: 'hidden', position: 'relative',
+                  background: 'var(--card)', boxShadow: '0 20px 50px rgba(15, 23, 42, 0.05)',
+                  transition: 'all 300ms', overflow: 'hidden', position: 'relative', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)'
                 }}>
                 {/* Card image */}
                 <div style={{ width: '100%', height: 200, overflow: 'hidden' }}>
@@ -470,36 +562,36 @@ export default function LandingPage() {
                 </div>
                 {/* Card body */}
                 <div style={{ padding: '28px 24px', textAlign: 'center' }}>
-                  <h3 style={{ fontSize: 22, fontWeight: 700, color: '#3a3a3a', marginBottom: 4 }}>
+                  <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--foreground)', marginBottom: 4 }}>
                     {plan.name}
                   </h3>
-                  <p style={{ color: '#a5a5a5', fontSize: 14, marginBottom: 16 }}>{plan.desc}</p>
+                  <p style={{ color: 'var(--muted)', fontSize: 14, marginBottom: 16 }}>{plan.desc}</p>
                   <div style={{ marginBottom: 20 }}>
-                    <span style={{ fontSize: 36, fontWeight: 800, color: '#3a3a3a' }}>{plan.price}</span>
-                    <span style={{ color: '#a5a5a5', fontSize: 14 }}>{plan.period}</span>
+                    <span style={{ fontSize: 36, fontWeight: 800, color: 'var(--foreground)' }}>{plan.price}</span>
+                    <span style={{ color: 'var(--muted)', fontSize: 14 }}>{plan.period}</span>
                   </div>
                   <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10, textAlign: 'left', marginBottom: 24, padding: '0 8px' }}>
                     {plan.features.map((f, j) => (
-                      <li key={j} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: '#3a3a3a' }}>
-                        <FiCheck size={14} color="#28a745" style={{ flexShrink: 0 }} /> {f}
+                      <li key={j} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'var(--foreground)' }}>
+                        <FiCheck size={14} color="#10B981" style={{ flexShrink: 0 }} /> {f}
                       </li>
                     ))}
                   </ul>
                 </div>
                 {/* Price box (footer) */}
                 <div style={{
-                  display: 'flex', alignItems: 'center', borderTop: '1px solid #f0f0f0',
+                  display: 'flex', alignItems: 'center', borderTop: '1px solid var(--border-color)',
                   padding: '0 24px', height: 60,
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
-                    <div style={{ width: 30, height: 30, borderRadius: '50%', background: '#ffb606', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#fff' }}>
+                    <div style={{ width: 30, height: 30, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#fff' }}>
                       {plan.name.charAt(0)}
                     </div>
-                    <span style={{ fontSize: 13, color: '#3a3a3a' }}>{plan.name}</span>
+                    <span style={{ fontSize: 13, color: 'var(--foreground)' }}>{plan.name}</span>
                   </div>
                   <Link href="/signup" style={{ textDecoration: 'none' }}>
                     <div style={{
-                      background: '#ffb606', width: 60, height: 60, display: 'flex',
+                      background: '#3B82F6', width: 60, height: 60, display: 'flex',
                       alignItems: 'center', justifyContent: 'center', transition: 'all 200ms',
                     }}>
                       <span style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>GO</span>
@@ -513,43 +605,86 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════ EVENTS / HOW IT WORKS ═══════ */}
-      <section style={{ padding: '100px 15px 80px', background: '#f8f8f8' }}>
+      <section style={{ padding: '100px 15px 80px', background: 'var(--section-bg)' }}>
         <div style={{ maxWidth: 1170, margin: '0 auto' }}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} style={{ textAlign: 'center', marginBottom: 60 }}>
-            <h1 style={{ fontSize: 36, fontWeight: 700, color: '#3a3a3a' }}>How It Works</h1>
-            <div style={{ width: 37, height: 6, background: '#ffb606', margin: '15px auto 0' }} />
+            <h1 style={{ fontSize: 36, fontWeight: 700, color: 'var(--foreground)' }}>How It Works</h1>
+            <div style={{ width: 37, height: 6, background: '#3B82F6', margin: '15px auto 0' }} />
           </motion.div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+            gap: 30
+          }}>
             {[
-              { step: '01', title: 'Sign Up Free', desc: 'Create your account in seconds. No credit card required. Start exploring all AI-powered tools right away.', img: '/images/event_1.jpg' },
-              { step: '02', title: 'Upload & Analyze', desc: 'Upload your resume, paste a GitHub URL, or start an interview session. Our AI processes everything instantly.', img: '/images/event_2.jpg' },
-              { step: '03', title: 'Land Your Dream Job', desc: 'Use AI insights to improve your profile, ace interviews, and get matched with perfect job opportunities.', img: '/images/event_3.jpg' },
+              {
+                step: '01', title: 'Sign Up Free',
+                desc: '“My journey started here.” Create your account in seconds. Zero fees, endless possibilities.',
+                bullets: ['Instant account creation', 'Access to premium AI tools', 'Personalized tech dashboard'],
+                img: '/images/event_1_new.png'
+              },
+              {
+                step: '02', title: 'Upload & Analyze',
+                desc: '“I finally saw what recruiters see.” Upload your resume or paste a GitHub link.',
+                bullets: ['ATS Compatibility Scoring', 'Code Quality & Architecture Review', 'Actionable Improvement Tips'],
+                img: '/images/event_2_new.png'
+              },
+              {
+                step: '03', title: 'Practice Interviews',
+                desc: '“I stopped freezing on technical questions.” Simulate real HR and coding interviews.',
+                bullets: ['AI-driven Technical Rounds', 'Behavioral HR Questions', 'Real-time Confidence Feedback'],
+                img: '/images/event_3_new.png'
+              },
+              {
+                step: '04', title: 'Land Your Dream Job',
+                desc: '“From a small town to a global team.” Just enter your tech stack and get matched with roles.',
+                bullets: ['Precision International Matching', 'Salary Market Insights', 'Direct Profile Submissions'],
+                img: '/images/event_4_new.png'
+              },
             ].map((item, i) => (
-              <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                variants={{ ...fadeUp, visible: { ...fadeUp.visible, transition: { delay: i * 0.15 } } }}
+              <motion.div key={i}
+                initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-50px' }}
+                variants={{
+                  hidden: { opacity: 0, y: 50 },
+                  visible: { opacity: 1, y: 0, transition: { delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+                }}
                 style={{
-                  display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                  gap: 0, background: '#FFFFFF', marginBottom: 30,
-                  boxShadow: '0 1px 5px rgba(0,0,0,0.06)',
+                  background: 'var(--card)',
+                  borderRadius: 'var(--radius)',
+                  overflow: 'hidden',
+                  boxShadow: '0 30px 60px rgba(15, 23, 42, 0.08)',
+                  display: 'flex',
+                  flexDirection: 'column'
                 }}>
-                {/* Left: Step badge + content */}
-                <div style={{ display: 'flex', gap: 30, padding: '40px 40px', alignItems: 'flex-start' }}>
+                {/* Image Top */}
+                <div style={{ height: 200, overflow: 'hidden', position: 'relative' }}>
+                  <img src={item.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <div style={{
-                    minWidth: 70, height: 70, background: '#ffb606', display: 'flex',
-                    flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                    position: 'absolute', top: 15, left: 15,
+                    background: '#3B82F6', color: '#fff',
+                    width: 36, height: 36, borderRadius: 10,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 16, fontWeight: 800,
+                    boxShadow: '0 8px 20px rgba(59, 130, 246, 0.4)'
                   }}>
-                    <div style={{ fontSize: 24, fontWeight: 700, color: '#fff', lineHeight: 1 }}>{item.step}</div>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: 'rgba(255,255,255,0.8)', textTransform: 'uppercase' as const }}>Step</div>
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: 22, fontWeight: 700, color: '#3a3a3a', marginBottom: 8, transition: 'color 200ms' }}>{item.title}</h3>
-                    <p style={{ color: '#a5a5a5', fontSize: 14, lineHeight: 2 }}>{item.desc}</p>
+                    {item.step}
                   </div>
                 </div>
-                {/* Right: Image */}
-                <div style={{ overflow: 'hidden', minHeight: 180 }}>
-                  <img src={item.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+
+                {/* Content Bottom */}
+                <div style={{ padding: '30px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--foreground)', marginBottom: 12 }}>{item.title}</h3>
+                  <p style={{ color: 'var(--muted)', fontSize: 14, lineHeight: 1.6, marginBottom: 20, fontStyle: 'italic' }}>{item.desc}</p>
+
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    {item.bullets.map((point, j) => (
+                      <li key={j} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'var(--foreground)', fontWeight: 500 }}>
+                        <FiCheck size={14} color="#3B82F6" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </motion.div>
             ))}
@@ -558,19 +693,19 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════ FOOTER ═══════ */}
-      <footer id="contact" style={{ background: '#FFFFFF', borderTop: '1px solid #e8e8e8' }}>
+      <footer id="contact" style={{ background: 'var(--card)', borderTop: '1px solid var(--border-color)' }}>
         <div style={{ maxWidth: 1170, margin: '0 auto', padding: '0 15px' }}>
 
           {/* Newsletter */}
           <div style={{ padding: '80px 0 60px', textAlign: 'center' }}>
-            <h1 style={{ fontSize: 36, fontWeight: 700, color: '#3a3a3a', marginBottom: 15 }}>Subscribe to newsletter</h1>
-            <div style={{ width: 37, height: 6, background: '#ffb606', margin: '0 auto 40px' }} />
-            <div style={{ maxWidth: 600, margin: '0 auto', display: 'flex', gap: 0, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <h1 style={{ fontSize: 36, fontWeight: 700, color: 'var(--foreground)', marginBottom: 15 }}>Subscribe to newsletter</h1>
+            <div style={{ width: 37, height: 6, background: '#3B82F6', margin: '0 auto 40px' }} />
+            <div style={{ maxWidth: 600, margin: '0 auto', display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
               <input type="email" placeholder="Email Address" style={{
-                flex: 1, minWidth: 250, padding: '0 20px', height: 56, background: '#f1f1f1',
-                border: 'none', outline: 'none', fontSize: 14, fontWeight: 500, color: '#3a3a3a',
+                flex: 1, minWidth: 250, padding: '0 24px', height: 56, background: 'var(--background)',
+                border: '1px solid var(--border-color)', outline: 'none', fontSize: 14, fontWeight: 500, color: 'var(--foreground)', borderRadius: 100
               }} />
-              <button className="btn-primary" style={{ height: 56, padding: '0 40px' }}>SUBSCRIBE</button>
+              <button className="btn-primary" style={{ height: 56, padding: '0 40px', borderRadius: 100 }}>SUBSCRIBE</button>
             </div>
           </div>
 
@@ -579,22 +714,22 @@ export default function LandingPage() {
             {/* About */}
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-                <FiZap size={24} color="#ffb606" />
-                <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 22, fontWeight: 900, color: '#3a3a3a', textTransform: 'uppercase' as const }}>DevPilot</span>
+                <FiZap size={24} color="var(--primary)" />
+                <span style={{ fontFamily: "'Outfit', sans-serif", fontSize: 22, fontWeight: 900, color: 'var(--foreground)', textTransform: 'uppercase' as const }}>DevPilot</span>
               </div>
-              <p style={{ color: '#a5a5a5', fontSize: 14, lineHeight: 2 }}>
+              <p style={{ color: 'var(--muted)', fontSize: 14, lineHeight: 2 }}>
                 AI-powered career platform built for students and developers. Analyze resumes, review code, practice interviews, and find your dream job.
               </p>
             </div>
 
             {/* Menu */}
             <div>
-              <h4 style={{ fontSize: 16, fontWeight: 700, color: '#3a3a3a', marginBottom: 24, textTransform: 'uppercase' as const }}>Menu</h4>
+              <h4 style={{ fontSize: 16, fontWeight: 700, color: 'var(--foreground)', marginBottom: 24, textTransform: 'uppercase' as const }}>Menu</h4>
               {['Home', 'About Us', 'Features', 'Pricing', 'Contact'].map(link => (
                 <div key={link} style={{ marginBottom: 8 }}>
-                  <a href={`#${link.toLowerCase().replace(' ', '')}`} style={{ color: '#a5a5a5', fontSize: 14, transition: 'color 200ms' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#ffb606')}
-                    onMouseLeave={e => (e.currentTarget.style.color = '#a5a5a5')}>
+                  <a href={`#${link.toLowerCase().replace(' ', '')}`} style={{ color: 'var(--muted)', fontSize: 14, transition: 'color 200ms' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--primary)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--muted)')}>
                     {link}
                   </a>
                 </div>
@@ -603,13 +738,13 @@ export default function LandingPage() {
 
             {/* Useful Links */}
             <div>
-              <h4 style={{ fontSize: 16, fontWeight: 700, color: '#3a3a3a', marginBottom: 24, textTransform: 'uppercase' as const }}>Useful Links</h4>
+              <h4 style={{ fontSize: 16, fontWeight: 700, color: 'var(--foreground)', marginBottom: 24, textTransform: 'uppercase' as const }}>Useful Links</h4>
               {['Dashboard', 'Resume Analyzer', 'GitHub Reviewer', 'Interview Prep', 'Job Matching'].map(link => (
                 <div key={link} style={{ marginBottom: 8 }}>
                   <Link href={link === 'Dashboard' ? '/dashboard' : `/dashboard/${link.toLowerCase().replace(' ', '-').replace(' ', '-')}`}
-                    style={{ color: '#a5a5a5', fontSize: 14, transition: 'color 200ms', textDecoration: 'none' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#ffb606')}
-                    onMouseLeave={e => (e.currentTarget.style.color = '#a5a5a5')}>
+                    style={{ color: 'var(--muted)', fontSize: 14, transition: 'color 200ms', textDecoration: 'none' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--primary)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--muted)')}>
                     {link}
                   </Link>
                 </div>
@@ -618,14 +753,14 @@ export default function LandingPage() {
 
             {/* Contact */}
             <div>
-              <h4 style={{ fontSize: 16, fontWeight: 700, color: '#3a3a3a', marginBottom: 24, textTransform: 'uppercase' as const }}>Contact</h4>
+              <h4 style={{ fontSize: 16, fontWeight: 700, color: 'var(--foreground)', marginBottom: 24, textTransform: 'uppercase' as const }}>Contact</h4>
               {[
                 { icon: FiMapPin, text: 'India, Remote First' },
                 { icon: FiPhone, text: '+91 98765 43210' },
                 { icon: FiMail, text: 'hello@devpilot.ai' },
               ].map((item, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, color: '#a5a5a5', fontSize: 14 }}>
-                  <item.icon size={16} color="#ffb606" />
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, color: 'var(--muted)', fontSize: 14 }}>
+                  <item.icon size={16} color="var(--primary)" />
                   {item.text}
                 </div>
               ))}
@@ -634,17 +769,17 @@ export default function LandingPage() {
 
           {/* Copyright bar */}
           <div style={{
-            borderTop: '1px solid #e8e8e8', padding: '24px 0',
+            borderTop: '1px solid var(--border-color)', padding: '24px 0',
             display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16,
           }}>
-            <span style={{ color: '#a5a5a5', fontSize: 13 }}>
+            <span style={{ color: 'var(--muted)', fontSize: 13 }}>
               Copyright © {new Date().getFullYear()} DevPilot AI. Built with ❤️ for students who dream big.
             </span>
             <div style={{ display: 'flex', gap: 20 }}>
               {socialLinks.map((s, i) => (
-                <a key={i} href={s.href} style={{ color: '#3a3a3a', transition: 'color 200ms' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = '#ffb606')}
-                  onMouseLeave={e => (e.currentTarget.style.color = '#3a3a3a')}>
+                <a key={i} href={s.href} style={{ color: 'var(--foreground)', transition: 'color 200ms' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--primary)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'var(--foreground)')}>
                   <s.icon size={14} />
                 </a>
               ))}
@@ -652,18 +787,6 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
-
-      {/* ═══════ RESPONSIVE STYLES ═══════ */}
-      <style jsx global>{`
-        @media (max-width: 1000px) {
-          .nav-link-desktop { display: none !important; }
-          .hamburger-btn { display: block !important; }
-          header { width: calc(100% - 30px) !important; padding: 0 !important; }
-        }
-        @media (min-width: 1001px) {
-          .hamburger-btn { display: none !important; }
-        }
-      `}</style>
     </div>
   );
 }

@@ -43,7 +43,7 @@ const messageSchema = new mongoose_1.Schema({
 const interviewSessionSchema = new mongoose_1.Schema({
     userId: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
     topic: { type: String, required: true },
-    difficulty: { type: String, enum: ['junior', 'mid', 'senior', 'lead'], default: 'mid' },
+    difficulty: { type: String, enum: ['easy', 'medium', 'hard', 'junior', 'mid', 'senior', 'lead'], default: 'mid' },
     type: { type: String, enum: ['technical', 'behavioral', 'system-design', 'coding'], default: 'technical' },
     messages: [messageSchema],
     score: { type: Number, default: null, min: 0, max: 100 },

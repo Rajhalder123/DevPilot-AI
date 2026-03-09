@@ -262,7 +262,7 @@ export default function InterviewPage() {
                                         <label style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: 6, display: 'block' }}>Topic</label>
                                         <input className="input" placeholder="e.g. React, System Design, Data Structures..." value={topic} onChange={e => setTopic(e.target.value)} />
                                     </div>
-                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                                    <div className="responsive-grid-2" style={{ display: 'grid', gap: 16 }}>
                                         <div>
                                             <label style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: 6, display: 'block' }}>Difficulty</label>
                                             <select className="input" value={difficulty} onChange={e => setDifficulty(e.target.value)} style={{ cursor: 'pointer' }}>

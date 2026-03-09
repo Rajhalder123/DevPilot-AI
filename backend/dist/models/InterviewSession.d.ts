@@ -7,7 +7,7 @@ export interface IMessage {
 export interface IInterviewSession extends Document {
     userId: mongoose.Types.ObjectId;
     topic: string;
-    difficulty: 'junior' | 'mid' | 'senior' | 'lead';
+    difficulty: 'easy' | 'medium' | 'hard' | 'junior' | 'mid' | 'senior' | 'lead';
     type: 'technical' | 'behavioral' | 'system-design' | 'coding';
     messages: IMessage[];
     score: number | null;

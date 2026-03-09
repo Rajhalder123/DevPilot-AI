@@ -100,5 +100,20 @@ router.get('/:sessionId', auth_1.authenticate, async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+// POST /api/interview/message  (for Voice Assistant — no session needed)
+router.post('/message', auth_1.authenticate, async (req, res) => {
+    try {
+        const { message, topic = 'General AI & Interview Practice' } = req.body;
+        if (!message) {
+            res.status(400).json({ error: 'Message is required' });
+            return;
+        }
+        const reply = await (0, openai_1.generateInterviewQuestion)(topic, 'medium', 'behavioral', [{ role: 'user', content: message }]);
+        res.json({ message: reply });
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 exports.default = router;
 //# sourceMappingURL=interview.js.map

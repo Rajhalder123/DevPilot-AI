@@ -6,27 +6,27 @@ import { io, Socket } from 'socket.io-client';
 const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:5000';
 
 export function useSocket() {
-    const socketRef = useRef<Socket | null>(null);
+    const [socket, setSocket] = useState<Socket | null>(null);
     const [connected, setConnected] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('devpilot_token');
         if (!token) return;
 
-        const socket = io(SOCKET_URL, {
+        const newSocket = io(SOCKET_URL, {
             auth: { token },
             transports: ['websocket', 'polling'],
         });
 
-        socket.on('connect', () => setConnected(true));
-        socket.on('disconnect', () => setConnected(false));
+        newSocket.on('connect', () => setConnected(true));
+        newSocket.on('disconnect', () => setConnected(false));
 
-        socketRef.current = socket;
+        setSocket(newSocket);
 
         return () => {
-            socket.disconnect();
+            newSocket.disconnect();
         };
     }, []);
 
-    return { socket: socketRef.current, connected };
+    return { socket, connected };
 }

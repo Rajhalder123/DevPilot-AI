@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FiFileText, FiGithub, FiBriefcase, FiMic, FiTrendingUp, FiArrowRight } from 'react-icons/fi';
+import { FiFileText, FiGithub, FiBriefcase, FiVideo, FiMic, FiTrendingUp, FiArrowRight } from 'react-icons/fi';
 import { useAuth } from '@/lib/auth';
 import api from '@/lib/api';
 import Link from 'next/link';
@@ -36,17 +36,16 @@ export default function DashboardPage() {
     }, []);
 
     const statCards = [
-        { label: 'Resumes Analyzed', value: stats?.resumeCount || 0, icon: FiFileText, color: '#ffb606', href: '/dashboard/resume' },
-        { label: 'Repos Reviewed', value: stats?.githubCount || 0, icon: FiGithub, color: '#3a3a3a', href: '/dashboard/github' },
-        { label: 'Jobs Matched', value: stats?.jobCount || 0, icon: FiBriefcase, color: '#28a745', href: '/dashboard/jobs' },
-        { label: 'Interviews Done', value: stats?.interviewCount || 0, icon: FiMic, color: '#ff9800', href: '/dashboard/interview' },
+        { label: 'Resumes Analyzed', value: stats?.resumeCount || 0, icon: FiFileText, color: '#3B82F6', href: '/dashboard/resume' },
+        { label: 'GitHub Reviews', value: stats?.githubCount || 0, icon: FiGithub, color: '#3B82F6', href: '/dashboard/github' },
+        { label: 'Interviews Prep', value: stats?.interviewCount || 0, icon: FiVideo, color: '#3B82F6', href: '/dashboard/interview' },
     ];
 
     const quickActions = [
-        { title: 'Analyze Resume', desc: 'Get AI-powered resume scoring and optimization tips', icon: FiFileText, href: '/dashboard/resume', color: '#ffb606' },
-        { title: 'Review GitHub Repo', desc: 'AI code review and architecture analysis', icon: FiGithub, href: '/dashboard/github', color: '#3a3a3a' },
-        { title: 'Find Jobs', desc: 'Get personalized AI job recommendations', icon: FiBriefcase, href: '/dashboard/jobs', color: '#28a745' },
-        { title: 'Practice Interview', desc: 'Real-time AI interview with feedback', icon: FiMic, href: '/dashboard/interview', color: '#ff9800' },
+        { title: 'Analyze Resume', desc: 'Get AI-powered resume scoring and optimization tips', icon: FiFileText, href: '/dashboard/resume', color: '#3B82F6' },
+        { title: 'Review GitHub Profile', desc: 'Deep dive code quality analysis with AI', icon: FiGithub, href: '/dashboard/github', color: '#3B82F6' },
+        { title: 'Practice Interview', desc: 'Simulate tech and behavioral rounds with AI', icon: FiVideo, href: '/dashboard/interview', color: '#3B82F6' },
+        { title: 'Find Jobs', desc: 'AI-matched jobs based on your exact skillset', icon: FiBriefcase, href: '/dashboard/jobs', color: '#3B82F6' },
     ];
 
     return (
@@ -61,7 +60,7 @@ export default function DashboardPage() {
             </motion.div>
 
             {/* Stats Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 20, marginBottom: 40 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: 20, marginBottom: 40 }}>
                 {statCards.map((card, i) => (
                     <motion.div
                         key={i}
@@ -95,7 +94,7 @@ export default function DashboardPage() {
                 <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem', fontWeight: 700, marginBottom: 20 }}>
                     Quick Actions
                 </h2>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: 16 }}>
                     {quickActions.map((action, i) => (
                         <Link key={i} href={action.href} style={{ textDecoration: 'none', color: 'inherit' }}>
                             <div className="card" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 16, transition: 'transform 0.2s' }}>

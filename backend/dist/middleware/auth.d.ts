@@ -1,7 +1,12 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, RequestHandler } from 'express';
 import { IUser } from '../models/User';
-export interface AuthRequest extends Request {
-    user?: IUser;
+declare global {
+    namespace Express {
+        interface Request {
+            user?: IUser;
+        }
+    }
 }
-export declare const authenticate: (req: AuthRequest, res: Response, next: NextFunction) => Promise<void>;
+export type AuthRequest = Request;
+export declare const authenticate: RequestHandler;
 //# sourceMappingURL=auth.d.ts.map

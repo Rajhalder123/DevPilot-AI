@@ -84,7 +84,7 @@ export default function SettingsPage() {
                             />
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                        <div className="responsive-grid-2" style={{ display: 'grid', gap: 16 }}>
                             <div>
                                 <label style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: 6, display: 'block' }}>Location</label>
                                 <div style={{ position: 'relative' }}>

@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const fs_1 = __importDefault(require("fs"));
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const pdfParse = require('pdf-parse');
 const auth_1 = require("../middleware/auth");
 const upload_1 = require("../middleware/upload");
 const Resume_1 = require("../models/Resume");
@@ -18,7 +20,9 @@ router.post('/upload', auth_1.authenticate, upload_1.upload.single('resume'), as
             res.status(400).json({ error: 'No file uploaded' });
             return;
         }
-        const rawText = fs_1.default.readFileSync(req.file.path, 'utf-8');
+        const dataBuffer = fs_1.default.readFileSync(req.file.path);
+        const pdfData = await pdfParse(dataBuffer);
+        const rawText = pdfData.text;
         const resume = await Resume_1.Resume.create({
             userId: req.user._id,
             fileName: req.file.originalname,
@@ -52,12 +56,14 @@ router.post('/analyze', auth_1.authenticate, async (req, res) => {
             res.json({ resume });
         }
         catch (aiError) {
+            console.error('AI analysis error:', aiError.message);
             resume.status = 'failed';
             await resume.save();
-            res.status(500).json({ error: 'AI analysis failed. Please try again.' });
+            res.status(500).json({ error: aiError.message || 'AI analysis failed. Please try again.' });
         }
     }
     catch (error) {
+        console.error('Resume analyze error:', error.message);
         res.status(500).json({ error: error.message });
     }
 });

@@ -109,7 +109,7 @@ export default function GitHubPage() {
                     </div>
 
                     {/* Code Quality & Architecture */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20, marginBottom: 24 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 20, marginBottom: 24 }}>
                         <div className="card">
                             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
                                 <FiCode size={18} color="var(--accent)" /> Code Quality
@@ -142,7 +142,7 @@ export default function GitHubPage() {
                     )}
 
                     {/* Strengths & Improvements */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 20 }}>
                         <div className="card">
                             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
                                 <FiCheckCircle size={18} color="var(--success)" /> Strengths

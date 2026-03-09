@@ -1,9 +1,13 @@
 'use client';
 
-import { FiBell, FiSearch } from 'react-icons/fi';
+import { FiBell, FiSearch, FiMenu } from 'react-icons/fi';
 import { useAuth } from '@/lib/auth';
 
-export default function Navbar() {
+interface NavbarProps {
+    onMenuClick?: () => void;
+}
+
+export default function Navbar({ onMenuClick }: NavbarProps) {
     const { user } = useAuth();
 
     return (
@@ -20,64 +24,82 @@ export default function Navbar() {
             zIndex: 40,
             boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
         }}>
-            {/* Search */}
-            <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                background: '#f8f8f8',
-                border: '1px solid #e8e8e8',
-                borderRadius: 0,
-                padding: '8px 16px',
-                width: 320,
-            }}>
-                <FiSearch size={16} color="#a5a5a5" />
-                <input
-                    type="text"
-                    placeholder="Search features..."
-                    style={{
-                        background: 'transparent',
-                        border: 'none',
-                        outline: 'none',
-                        color: '#3a3a3a',
-                        fontSize: '0.85rem',
-                        fontFamily: "'Roboto', sans-serif",
-                        width: '100%',
-                    }}
-                />
-            </div>
-
-            {/* Right side */}
+            {/* Left side: Hamburger (Mobile) & Search */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                <button style={{
-                    background: 'none',
-                    border: '1px solid #e8e8e8',
-                    borderRadius: 0,
-                    padding: 8,
-                    cursor: 'pointer',
-                    color: '#a5a5a5',
-                    position: 'relative',
-                    transition: 'all 0.2s',
-                }}>
-                    <FiBell size={18} />
-                    <span style={{
-                        position: 'absolute',
-                        top: 4,
-                        right: 4,
-                        width: 8,
-                        height: 8,
-                        borderRadius: '50%',
-                        background: '#ffb606',
-                    }} />
+                <button
+                    onClick={onMenuClick}
+                    className="md-hidden"
+                    style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        padding: 8,
+                        color: '#3a3a3a',
+                    }}
+                >
+                    <FiMenu size={24} />
                 </button>
-                <div style={{
+
+                {/* Search */}
+                <div className="navbar-search" style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: 10,
+                    background: '#f8f8f8',
+                    border: '1px solid #e8e8e8',
+                    borderRadius: 0,
+                    padding: '8px 16px',
+                    width: 320,
                 }}>
-                    <span style={{ fontSize: '0.85rem', color: '#a5a5a5', fontFamily: "'Roboto', sans-serif" }}>
-                        Welcome, <span style={{ color: '#3a3a3a', fontWeight: 600 }}>{user?.name?.split(' ')[0] || 'User'}</span>
-                    </span>
+                    <FiSearch size={16} color="#a5a5a5" />
+                    <input
+                        type="text"
+                        placeholder="Search features..."
+                        style={{
+                            background: 'transparent',
+                            border: 'none',
+                            outline: 'none',
+                            color: '#3a3a3a',
+                            fontSize: '0.85rem',
+                            fontFamily: "'Inter', sans-serif",
+                            width: '100%',
+                        }}
+                    />
+                </div>
+
+                {/* Right side */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                    <button style={{
+                        background: 'none',
+                        border: '1px solid #e8e8e8',
+                        borderRadius: 0,
+                        padding: 8,
+                        cursor: 'pointer',
+                        color: '#a5a5a5',
+                        position: 'relative',
+                        transition: 'all 0.2s',
+                    }}>
+                        <FiBell size={18} />
+                        <span style={{
+                            position: 'absolute',
+                            top: 4,
+                            right: 4,
+                            width: 8,
+                            height: 8,
+                            borderRadius: '50%',
+                            background: 'var(--primary)',
+                        }} />
+                    </button>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 10,
+                    }}>
+                        <span style={{ fontSize: '0.85rem', color: '#a5a5a5', fontFamily: "'Inter', sans-serif" }}>
+                            Welcome, <span style={{ color: '#3a3a3a', fontWeight: 600 }}>{user?.name?.split(' ')[0] || 'User'}</span>
+                        </span>
+                    </div>
                 </div>
             </div>
         </header>

@@ -28,7 +28,7 @@ router.post('/signup', async (req, res) => {
             return;
         }
         const user = await User_1.User.create({ name, email, password });
-        const token = generateToken(user._id);
+        const token = generateToken(user._id.toString());
         res.status(201).json({
             token,
             user: { id: user._id, name: user.name, email: user.email, avatar: user.avatar },
@@ -51,7 +51,7 @@ router.post('/login', async (req, res) => {
             res.status(401).json({ error: 'Invalid email or password' });
             return;
         }
-        const token = generateToken(user._id);
+        const token = generateToken(user._id.toString());
         res.json({
             token,
             user: { id: user._id, name: user.name, email: user.email, avatar: user.avatar, skills: user.skills },
@@ -116,7 +116,7 @@ router.get('/github/callback', async (req, res) => {
             user.githubAccessToken = accessToken;
             await user.save();
         }
-        const token = generateToken(user._id);
+        const token = generateToken(user._id.toString());
         res.redirect(`${env_1.env.FRONTEND_URL}/auth/callback?token=${token}`);
     }
     catch (error) {
