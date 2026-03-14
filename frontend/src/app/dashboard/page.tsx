@@ -36,16 +36,16 @@ export default function DashboardPage() {
     }, []);
 
     const statCards = [
-        { label: 'Resumes Analyzed', value: stats?.resumeCount || 0, icon: FiFileText, color: '#3B82F6', href: '/dashboard/resume' },
-        { label: 'GitHub Reviews', value: stats?.githubCount || 0, icon: FiGithub, color: '#3B82F6', href: '/dashboard/github' },
-        { label: 'Interviews Prep', value: stats?.interviewCount || 0, icon: FiVideo, color: '#3B82F6', href: '/dashboard/interview' },
+        { label: 'Resumes Analyzed', value: stats?.resumeCount || 0, icon: FiFileText, color: 'var(--primary)', href: '/dashboard/resume' },
+        { label: 'GitHub Reviews', value: stats?.githubCount || 0, icon: FiGithub, color: 'var(--primary)', href: '/dashboard/github' },
+        { label: 'Interviews Prep', value: stats?.interviewCount || 0, icon: FiVideo, color: 'var(--primary)', href: '/dashboard/interview' },
     ];
 
     const quickActions = [
-        { title: 'Analyze Resume', desc: 'Get AI-powered resume scoring and optimization tips', icon: FiFileText, href: '/dashboard/resume', color: '#3B82F6' },
-        { title: 'Review GitHub Profile', desc: 'Deep dive code quality analysis with AI', icon: FiGithub, href: '/dashboard/github', color: '#3B82F6' },
-        { title: 'Practice Interview', desc: 'Simulate tech and behavioral rounds with AI', icon: FiVideo, href: '/dashboard/interview', color: '#3B82F6' },
-        { title: 'Find Jobs', desc: 'AI-matched jobs based on your exact skillset', icon: FiBriefcase, href: '/dashboard/jobs', color: '#3B82F6' },
+        { title: 'Analyze Resume', desc: 'Get AI-powered resume scoring and optimization tips', icon: FiFileText, href: '/dashboard/resume', color: 'var(--primary)' },
+        { title: 'Review GitHub Profile', desc: 'Deep dive code quality analysis with AI', icon: FiGithub, href: '/dashboard/github', color: 'var(--primary)' },
+        { title: 'Practice Interview', desc: 'Simulate tech and behavioral rounds with AI', icon: FiVideo, href: '/dashboard/interview', color: 'var(--primary)' },
+        { title: 'Find Jobs', desc: 'AI-matched jobs based on your exact skillset', icon: FiBriefcase, href: '/dashboard/jobs', color: 'var(--primary)' },
     ];
 
     return (

@@ -38,7 +38,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     if (!user) return null;
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh', background: '#f8f8f8' }}>
+        <div style={{ display: 'flex', minHeight: '100vh', background: '#F8FAFC' }}>
             <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="dashboard-main-content" style={{ flex: 1, marginLeft: 260, transition: 'margin 0.3s ease' }}>
                 <Navbar onMenuClick={() => setIsSidebarOpen(true)} />

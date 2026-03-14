@@ -82,7 +82,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                         fontFamily: "'Outfit', sans-serif",
                         fontSize: '1.25rem',
                         fontWeight: 800,
-                        color: '#3a3a3a',
+                        color: '#0F172A',
                         textTransform: 'uppercase' as const,
                     }}>
                         DevPilot
@@ -103,7 +103,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                                         gap: 12,
                                         padding: '12px 16px',
                                         borderRadius: 0,
-                                        background: active ? 'rgba(255, 141, 172, 0.12)' : 'transparent',
+                                        background: active ? 'rgba(249, 115, 22, 0.12)' : 'transparent',
                                         color: active ? 'var(--primary)' : '#a5a5a5',
                                         fontWeight: active ? 700 : 500,
                                         fontSize: '0.9rem',
@@ -132,7 +132,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                         gap: 12,
                         padding: '12px 16px',
                         borderRadius: 0,
-                        background: 'rgba(255, 141, 172, 0.06)',
+                        background: 'rgba(249, 115, 22, 0.08)',
                     }}>
                         <div style={{
                             width: 36,
@@ -149,7 +149,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                             {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#3a3a3a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                 {user?.name || 'User'}
                             </div>
                             <div style={{ fontSize: '0.75rem', color: '#a5a5a5', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>

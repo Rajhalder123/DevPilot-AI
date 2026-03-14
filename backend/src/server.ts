@@ -22,6 +22,10 @@ import jobRoutes from './routes/jobs';
 import interviewRoutes from './routes/interview';
 import coverLetterRoutes from './routes/coverLetter';
 import dashboardRoutes from './routes/dashboard';
+import careerMentorRoutes from './routes/careerMentor';
+import jobReadyScoreRoutes from './routes/jobReadyScore';
+import roadmapRoutes from './routes/roadmap';
+import portfolioRoutes from './routes/portfolio';
 
 // Create Express app
 const app = express();
@@ -52,6 +56,10 @@ app.use('/api/jobs', jobRoutes);
 app.use('/api/interview', interviewRoutes);
 app.use('/api/cover-letter', coverLetterRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/career-mentor', careerMentorRoutes);
+app.use('/api/job-ready-score', jobReadyScoreRoutes);
+app.use('/api/roadmap', roadmapRoutes);
+app.use('/api/portfolio', portfolioRoutes);
 
 // Health check
 app.get('/api/health', (_req, res) => {

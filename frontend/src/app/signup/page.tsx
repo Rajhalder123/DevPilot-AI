@@ -45,15 +45,32 @@ export default function SignupPage() {
             padding: 24,
             position: 'relative',
         }}>
-            <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
-                <div style={{ position: 'absolute', top: '30%', right: '20%', width: 300, height: 300, borderRadius: '50%', background: 'rgba(255,141,172,0.06)', filter: 'blur(100px)' }} />
-                <div style={{ position: 'absolute', bottom: '30%', left: '20%', width: 250, height: 250, borderRadius: '50%', background: 'rgba(255,92,138,0.06)', filter: 'blur(100px)' }} />
+            {/* Dynamic Background Image wrapper to match Welcome Page */}
+            <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
+                {/* Unsplash Image of Students/Tech */}
+                <div style={{
+                    position: 'absolute', inset: 0,
+                    backgroundImage: "url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop')",
+                    backgroundSize: 'cover', backgroundPosition: 'center',
+                }} />
+                {/* Light Overlay */}
+                <div style={{
+                    position: 'absolute', inset: 0,
+                    background: 'linear-gradient(110deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%)',
+                }} />
+                {/* Radial glow for focal point - Orange */}
+                <div style={{ position: 'absolute', top: '30%', right: '20%', width: '50vw', height: '50vw', background: 'radial-gradient(circle, rgba(249, 115, 22, 0.15) 0%, transparent 70%)', filter: 'blur(60px)' }} />
             </div>
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                style={{ width: '100%', maxWidth: 440, position: 'relative', zIndex: 1 }}
+                style={{
+                    width: '100%', maxWidth: 440, position: 'relative', zIndex: 1,
+                    background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(16px)',
+                    padding: '40px', borderRadius: '32px', border: '1px solid rgba(255,255,255,0.8)',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.05)'
+                }}
             >
                 <div style={{ textAlign: 'center', marginBottom: 32 }}>
                     <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 32 }}>
@@ -64,8 +81,8 @@ export default function SignupPage() {
                             DevPilot <span style={{ color: 'var(--accent)' }}>AI</span>
                         </span>
                     </Link>
-                    <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 700, marginBottom: 8 }}>Create your account</h1>
-                    <p style={{ color: 'var(--muted)', fontSize: '0.9rem' }}>Start your journey to developer success</p>
+                    <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 700, marginBottom: 8, color: '#0F172A' }}>Create Account</h1>
+                    <p style={{ color: '#475569', fontSize: '0.9rem', fontWeight: 500 }}>Join DevPilot AI to accelerate your career</p>
                 </div>
 
                 <div className="card" style={{ padding: 32 }}>

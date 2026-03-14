@@ -14,7 +14,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
         <header style={{
             height: 64,
             background: '#FFFFFF',
-            borderBottom: '1px solid #e8e8e8',
+            borderBottom: '1px solid rgba(249, 115, 22, 0.12)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -22,7 +22,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             position: 'sticky',
             top: 0,
             zIndex: 40,
-            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+            boxShadow: '0 2px 16px rgba(249, 115, 22, 0.06)',
         }}>
             {/* Left side: Hamburger (Mobile) & Search */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -35,7 +35,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                         cursor: 'pointer',
                         display: 'flex',
                         padding: 8,
-                        color: '#3a3a3a',
+                        color: '#F97316',
                     }}
                 >
                     <FiMenu size={24} />
@@ -46,13 +46,13 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                     display: 'flex',
                     alignItems: 'center',
                     gap: 10,
-                    background: '#f8f8f8',
-                    border: '1px solid #e8e8e8',
-                    borderRadius: 0,
+                    background: '#FFF7ED',
+                    border: '1px solid rgba(249, 115, 22, 0.2)',
+                    borderRadius: 12,
                     padding: '8px 16px',
                     width: 320,
                 }}>
-                    <FiSearch size={16} color="#a5a5a5" />
+                    <FiSearch size={16} color="#F97316" />
                     <input
                         type="text"
                         placeholder="Search features..."
@@ -60,46 +60,59 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                             background: 'transparent',
                             border: 'none',
                             outline: 'none',
-                            color: '#3a3a3a',
+                            color: '#0F172A',
                             fontSize: '0.85rem',
                             fontFamily: "'Inter', sans-serif",
                             width: '100%',
                         }}
                     />
                 </div>
+            </div>
 
-                {/* Right side */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                    <button style={{
-                        background: 'none',
-                        border: '1px solid #e8e8e8',
-                        borderRadius: 0,
-                        padding: 8,
-                        cursor: 'pointer',
-                        color: '#a5a5a5',
-                        position: 'relative',
-                        transition: 'all 0.2s',
-                    }}>
-                        <FiBell size={18} />
-                        <span style={{
-                            position: 'absolute',
-                            top: 4,
-                            right: 4,
-                            width: 8,
-                            height: 8,
-                            borderRadius: '50%',
-                            background: 'var(--primary)',
-                        }} />
-                    </button>
+            {/* Right side */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                <button style={{
+                    background: 'none',
+                    border: '1px solid rgba(249, 115, 22, 0.2)',
+                    borderRadius: 10,
+                    padding: 8,
+                    cursor: 'pointer',
+                    color: '#F97316',
+                    position: 'relative',
+                    transition: 'all 0.2s',
+                }}>
+                    <FiBell size={18} />
+                    <span style={{
+                        position: 'absolute',
+                        top: 4,
+                        right: 4,
+                        width: 8,
+                        height: 8,
+                        borderRadius: '50%',
+                        background: '#F97316',
+                    }} />
+                </button>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '6px 14px',
+                    background: '#FFF7ED',
+                    borderRadius: 12,
+                    border: '1px solid rgba(249, 115, 22, 0.15)',
+                }}>
                     <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 10,
+                        width: 30, height: 30, borderRadius: '50%',
+                        background: 'linear-gradient(135deg, #F97316, #F59E0B)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: '#fff', fontWeight: 700, fontSize: '0.8rem',
+                        fontFamily: "'Outfit', sans-serif",
                     }}>
-                        <span style={{ fontSize: '0.85rem', color: '#a5a5a5', fontFamily: "'Inter', sans-serif" }}>
-                            Welcome, <span style={{ color: '#3a3a3a', fontWeight: 600 }}>{user?.name?.split(' ')[0] || 'User'}</span>
-                        </span>
+                        {(user?.name?.charAt(0) || 'U').toUpperCase()}
                     </div>
+                    <span style={{ fontSize: '0.85rem', color: '#64748B', fontFamily: "'Inter', sans-serif" }}>
+                        Welcome, <span style={{ color: '#0F172A', fontWeight: 700 }}>{user?.name?.split(' ')[0] || 'User'}</span>
+                    </span>
                 </div>
             </div>
         </header>

@@ -133,8 +133,8 @@ export default function GitHubPage() {
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                                 {analysis.techStack.map((t, i) => (
                                     <span key={i} style={{
-                                        background: 'rgba(0,210,255,0.1)', border: '1px solid rgba(0,210,255,0.3)',
-                                        borderRadius: 20, padding: '6px 14px', fontSize: '0.8rem', color: 'var(--accent)',
+                                        background: 'rgba(249, 115, 22, 0.1)', border: '1px solid rgba(249, 115, 22, 0.3)',
+                                        borderRadius: 20, padding: '6px 14px', fontSize: '0.8rem', color: 'var(--primary)',
                                     }}>{t}</span>
                                 ))}
                             </div>

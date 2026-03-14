@@ -199,8 +199,8 @@ export default function ResumePage() {
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                                 {analysis.keywordGaps.map((k, i) => (
                                     <span key={i} style={{
-                                        background: 'rgba(108,92,231,0.1)', border: '1px solid rgba(108,92,231,0.3)',
-                                        borderRadius: 20, padding: '6px 14px', fontSize: '0.8rem', color: 'var(--accent)',
+                                        background: 'rgba(249, 115, 22, 0.1)', border: '1px solid rgba(249, 115, 22, 0.2)',
+                                        borderRadius: 20, padding: '4px 12px', fontSize: '0.8rem', color: 'var(--primary)',
                                     }}>{k}</span>
                                 ))}
                             </div>

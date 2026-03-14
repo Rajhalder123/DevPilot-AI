@@ -187,3 +187,78 @@ export const generateSkillRoadmap = async (skills: string[], targetRole: string)
 
     return parseJSON(response.choices[0].message.content || '{}');
 };
+
+export const careerMentorChat = async (
+    message: string,
+    history: { role: string; content: string }[]
+): Promise<string> => {
+    const messages: any[] = [
+        {
+            role: 'system',
+            content: `You are DevPilot AI — an expert AI career mentor specializing in helping Indian fresh graduates and jobless students land their first IT job.
+
+You have deep knowledge of:
+- Indian IT job market (TCS, Infosys, Wipro, HCL, Accenture, startups, MNCs)
+- Campus placements, off-campus drives, and walk-in interviews
+- Required skills for different roles (Frontend, Backend, Full Stack, Data Science, DevOps)
+- ATS resume optimization
+- Project building strategies that impress recruiters
+- Interview preparation (technical + HR + behavioral)
+- Freelancing and remote work opportunities for beginners
+
+Guidelines:
+- Give specific, actionable advice — not vague motivational talk
+- Include concrete steps with timelines when possible
+- Reference real tools, platforms, and technologies
+- Be encouraging but honest about what it takes
+- Use simple English that non-native speakers can understand
+- When recommending learning paths, suggest free resources first
+- Format responses with bullet points and numbered lists for clarity
+- Keep responses concise but comprehensive`,
+        },
+        ...history,
+        { role: 'user', content: message },
+    ];
+
+    const response = await openai.chat.completions.create({
+        model: MODEL,
+        messages,
+        temperature: 0.7,
+        max_completion_tokens: 1500,
+    });
+
+    return response.choices[0].message.content || 'I apologize, I could not process that. Please try again.';
+};
+
+export const generatePortfolioContent = async (data: {
+    name: string;
+    bio: string;
+    skills: string[];
+    projects: { title: string; description: string; link: string; tech: string }[];
+    github: string;
+    linkedin: string;
+    email: string;
+}): Promise<string> => {
+    const response = await openai.chat.completions.create({
+        model: MODEL,
+        messages: [
+            {
+                role: 'system',
+                content: `You are an expert web developer. Generate a complete, beautiful, single-page portfolio website as a standalone HTML file.
+        The HTML must include embedded CSS (in a <style> tag) and be fully self-contained.
+        Design: Modern, dark theme with gradient accents, smooth animations, responsive layout.
+        Sections: Hero with name & bio, Skills (as tags), Projects (card grid), Contact info, Footer.
+        Use Google Fonts (Inter). Make it look professional and premium.
+        Return ONLY the complete HTML code, nothing else.`,
+            },
+            {
+                role: 'user',
+                content: JSON.stringify(data),
+            },
+        ],
+        temperature: 0.5,
+        max_completion_tokens: 4000,
+    });
+
+    return response.choices[0].message.content || '';
+};

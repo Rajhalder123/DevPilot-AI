@@ -1,0 +1,58 @@
+ M README.md
+ M backend/node_modules/.package-lock.json
+ M backend/src/server.ts
+ M backend/src/services/openai.ts
+ M frontend/src/app/dashboard/cover-letter/page.tsx
+ M frontend/src/app/dashboard/github/page.tsx
+ M frontend/src/app/dashboard/interview/page.tsx
+ M frontend/src/app/dashboard/jobs/page.tsx
+ M frontend/src/app/dashboard/page.tsx
+ M frontend/src/app/dashboard/resume/page.tsx
+ M frontend/src/app/globals.css
+ M frontend/src/app/page.tsx
+ M frontend/src/components/layout/DashboardLayout.tsx
+ M frontend/src/components/layout/Navbar.tsx
+ M frontend/src/components/layout/Sidebar.tsx
+?? backend/src/routes/careerMentor.ts
+?? backend/src/routes/jobReadyScore.ts
+?? backend/src/routes/portfolio.ts
+?? backend/src/routes/roadmap.ts
+?? docs/
+?? frontend/public/images/become.jpg
+?? frontend/public/images/comment_1.jpg
+?? frontend/public/images/comment_2.jpg
+?? frontend/public/images/contact_background.jpg
+?? frontend/public/images/course_4.jpg
+?? frontend/public/images/course_5.jpg
+?? frontend/public/images/course_6.jpg
+?? frontend/public/images/course_7.jpg
+?? frontend/public/images/course_8.jpg
+?? frontend/public/images/course_9.jpg
+?? frontend/public/images/courses_background.jpg
+?? frontend/public/images/latest_1.jpg
+?? frontend/public/images/latest_2.jpg
+?? frontend/public/images/latest_3.jpg
+?? frontend/public/images/milestone_1.svg
+?? frontend/public/images/milestone_2.svg
+?? frontend/public/images/milestone_3.svg
+?? frontend/public/images/milestone_4.svg
+?? frontend/public/images/milestones_background.jpg
+?? frontend/public/images/news_1.jpg
+?? frontend/public/images/news_2.jpg
+?? frontend/public/images/news_3.jpg
+?? frontend/public/images/news_background.jpg
+?? frontend/public/images/teacher_1.jpg
+?? frontend/public/images/teacher_2.jpg
+?? frontend/public/images/teacher_3.jpg
+?? frontend/public/images/teacher_4.jpg
+?? frontend/public/images/teacher_5.jpg
+?? frontend/public/images/teacher_6.jpg
+?? frontend/public/images/teachers_background.jpg
+?? frontend/public/images/testimonials_background.png
+?? frontend/public/images/testimonials_background_2.jpg
+?? frontend/src/app/dashboard/career-mentor/
+?? frontend/src/app/dashboard/job-ready/
+?? frontend/src/app/dashboard/portfolio/
+?? frontend/src/app/dashboard/roadmap/
+?? status.txt
+?? temp_old_page.tsx

@@ -158,8 +158,8 @@ export default function CoverLetterPage() {
                             </div>
                             <div style={{
                                 whiteSpace: 'pre-wrap', lineHeight: 1.8, fontSize: '0.9rem',
-                                color: 'var(--muted)', padding: '20px', borderRadius: 12,
-                                background: 'rgba(0,0,0,0.15)', border: '1px solid var(--border-color)',
+                                color: 'var(--foreground)', padding: '20px', borderRadius: 12,
+                                background: '#F1F5F9', border: '1px solid var(--border-color)',
                                 maxHeight: 500, overflow: 'auto',
                             }}>
                                 {coverLetter}

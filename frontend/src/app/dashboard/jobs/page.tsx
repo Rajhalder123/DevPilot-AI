@@ -145,9 +145,9 @@ export default function JobsPage() {
     };
 
     const typeColor: Record<string, string> = {
-        remote: '#00b894',
-        hybrid: '#6c5ce7',
-        onsite: '#00d2ff',
+        remote: '#F97316', // Orange
+        hybrid: '#F59E0B', // Amber
+        onsite: 'var(--primary)', // Blue (keep one contrasting color, or use Slate #475569)
     };
 
     return (
