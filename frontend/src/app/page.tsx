@@ -277,64 +277,7 @@ export default function LandingPage() {
             </div>
           </motion.div>
 
-          {/* Right Playground Interactive Dashboard */}
-          <motion.div initial={{ opacity: 0, scale: 0.9, x: 40 }} animate={{ opacity: 1, scale: 1, x: 0 }} transition={{ duration: 1, delay: 0.3 }}
-            style={{ flex: '1 1 500px', minWidth: 320, zIndex: 10, perspective: 2000 }}>
-            <Tilt tiltMaxAngleX={3} tiltMaxAngleY={3} glareEnable={true} glareMaxOpacity={0.1} glareColor="white" glarePosition="all" style={{ transformStyle: 'preserve-3d' }}>
-              <div style={{
-                borderRadius: 32, padding: 32,
-                background: 'rgba(255, 255, 255, 0.05)', backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                boxShadow: '0 50px 100px -20px rgba(0,0,0,0.5), 0 30px 60px -30px rgba(0,0,0,0.3)',
-                transform: 'translateZ(20px)'
-              }}>
-                {/* Dashboard Stats Row */}
-                <div style={{ display: 'flex', gap: 20, marginBottom: 24, flexWrap: 'wrap' }}>
-                  <div style={{
-                    flex: '1 1 180px', padding: 24, borderRadius: 24,
-                    background: 'rgba(255,255,255,0.95)', boxShadow: '0 10px 40px rgba(0,0,0,0.1)'
-                  }}>
-                    <div style={{ color: '#64748B', fontSize: 11, marginBottom: 12, textTransform: 'uppercase', letterSpacing: 2, fontWeight: 800 }}>Impact Score</div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
-                      <span style={{ fontSize: 48, fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>92</span>
-                      <span style={{ fontSize: 16, color: '#64748B', fontWeight: 600 }}>/100</span>
-                    </div>
-                    <div style={{ marginTop: 16, height: 8, background: '#F1F5F9', borderRadius: 10, overflow: 'hidden' }}>
-                      <motion.div initial={{ width: 0 }} animate={{ width: '92%' }} transition={{ duration: 1.5, delay: 1 }} style={{ height: '100%', background: 'linear-gradient(90deg, var(--primary), var(--accent))', borderRadius: 10 }} />
-                    </div>
-                  </div>
-                  <div style={{
-                    flex: '1 1 180px', padding: 24, borderRadius: 24,
-                    background: 'rgba(15,23,42,0.9)', boxShadow: '0 10px 40px rgba(0,0,0,0.2)'
-                  }}>
-                    <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 11, marginBottom: 12, textTransform: 'uppercase', letterSpacing: 2, fontWeight: 800 }}>Offers Secured</div>
-                    <div style={{ fontSize: 48, fontWeight: 900, color: '#FFFFFF', lineHeight: 1 }}>04</div>
-                    <div style={{ color: 'var(--primary)', fontSize: 12, marginTop: 16, display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700 }}>
-                      <FiCheck size={14} /> Global MNC Placements
-                    </div>
-                  </div>
-                </div>
 
-                {/* AI Terminal Window */}
-                <div style={{ borderRadius: 20, overflow: 'hidden', boxShadow: '0 20px 50px rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <div style={{ background: '#1E293B', padding: '12px 20px', display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <div style={{ width: 10, height: 10, borderRadius: 5, background: '#FF5F56' }} />
-                    <div style={{ width: 10, height: 10, borderRadius: 5, background: '#FFBD2E' }} />
-                    <div style={{ width: 10, height: 10, borderRadius: 5, background: '#27C93F' }} />
-                    <span style={{ marginLeft: 8, color: '#94A3B8', fontSize: 11, fontWeight: 600, fontFamily: 'monospace' }}>ai-code-auditor.py</span>
-                  </div>
-                  <div style={{ background: '#0F172A', padding: 24, fontFamily: "'JetBrains Mono', monospace", fontSize: 13, lineHeight: 1.6 }}>
-                    <div style={{ color: '#38BDF8', marginBottom: 12 }}>{`// Optimizing for High-Scale Production`}</div>
-                    <div style={{ color: '#94A3B8' }}>
-                      <span style={{ color: '#F43F5E' }}>- const</span> candidates = await getAllUnfiltered();<br />
-                      <span style={{ color: '#10B981' }}>+ const</span> winners = <span style={{ color: '#38BDF8' }}>await</span> filterByDevPilotAI();
-                    </div>
-                    <div style={{ marginTop: 12, color: 'var(--primary)', fontWeight: 600 }}>Analyzing... 98.4% Match with Top MNC Standards</div>
-                  </div>
-                </div>
-              </div>
-            </Tilt>
-          </motion.div>
         </div>
 
         {/* Marquee Logos */}
