@@ -193,8 +193,8 @@ export default function JobsPage() {
                                     transition={{ duration: 0.15 }}
                                     style={{
                                         position: 'absolute', top: 'calc(100% + 6px)', left: 0, right: 0,
-                                        background: 'var(--card)', border: '1px solid var(--border-color)',
-                                        borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+                                        background: '#1E293B', border: '1px solid var(--border-color)',
+                                        borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
                                         zIndex: 100, overflow: 'hidden',
                                     }}
                                 >

@@ -6,11 +6,12 @@ import { motion } from 'framer-motion';
 import { useAuth } from '@/lib/auth';
 import {
     FiHome, FiFileText, FiGithub, FiBriefcase,
-    FiMessageSquare, FiEdit3, FiSettings, FiLogOut, FiZap
+    FiMessageSquare, FiEdit3, FiSettings, FiLogOut, FiZap, FiTarget
 } from 'react-icons/fi';
 
 const navItems = [
     { href: '/dashboard', icon: FiHome, label: 'Dashboard' },
+    { href: '/dashboard/results', icon: FiTarget, label: 'Job Ready Score' },
     { href: '/dashboard/resume', icon: FiFileText, label: 'Resume Analyzer' },
     { href: '/dashboard/github', icon: FiGithub, label: 'GitHub Analyzer' },
     { href: '/dashboard/jobs', icon: FiBriefcase, label: 'Job Matches' },
@@ -38,59 +39,59 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                     style={{
                         position: 'fixed',
                         inset: 0,
-                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        backgroundColor: 'rgba(0,0,0,0.6)',
                         zIndex: 45,
-                        backdropFilter: 'blur(2px)'
+                        backdropFilter: 'blur(4px)'
                     }}
                 />
             )}
 
-            <aside className={`dashboard-sidebar-container ${isOpen ? 'open' : ''}`} style={{
+            <aside className={`dashboard-sidebar-container glass ${isOpen ? 'open' : ''}`} style={{
                 width: 260,
                 height: '100vh',
-                background: '#FFFFFF',
-                borderRight: '1px solid #e8e8e8',
                 display: 'flex',
                 flexDirection: 'column',
                 position: 'fixed',
                 top: 0,
                 left: 0,
                 zIndex: 50,
-                boxShadow: '2px 0 10px rgba(0,0,0,0.04)',
+                borderRight: '1px solid var(--border-color)',
+                boxShadow: '2px 0 10px rgba(0,0,0,0.2)',
             }}>
                 {/* Logo */}
                 <Link href="/dashboard" style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 10,
-                    padding: '24px 20px',
+                    gap: 12,
+                    padding: '24px 24px',
                     textDecoration: 'none',
-                    borderBottom: '1px solid #e8e8e8',
+                    borderBottom: '1px solid var(--border-color)',
                 }}>
                     <div style={{
                         width: 36,
                         height: 36,
-                        borderRadius: 0,
-                        background: 'var(--primary)',
+                        borderRadius: 10,
+                        background: 'var(--gradient-primary)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        boxShadow: 'var(--glow-primary)'
                     }}>
-                        <FiZap size={20} color="#fff" />
+                        <FiZap size={18} color="#fff" />
                     </div>
                     <span style={{
                         fontFamily: "'Outfit', sans-serif",
                         fontSize: '1.25rem',
                         fontWeight: 800,
-                        color: '#0F172A',
-                        textTransform: 'uppercase' as const,
+                        color: 'var(--foreground)',
+                        letterSpacing: '0.5px'
                     }}>
-                        DevPilot
+                        DevPilot <span style={{ color: 'var(--primary)' }}>AI</span>
                     </span>
                 </Link>
 
                 {/* Navigation */}
-                <nav style={{ flex: 1, padding: '16px 12px', display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <nav style={{ flex: 1, padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 6, overflowY: 'auto' }}>
                     {navItems.map((item) => {
                         const active = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
                         return (
@@ -100,20 +101,18 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                                     style={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: 12,
-                                        padding: '12px 16px',
-                                        borderRadius: 0,
-                                        background: active ? 'rgba(249, 115, 22, 0.12)' : 'transparent',
-                                        color: active ? 'var(--primary)' : '#a5a5a5',
-                                        fontWeight: active ? 700 : 500,
+                                        gap: 14,
+                                        padding: '14px 16px',
+                                        borderRadius: 12,
+                                        background: active ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                                        color: active ? 'var(--foreground)' : 'var(--muted)',
+                                        fontWeight: active ? 600 : 500,
                                         fontSize: '0.9rem',
-                                        fontFamily: "'Outfit', sans-serif",
                                         transition: 'all 0.2s ease',
                                         cursor: 'pointer',
-                                        borderLeft: active ? '4px solid var(--primary)' : '4px solid transparent',
                                     }}
                                 >
-                                    <item.icon size={18} />
+                                    <item.icon size={18} color={active ? 'var(--primary)' : 'var(--muted)'} />
                                     {item.label}
                                 </motion.div>
                             </Link>
@@ -122,37 +121,35 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                 </nav>
 
                 {/* User section */}
-                <div style={{
-                    padding: '16px 12px',
-                    borderTop: '1px solid #e8e8e8',
-                }}>
+                <div style={{ padding: '20px 16px', borderTop: '1px solid var(--border-color)' }}>
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: 12,
-                        padding: '12px 16px',
-                        borderRadius: 0,
-                        background: 'rgba(249, 115, 22, 0.08)',
+                        padding: '12px 14px',
+                        borderRadius: 12,
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        border: '1px solid var(--border-color)'
                     }}>
                         <div style={{
                             width: 36,
                             height: 36,
                             borderRadius: '50%',
-                            background: 'var(--primary)',
+                            background: 'var(--gradient-primary)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            fontSize: '0.85rem',
+                            fontSize: '0.9rem',
                             fontWeight: 700,
                             color: '#fff',
                         }}>
                             {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--foreground)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                 {user?.name || 'User'}
                             </div>
-                            <div style={{ fontSize: '0.75rem', color: '#a5a5a5', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                 {user?.email || ''}
                             </div>
                         </div>
@@ -162,14 +159,13 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                             style={{
                                 background: 'none',
                                 border: 'none',
-                                color: '#a5a5a5',
+                                color: 'var(--muted)',
                                 cursor: 'pointer',
-                                padding: 4,
-                                borderRadius: 0,
+                                padding: 6,
                                 transition: 'color 0.2s',
                             }}
-                            onMouseEnter={(e) => (e.currentTarget.style.color = '#dc3545')}
-                            onMouseLeave={(e) => (e.currentTarget.style.color = '#a5a5a5')}
+                            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--danger)')}
+                            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
                         >
                             <FiLogOut size={16} />
                         </button>

@@ -1,15 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import morgan from 'morgan';
 import path from 'path';
 import { createServer } from 'http';
 import { Server as SocketIO } from 'socket.io';
+import swaggerUi from 'swagger-ui-express';
 import { connectDB } from './config/db';
 import { env } from './config/env';
+import { swaggerSpec } from './config/swagger';
 import { errorHandler } from './middleware/errorHandler';
-import { authenticate, AuthRequest } from './middleware/auth';
-import { generateInterviewQuestion } from './services/openai';
+import { requestLogger } from './middleware/requestLogger';
+import { generalLimiter } from './middleware/rateLimiter';
+import { logger } from './utils/logger';
+import { generateInterviewQuestion } from './services/ai.service';
 import { InterviewSession } from './models/InterviewSession';
 import jwt from 'jsonwebtoken';
 import { User } from './models/User';
@@ -26,6 +29,7 @@ import careerMentorRoutes from './routes/careerMentor';
 import jobReadyScoreRoutes from './routes/jobReadyScore';
 import roadmapRoutes from './routes/roadmap';
 import portfolioRoutes from './routes/portfolio';
+import scoreRoutes from './routes/score';
 
 // Create Express app
 const app = express();
@@ -40,15 +44,16 @@ const io = new SocketIO(httpServer, {
     },
 });
 
-// Middleware
+// ── Global Middleware ────────────────────────────────────────────────────────
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors({ origin: env.FRONTEND_URL, credentials: true }));
-app.use(morgan('dev'));
+app.use(requestLogger);
+app.use(generalLimiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// API Routes
+// ── API Routes ──────────────────────────────────────────────────────────────
 app.use('/api/auth', authRoutes);
 app.use('/api/resume', resumeRoutes);
 app.use('/api/github', githubRoutes);
@@ -60,13 +65,24 @@ app.use('/api/career-mentor', careerMentorRoutes);
 app.use('/api/job-ready-score', jobReadyScoreRoutes);
 app.use('/api/roadmap', roadmapRoutes);
 app.use('/api/portfolio', portfolioRoutes);
+app.use('/api/score', scoreRoutes);
+
+// ── Swagger API Documentation ───────────────────────────────────────────────
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+    customCss: '.swagger-ui .topbar { display: none }',
+    customSiteTitle: 'DevPilot AI — API Documentation',
+}));
+app.get('/api-docs.json', (_req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
 
 // Health check
 app.get('/api/health', (_req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// WebSocket Authentication & Interview Chat
+// ── WebSocket Authentication & Interview Chat ───────────────────────────────
 io.use(async (socket, next) => {
     try {
         const token = socket.handshake.auth.token;
@@ -84,7 +100,7 @@ io.use(async (socket, next) => {
 });
 
 io.on('connection', (socket) => {
-    console.log(`🔌 User connected: ${(socket as any).user.name}`);
+    logger.info(`🔌 User connected: ${(socket as any).user.name}`);
 
     socket.on('interview:message', async (data: { sessionId: string; message: string }) => {
         try {
@@ -132,25 +148,28 @@ io.on('connection', (socket) => {
                 score: session.score,
             });
         } catch (error: any) {
+            logger.error('WebSocket interview error', { error: error.message });
             socket.emit('interview:error', { error: error.message });
         }
     });
 
     socket.on('disconnect', () => {
-        console.log(`🔌 User disconnected: ${(socket as any).user.name}`);
+        logger.info(`🔌 User disconnected: ${(socket as any).user.name}`);
     });
 });
 
-// Error handler (must be last)
+// ── Centralized Error Handler (must be last) ────────────────────────────────
 app.use(errorHandler);
 
-// Start server
+// ── Start Server ────────────────────────────────────────────────────────────
 const startServer = async () => {
     await connectDB();
 
     httpServer.listen(env.PORT, () => {
-        console.log(`🚀 DevPilot AI server running on port ${env.PORT}`);
-        console.log(`📝 Environment: ${env.NODE_ENV}`);
+        logger.info(`🚀 DevPilot AI server running on port ${env.PORT}`);
+        logger.info(`📝 Environment: ${env.NODE_ENV}`);
+        logger.info(`📊 Score endpoint: POST /api/score/full-analysis`);
+        logger.info(`📖 API Docs: http://localhost:${env.PORT}/api-docs`);
     });
 };
 

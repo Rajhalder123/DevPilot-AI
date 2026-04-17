@@ -11,10 +11,9 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
     const { user } = useAuth();
 
     return (
-        <header style={{
-            height: 64,
-            background: '#FFFFFF',
-            borderBottom: '1px solid rgba(249, 115, 22, 0.12)',
+        <header className="glass" style={{
+            height: 72,
+            borderBottom: '1px solid var(--border-color)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -22,10 +21,9 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             position: 'sticky',
             top: 0,
             zIndex: 40,
-            boxShadow: '0 2px 16px rgba(249, 115, 22, 0.06)',
         }}>
             {/* Left side: Hamburger (Mobile) & Search */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
                 <button
                     onClick={onMenuClick}
                     className="md-hidden"
@@ -35,7 +33,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                         cursor: 'pointer',
                         display: 'flex',
                         padding: 8,
-                        color: '#F97316',
+                        color: 'var(--primary)',
                     }}
                 >
                     <FiMenu size={24} />
@@ -45,23 +43,24 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                 <div className="navbar-search" style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 10,
-                    background: '#FFF7ED',
-                    border: '1px solid rgba(249, 115, 22, 0.2)',
-                    borderRadius: 12,
-                    padding: '8px 16px',
+                    gap: 12,
+                    background: 'rgba(15, 23, 42, 0.4)',
+                    border: '1px solid var(--border-color)',
+                    borderRadius: 14,
+                    padding: '10px 18px',
                     width: 320,
+                    transition: 'all 0.3s ease',
                 }}>
-                    <FiSearch size={16} color="#F97316" />
+                    <FiSearch size={18} color="var(--muted)" />
                     <input
                         type="text"
-                        placeholder="Search features..."
+                        placeholder="Search dashboard..."
                         style={{
                             background: 'transparent',
                             border: 'none',
                             outline: 'none',
-                            color: '#0F172A',
-                            fontSize: '0.85rem',
+                            color: 'var(--foreground)',
+                            fontSize: '0.9rem',
                             fontFamily: "'Inter', sans-serif",
                             width: '100%',
                         }}
@@ -70,48 +69,54 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             </div>
 
             {/* Right side */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
                 <button style={{
-                    background: 'none',
-                    border: '1px solid rgba(249, 115, 22, 0.2)',
-                    borderRadius: 10,
-                    padding: 8,
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    border: '1px solid var(--border-color)',
+                    borderRadius: 12,
+                    padding: 10,
                     cursor: 'pointer',
-                    color: '#F97316',
+                    color: 'var(--muted)',
                     position: 'relative',
                     transition: 'all 0.2s',
-                }}>
-                    <FiBell size={18} />
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--foreground)'; e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)' }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--muted)'; e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)' }}
+                >
+                    <FiBell size={20} />
                     <span style={{
                         position: 'absolute',
-                        top: 4,
-                        right: 4,
-                        width: 8,
-                        height: 8,
+                        top: -2,
+                        right: -2,
+                        width: 10,
+                        height: 10,
                         borderRadius: '50%',
-                        background: '#F97316',
+                        background: 'var(--danger)',
+                        border: '2px solid var(--background)'
                     }} />
                 </button>
+                
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 10,
-                    padding: '6px 14px',
-                    background: '#FFF7ED',
-                    borderRadius: 12,
-                    border: '1px solid rgba(249, 115, 22, 0.15)',
+                    gap: 12,
+                    padding: '6px 16px 6px 6px',
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    borderRadius: 100,
+                    border: '1px solid var(--border-color)',
+                    cursor: 'pointer'
                 }}>
                     <div style={{
-                        width: 30, height: 30, borderRadius: '50%',
-                        background: 'linear-gradient(135deg, #F97316, #F59E0B)',
+                        width: 34, height: 34, borderRadius: '50%',
+                        background: 'var(--gradient-primary)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: '#fff', fontWeight: 700, fontSize: '0.8rem',
+                        color: '#fff', fontWeight: 700, fontSize: '0.85rem',
                         fontFamily: "'Outfit', sans-serif",
                     }}>
                         {(user?.name?.charAt(0) || 'U').toUpperCase()}
                     </div>
-                    <span style={{ fontSize: '0.85rem', color: '#64748B', fontFamily: "'Inter', sans-serif" }}>
-                        Welcome, <span style={{ color: '#0F172A', fontWeight: 700 }}>{user?.name?.split(' ')[0] || 'User'}</span>
+                    <span style={{ fontSize: '0.9rem', color: 'var(--foreground)', fontWeight: 500 }}>
+                        {user?.name?.split(' ')[0] || 'Developer'}
                     </span>
                 </div>
             </div>

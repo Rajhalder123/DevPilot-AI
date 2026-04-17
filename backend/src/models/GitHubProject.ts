@@ -11,6 +11,9 @@ export interface IGitHubProject extends Document {
     forks: number;
     analysis: {
         overallScore: number;
+        readmeScore: number;
+        activityScore: number;
+        codeStructureScore: number;
         summary: string;
         codeQuality: string;
         architecture: string;
@@ -36,6 +39,9 @@ const githubProjectSchema = new Schema<IGitHubProject>(
         forks: { type: Number, default: 0 },
         analysis: {
             overallScore: { type: Number, default: 0 },
+            readmeScore: { type: Number, default: 0 },
+            activityScore: { type: Number, default: 0 },
+            codeStructureScore: { type: Number, default: 0 },
             summary: { type: String, default: '' },
             codeQuality: { type: String, default: '' },
             architecture: { type: String, default: '' },

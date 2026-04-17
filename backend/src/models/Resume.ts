@@ -13,6 +13,18 @@ export interface IResume extends Document {
         keywordGaps: string[];
         formattingTips: string[];
         atsScore: number;
+        // Enhanced analysis fields
+        sectionFeedback?: {
+            education: { score: number; feedback: string };
+            experience: { score: number; feedback: string };
+            projects: { score: number; feedback: string };
+            skills: { score: number; feedback: string };
+        };
+        bulletRewrites?: Array<{
+            original: string;
+            improved: string;
+            reason: string;
+        }>;
     } | null;
     status: 'uploaded' | 'analyzing' | 'completed' | 'failed';
     createdAt: Date;
@@ -33,6 +45,8 @@ const resumeSchema = new Schema<IResume>(
             keywordGaps: [{ type: String }],
             formattingTips: [{ type: String }],
             atsScore: { type: Number, default: 0 },
+            sectionFeedback: { type: Schema.Types.Mixed, default: undefined },
+            bulletRewrites: { type: Schema.Types.Mixed, default: undefined },
         },
         status: { type: String, enum: ['uploaded', 'analyzing', 'completed', 'failed'], default: 'uploaded' },
     },

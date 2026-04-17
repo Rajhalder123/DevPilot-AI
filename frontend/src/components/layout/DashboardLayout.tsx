@@ -24,7 +24,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: '#FFFFFF',
+                background: 'var(--background)',
             }}>
                 <div className="animate-pulse-glow" style={{
                     width: 32, height: 32, borderRadius: 8,
@@ -38,7 +38,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     if (!user) return null;
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh', background: '#F8FAFC' }}>
+        <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--background)' }}>
             <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="dashboard-main-content" style={{ flex: 1, marginLeft: 260, transition: 'margin 0.3s ease' }}>
                 <Navbar onMenuClick={() => setIsSidebarOpen(true)} />
