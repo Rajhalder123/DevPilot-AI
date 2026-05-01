@@ -151,7 +151,7 @@ export default function JobsPage() {
     };
 
     return (
-        <div>
+        <div style={{ maxWidth: 900, margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
                 <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 700, marginBottom: 4 }}>
                     Job <span className="gradient-text">Search</span>
@@ -171,7 +171,7 @@ export default function JobsPage() {
                 <div className="card" style={{ marginBottom: 20 }}>
                     {/* Main search bar with autocomplete */}
                     <div ref={searchRef} style={{ position: 'relative', marginBottom: 16 }}>
-                        <FiSearch size={18} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--muted)', zIndex: 2 }} />
+                        <FiSearch size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--muted)', zIndex: 2, pointerEvents: 'none' }} />
                         <input
                             className="input"
                             placeholder="Job title, skill, or keyword  (e.g. React Developer, Python, DevOps)"
@@ -284,7 +284,7 @@ export default function JobsPage() {
                             type="submit"
                             className="btn-primary"
                             disabled={loading}
-                            style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8, opacity: loading ? 0.7 : 1 }}
+                            style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8, opacity: loading ? 0.7 : 1, padding: '8px 20px', whiteSpace: 'nowrap' }}
                         >
                             <FiSearch size={15} />
                             {loading ? 'Searching...' : 'Search Jobs'}

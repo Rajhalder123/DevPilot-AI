@@ -5,17 +5,19 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
+import { ConversationProvider, useConversation } from '@/context/ConversationContext';
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
     const { user, loading } = useAuth();
     const router = useRouter();
+    const { currentConversationId, setCurrentConversationId } = useConversation();
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     useEffect(() => {
         if (!loading && !user) {
             router.push('/login');
         }
     }, [loading, user, router]);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     if (loading) {
         return (
@@ -38,14 +40,40 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     if (!user) return null;
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--background)' }}>
-            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-            <div className="dashboard-main-content" style={{ flex: 1, marginLeft: 260, transition: 'margin 0.3s ease' }}>
-                <Navbar onMenuClick={() => setIsSidebarOpen(true)} />
-                <main className="main-padding">
+        <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--background)' }}>
+            <Sidebar 
+                isOpen={isSidebarOpen} 
+                onClose={() => setIsSidebarOpen(!isSidebarOpen)} 
+                onSelectConversation={setCurrentConversationId}
+                currentConversationId={currentConversationId}
+            />
+            <div
+                className="dashboard-main-content"
+                style={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100vh',
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    marginLeft: isSidebarOpen ? '260px' : '0',
+                    width: isSidebarOpen ? 'calc(100% - 260px)' : '100%'
+                }}
+            >
+                <Navbar onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+                <main className="dashboard-container" style={{ flex: 1, minHeight: 0 }}>
                     {children}
                 </main>
             </div>
         </div>
+    );
+}
+
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+    return (
+        <ConversationProvider>
+            <DashboardLayoutContent>{children}</DashboardLayoutContent>
+        </ConversationProvider>
     );
 }

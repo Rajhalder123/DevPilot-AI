@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     FiMessageSquare, FiSend, FiPlay, FiStopCircle,
-    FiAward, FiMic, FiMicOff, FiVolume2, FiVolumeX, FiCpu
+    FiAward, FiMic, FiMicOff, FiVolume2, FiVolumeX, FiCpu, FiSettings
 } from 'react-icons/fi';
 import { useSocket } from '@/hooks/useSocket';
 import api from '@/lib/api';
@@ -215,20 +215,32 @@ export default function InterviewPage() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 128px)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 0, maxWidth: 900, margin: '0 auto', paddingBottom: 40 }}>
             {/* Header */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                style={{ marginBottom: 20 }}>
-                <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 700, marginBottom: 4 }}>
-                    Interview <span className="gradient-text">Simulator</span>
-                </h1>
-                <p style={{ color: 'var(--muted)', fontSize: '0.9rem' }}>
-                    Choose text practice with AI scoring, or talk live with Raj's Voice Assistant.
+                style={{ marginBottom: 32 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+                    <FiCpu size={28} color="var(--primary)" />
+                    <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '2rem', margin: 0 }}>
+                        Interview <span className="gradient-text">Simulator</span>
+                    </h1>
+                </div>
+                <p style={{ color: 'var(--muted)', fontSize: '1rem' }}>
+                    Choose text practice with AI scoring, or talk live with <span style={{ fontWeight: 700, color: 'var(--foreground)' }}>DevPilot AI Voice Assistant</span>.
                 </p>
             </motion.div>
 
-            {/* Tab switcher */}
-            <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+            {/* Premium Tab switcher */}
+            <div style={{ 
+                display: 'flex', 
+                gap: 8, 
+                marginBottom: 32, 
+                padding: '6px', 
+                background: 'rgba(0,0,0,0.03)', 
+                border: '1px solid var(--border-color)', 
+                borderRadius: 16, 
+                width: 'fit-content' 
+            }}>
                 {TABS.map(tab => (
                     <motion.button
                         key={tab.id}
@@ -236,14 +248,20 @@ export default function InterviewPage() {
                         whileTap={{ scale: 0.97 }}
                         onClick={() => { setActiveTab(tab.id as any); window.speechSynthesis?.cancel(); }}
                         style={{
-                            padding: '10px 22px', borderRadius: 12, cursor: 'pointer',
-                            fontSize: '0.88rem', fontWeight: 600, transition: 'all 0.2s',
-                            background: activeTab === tab.id ? 'var(--gradient-primary)' : 'var(--card)',
-                            color: activeTab === tab.id ? '#fff' : 'var(--muted)',
-                            boxShadow: activeTab === tab.id ? '0 4px 16px rgba(108,92,231,0.35)' : 'none',
-                            border: activeTab === tab.id ? 'none' : '1px solid var(--border-color)',
+                            padding: '10px 24px', 
+                            borderRadius: 12, 
+                            cursor: 'pointer',
+                            fontSize: '0.9rem', 
+                            fontWeight: 700, 
+                            transition: 'all 0.2s',
+                            background: activeTab === tab.id ? '#fff' : 'transparent',
+                            color: activeTab === tab.id ? 'var(--primary)' : 'var(--muted)',
+                            boxShadow: activeTab === tab.id ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
+                            border: 'none',
                         } as any}
-                    >{tab.label}</motion.button>
+                    >
+                        {tab.label}
+                    </motion.button>
                 ))}
             </div>
 
@@ -253,27 +271,87 @@ export default function InterviewPage() {
                     <motion.div key="text" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
                         style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
                         {!sessionId ? (
-                            <motion.div className="card" style={{ maxWidth: 520 }}>
-                                <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <FiPlay size={18} color="var(--accent)" /> Configure Your Interview
-                                </h3>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                                    <div>
-                                        <label style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: 6, display: 'block' }}>Topic</label>
-                                        <input className="input" placeholder="e.g. React, System Design, Data Structures..." value={topic} onChange={e => setTopic(e.target.value)} />
+                            <motion.div 
+                                style={{ 
+                                    maxWidth: 600, 
+                                    width: '100%',
+                                    background: 'rgba(255, 255, 255, 0.5)',
+                                    backdropFilter: 'blur(10px)',
+                                    border: '1px solid var(--border-color)', 
+                                    borderRadius: 24,
+                                    padding: 32,
+                                    boxShadow: '0 20px 40px rgba(0,0,0,0.02)'
+                                }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
+                                    <div style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(79, 70, 229, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <FiSettings size={20} color="var(--primary)" />
                                     </div>
-                                    <div className="responsive-grid-2" style={{ display: 'grid', gap: 16 }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800 }}>Configure Your Interview</h3>
+                                </div>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+                                    <div>
+                                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--muted)', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                            Interview Topic
+                                        </label>
+                                        <input
+                                            style={{
+                                                width: '100%',
+                                                padding: '14px 18px',
+                                                borderRadius: 14,
+                                                border: '1px solid var(--border-color)',
+                                                background: '#fff',
+                                                fontSize: '1rem',
+                                                outline: 'none',
+                                                transition: 'all 0.2s',
+                                            }}
+                                            onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.boxShadow = '0 0 0 4px rgba(79, 70, 229, 0.1)'; }}
+                                            onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--border-color)'; e.currentTarget.style.boxShadow = 'none'; }}
+                                            placeholder="e.g. React, System Design, Data Structures..." 
+                                            value={topic} onChange={e => setTopic(e.target.value)} 
+                                        />
+                                    </div>
+
+                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
                                         <div>
-                                            <label style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: 6, display: 'block' }}>Difficulty</label>
-                                            <select className="input" value={difficulty} onChange={e => setDifficulty(e.target.value)} style={{ cursor: 'pointer' }}>
+                                            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--muted)', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                                Difficulty
+                                            </label>
+                                            <select 
+                                                style={{
+                                                    width: '100%',
+                                                    padding: '14px 18px',
+                                                    borderRadius: 14,
+                                                    border: '1px solid var(--border-color)',
+                                                    background: '#fff',
+                                                    fontSize: '0.95rem',
+                                                    outline: 'none',
+                                                    cursor: 'pointer'
+                                                }}
+                                                value={difficulty} onChange={e => setDifficulty(e.target.value)}
+                                            >
                                                 <option value="easy">Easy</option>
                                                 <option value="medium">Medium</option>
                                                 <option value="hard">Hard</option>
                                             </select>
                                         </div>
                                         <div>
-                                            <label style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: 6, display: 'block' }}>Type</label>
-                                            <select className="input" value={type} onChange={e => setType(e.target.value)} style={{ cursor: 'pointer' }}>
+                                            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--muted)', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                                Type
+                                            </label>
+                                            <select 
+                                                style={{
+                                                    width: '100%',
+                                                    padding: '14px 18px',
+                                                    borderRadius: 14,
+                                                    border: '1px solid var(--border-color)',
+                                                    background: '#fff',
+                                                    fontSize: '0.95rem',
+                                                    outline: 'none',
+                                                    cursor: 'pointer'
+                                                }}
+                                                value={type} onChange={e => setType(e.target.value)}
+                                            >
                                                 <option value="technical">Technical</option>
                                                 <option value="behavioral">Behavioral</option>
                                                 <option value="system-design">System Design</option>
@@ -283,27 +361,53 @@ export default function InterviewPage() {
                                     </div>
 
                                     {/* TTS toggle */}
-                                    <div onClick={() => setTtsEnabled(p => !p)} style={{
-                                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                                        padding: '10px 14px', borderRadius: 10, cursor: 'pointer',
-                                        border: `1px solid ${ttsEnabled ? 'var(--primary)' : 'var(--border-color)'}`,
-                                        background: ttsEnabled ? 'rgba(108,92,231,0.06)' : 'transparent',
-                                    }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                            {ttsEnabled ? <FiVolume2 size={15} color="var(--accent)" /> : <FiVolumeX size={15} color="var(--muted)" />}
-                                            <span style={{ fontSize: '0.85rem', color: ttsEnabled ? 'var(--accent)' : 'var(--muted)' }}>
-                                                AI reads responses aloud
-                                            </span>
+                                    <div 
+                                        onClick={() => setTtsEnabled(p => !p)} 
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            padding: '16px 20px',
+                                            background: 'rgba(79, 70, 229, 0.04)',
+                                            borderRadius: 16,
+                                            border: '1px solid rgba(79, 70, 229, 0.1)',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                            <FiVolume2 size={18} color="var(--primary)" />
+                                            <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>AI reads responses aloud</span>
                                         </div>
-                                        <div style={{ width: 36, height: 20, borderRadius: 10, background: ttsEnabled ? 'var(--primary)' : 'var(--border-color)', position: 'relative', transition: 'background 0.2s' }}>
-                                            <div style={{ width: 14, height: 14, borderRadius: '50%', background: '#fff', position: 'absolute', top: 3, left: ttsEnabled ? 19 : 3, transition: 'left 0.2s' }} />
+                                        <div style={{ width: 44, height: 24, borderRadius: 20, background: ttsEnabled ? 'var(--primary)' : 'rgba(0,0,0,0.1)', position: 'relative', transition: 'background 0.2s' }}>
+                                            <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#fff', position: 'absolute', top: 2, left: ttsEnabled ? 22 : 2, transition: 'left 0.2s' }} />
                                         </div>
                                     </div>
 
-                                    <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="btn-primary"
-                                        onClick={startInterview} disabled={starting || !topic.trim()}
-                                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: starting ? 0.7 : 1 }}>
-                                        <FiPlay size={16} /> {starting ? 'Starting...' : 'Start Interview'}
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        onClick={startInterview}
+                                        disabled={starting || !topic.trim()}
+                                        style={{
+                                            width: '100%',
+                                            padding: '16px',
+                                            borderRadius: 14,
+                                            border: 'none',
+                                            background: 'var(--gradient-primary)',
+                                            color: '#fff',
+                                            fontSize: '1rem',
+                                            fontWeight: 700,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: 12,
+                                            cursor: 'pointer',
+                                            boxShadow: 'var(--glow-primary)',
+                                            opacity: starting || !topic.trim() ? 0.7 : 1
+                                        }}
+                                    >
+                                        <FiPlay size={18} />
+                                        {starting ? 'Preparing Session...' : 'Start Virtual Interview'}
                                     </motion.button>
                                 </div>
                             </motion.div>
@@ -399,57 +503,141 @@ export default function InterviewPage() {
                         style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, alignItems: 'center' }}>
 
                         {!vaActive ? (
-                            /* Activation screen */
-                            <motion.div animate={{ opacity: 1 }} style={{ textAlign: 'center', paddingTop: 40 }}>
-                                {/* Orb */}
-                                <motion.div
-                                    animate={{ scale: [1, 1.06, 1], boxShadow: ['0 0 30px rgba(108,92,231,0.3)', '0 0 60px rgba(108,92,231,0.5)', '0 0 30px rgba(108,92,231,0.3)'] }}
-                                    transition={{ repeat: Infinity, duration: 2.5 }}
-                                    style={{ width: 120, height: 120, borderRadius: '50%', background: 'var(--gradient-primary)', margin: '0 auto 24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <FiMic size={48} color="#fff" />
-                                </motion.div>
-                                <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.4rem', marginBottom: 8 }}>
-                                    Raj's <span className="gradient-text">AI Voice Assistant</span>
+                            /* Premium Activation screen */
+                            <motion.div animate={{ opacity: 1 }} style={{ textAlign: 'center', paddingTop: 60, maxWidth: 500 }}>
+                                {/* Siri-style Neural Animation */}
+                                <div style={{ position: 'relative', width: 180, height: 180, margin: '0 auto 32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    {/* Rotating Outer Ring */}
+                                    <motion.div
+                                        animate={{ rotate: 360 }}
+                                        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                                        style={{
+                                            position: 'absolute', inset: 0,
+                                            borderRadius: '50%',
+                                            border: '2px dashed rgba(79, 70, 229, 0.2)',
+                                        }}
+                                    />
+                                    {/* Pulsating Middle Ring */}
+                                    <motion.div
+                                        animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.6, 0.3] }}
+                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                        style={{
+                                            position: 'absolute', inset: 20,
+                                            borderRadius: '50%',
+                                            background: 'radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%)',
+                                            border: '1px solid rgba(124, 58, 237, 0.2)',
+                                        }}
+                                    />
+                                    {/* Central Energy Core */}
+                                    <motion.div
+                                        animate={{ 
+                                            scale: [1, 1.1, 1], 
+                                            boxShadow: [
+                                                '0 0 40px rgba(79, 70, 229, 0.3)', 
+                                                '0 0 80px rgba(124, 58, 237, 0.6)', 
+                                                '0 0 40px rgba(79, 70, 229, 0.3)'
+                                            ] 
+                                        }}
+                                        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                                        style={{ 
+                                            width: 100, height: 100, borderRadius: '50%', 
+                                            background: 'var(--gradient-primary)', 
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            position: 'relative', zIndex: 2,
+                                            boxShadow: '0 0 40px rgba(79, 70, 229, 0.4)'
+                                        }}>
+                                        <FiMic size={40} color="#fff" style={{ 
+                                            position: 'relative', 
+                                            zIndex: 3,
+                                            filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.4))'
+                                        }} />
+                                    </motion.div>
+                                    
+                                    {/* Orbiting Particles */}
+                                    {[0, 72, 144, 216, 288].map((angle, i) => (
+                                        <motion.div
+                                            key={i}
+                                            animate={{ rotate: 360 }}
+                                            transition={{ duration: 4 + i, repeat: Infinity, ease: "linear" }}
+                                            style={{
+                                                position: 'absolute', inset: 0,
+                                                display: 'flex', justifyContent: 'center', alignItems: 'flex-start'
+                                            }}
+                                        >
+                                            <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--primary)', boxShadow: '0 0 10px var(--primary)', marginTop: -3 }} />
+                                        </motion.div>
+                                    ))}
+                                </div>
+                                
+                                <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.8rem', marginBottom: 12 }}>
+                                    DevPilot <span className="gradient-text">Voice Intelligence</span>
                                 </h2>
-                                <p style={{ color: 'var(--muted)', fontSize: '0.9rem', maxWidth: 380, margin: '0 auto 28px' }}>
-                                    Talk directly with an AI that helps you prepare for interviews, answers your questions, and gives real-time feedback — all in a natural female voice.
+                                <p style={{ color: 'var(--muted)', fontSize: '1.05rem', lineHeight: 1.6, marginBottom: 32 }}>
+                                    Experience a natural, AI-driven conversation. Get real-time feedback on your tone, content, and confidence.
                                 </p>
+                                
                                 {voiceSupported ? (
-                                    <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} className="btn-primary"
+                                    <motion.button 
+                                        whileHover={{ scale: 1.05, boxShadow: '0 10px 25px rgba(79, 70, 229, 0.3)' }} 
+                                        whileTap={{ scale: 0.95 }} 
+                                        className="btn-primary"
                                         onClick={activateVoiceAssistant}
-                                        style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 32px', fontSize: '1rem' }}>
-                                        <FiMic size={18} /> Activate Voice Assistant
+                                        style={{ 
+                                            display: 'inline-flex', alignItems: 'center', gap: 12, 
+                                            padding: '16px 40px', fontSize: '1.1rem', borderRadius: 100 
+                                        }}>
+                                        <FiMic size={20} /> Initialize Neural Link
                                     </motion.button>
                                 ) : (
-                                    <p style={{ color: 'var(--danger)', fontSize: '0.85rem' }}>
-                                        ⚠️ Voice requires Chrome or Edge browser
-                                    </p>
+                                    <div style={{ padding: '16px', background: 'rgba(244, 63, 94, 0.05)', borderRadius: 12, border: '1px solid rgba(244, 63, 94, 0.1)' }}>
+                                        <p style={{ color: 'var(--danger)', fontSize: '0.9rem', margin: 0, fontWeight: 600 }}>
+                                            ⚠️ Voice features require a modern browser (Chrome/Edge).
+                                        </p>
+                                    </div>
                                 )}
                             </motion.div>
                         ) : (
                             /* Active voice assistant UI */
-                            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, width: '100%', maxWidth: 680 }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, width: '100%', maxWidth: 700 }}>
                                 {/* AI Avatar + speaking indicator */}
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: 20 }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: 40 }}>
                                     <motion.div
                                         animate={vaSpeaking ? {
-                                            scale: [1, 1.12, 1],
-                                            boxShadow: ['0 0 20px rgba(108,92,231,0.4)', '0 0 50px rgba(108,92,231,0.7)', '0 0 20px rgba(108,92,231,0.4)'],
+                                            scale: [1, 1.15, 1],
+                                            boxShadow: ['0 0 30px rgba(79, 70, 229, 0.4)', '0 0 60px rgba(79, 70, 229, 0.7)', '0 0 30px rgba(79, 70, 229, 0.4)'],
                                         } : vaListening ? {
-                                            scale: [1, 1.06, 1],
-                                            boxShadow: ['0 0 20px rgba(231,76,60,0.4)', '0 0 40px rgba(231,76,60,0.6)', '0 0 20px rgba(231,76,60,0.4)'],
+                                            scale: [1, 1.08, 1],
+                                            boxShadow: ['0 0 25px rgba(244, 63, 94, 0.4)', '0 0 50px rgba(244, 63, 94, 0.6)', '0 0 25px rgba(244, 63, 94, 0.4)'],
                                         } : {}}
-                                        transition={{ repeat: Infinity, duration: 1.2 }}
-                                        style={{ width: 72, height: 72, borderRadius: '50%', background: vaListening ? 'linear-gradient(135deg, #e74c3c, #c0392b)' : 'var(--gradient-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
-                                        {vaListening ? <FiMicOff size={28} color="#fff" /> : <FiMic size={28} color="#fff" />}
+                                        transition={{ repeat: Infinity, duration: 1 }}
+                                        style={{ 
+                                            width: 88, height: 88, borderRadius: '50%', 
+                                            background: vaListening ? 'linear-gradient(135deg, #F43F5E, #E11D48)' : 'var(--gradient-primary)', 
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                                            marginBottom: 16, border: '4px solid #fff', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' 
+                                        }}>
+                                        {vaListening ? (
+                                            <FiMicOff size={32} color="#fff" style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.4))' }} />
+                                        ) : (
+                                            <FiMic size={32} color="#fff" style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.4))' }} />
+                                        )}
                                     </motion.div>
-                                    <div style={{ fontSize: '0.82rem', color: 'var(--muted)', height: 20 }}>
-                                        {vaSpeaking ? '🔊 Speaking...' : vaListening ? '🔴 Listening...' : vaSending ? '⏳ Thinking...' : "Click 🎤 to speak"}
+                                    <div style={{ 
+                                        fontSize: '0.95rem', 
+                                        fontWeight: 700, 
+                                        color: vaListening ? '#F43F5E' : 'var(--primary)',
+                                        letterSpacing: '0.5px',
+                                        textTransform: 'uppercase'
+                                    }}>
+                                        {vaSpeaking ? '🔊 AI Speaking...' : vaListening ? '🔴 Listening...' : vaSending ? '⏳ Analyzing...' : "Voice Active"}
                                     </div>
                                 </div>
 
-                                {/* Conversation */}
-                                <div style={{ flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column', gap: 14, paddingRight: 6 }}>
+                                {/* Voice Transcription area */}
+                                <div style={{ 
+                                    flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column', gap: 20, 
+                                    padding: '24px', background: 'rgba(0,0,0,0.02)', borderRadius: 24, border: '1px solid var(--border-color)' 
+                                }}>
                                     {vaMessages.map((msg, i) => (
                                         <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
                                             style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start', alignItems: 'flex-end', gap: 8 }}>

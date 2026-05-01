@@ -20,7 +20,7 @@ export default function SignupPage() {
         e.preventDefault();
         setError('');
         if (password.length < 6) {
-            setError('Key must specify at least 6 characters');
+            setError('Password must be at least 6 characters');
             return;
         }
         setLoading(true);
@@ -38,90 +38,156 @@ export default function SignupPage() {
 
     return (
         <div style={{
-            minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            padding: 24, background: '#0F172A', color: '#F8FAFC', fontFamily: "'Inter', sans-serif"
+            minHeight: '100vh', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            padding: 24, 
+            background: '#fff', 
+            color: '#1e293b', 
+            fontFamily: "'Inter', sans-serif",
+            position: 'relative',
+            overflow: 'hidden'
         }}>
+            {/* Background Glows (Matching Landing Page) */}
+            <div style={{ position: 'absolute', bottom: '10%', right: '50%', transform: 'translateX(50%)', width: 600, height: 600, background: 'rgba(124, 58, 237, 0.08)', borderRadius: '50%', filter: 'blur(100px)', pointerEvents: 'none' }} />
+            
             <motion.div
-                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 20 }} 
+                animate={{ opacity: 1, y: 0 }}
                 style={{
-                    width: '100%', maxWidth: 400, background: '#1E293B', padding: '40px', borderRadius: '8px', 
-                    border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                    width: '100%', 
+                    maxWidth: 440, 
+                    background: 'rgba(255, 255, 255, 0.8)', 
+                    backdropFilter: 'blur(16px)',
+                    padding: '48px', 
+                    borderRadius: '32px', 
+                    border: '1px solid rgba(79, 70, 229, 0.1)', 
+                    boxShadow: '0 25px 50px -12px rgba(79, 70, 229, 0.1)',
+                    position: 'relative',
+                    zIndex: 1
                 }}
             >
                 <div style={{ textAlign: 'center', marginBottom: 32 }}>
-                    <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 24 }}>
-                        <div style={{ width: 32, height: 32, borderRadius: 6, background: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <FiZap size={18} color="#fff" />
+                    <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                        <div style={{ width: 40, height: 40, borderRadius: 12, background: 'linear-gradient(to bottom right, #3b82f6, #9333ea)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 10px 20px rgba(59, 130, 246, 0.2)' }}>
+                            <FiZap size={22} color="#fff" />
                         </div>
-                        <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.2rem', fontWeight: 800, color: '#F8FAFC', letterSpacing: '-0.5px' }}>
-                            DevPilot <span style={{ color: '#38BDF8' }}>AI</span>
+                        <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 800, color: '#1e293b', letterSpacing: '-0.5px' }}>
+                            DevPilot <span className="gradient-text">AI</span>
                         </span>
                     </Link>
-                    <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 800, marginBottom: 8, color: '#F8FAFC' }}>Register Instance</h1>
-                    <p style={{ color: '#94A3B8', fontSize: '0.9rem' }}>Initialize your DevPilot AI terminal record.</p>
+                    <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 800, marginBottom: 8 }}>Create Account</h1>
+                    <p style={{ color: '#64748b', fontSize: '0.95rem' }}>Join the next generation of career intelligence.</p>
                 </div>
 
                 <div>
+                    {/* GitHub Signup Button */}
                     <a href={`${API_URL}/auth/github`} style={{ textDecoration: 'none' }}>
                         <button style={{
-                            width: '100%', padding: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 24,
-                            background: '#0F172A', color: '#E2E8F0', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 4, fontSize: 14, fontWeight: 600, cursor: 'pointer'
-                        }}>
-                            <FiGithub size={18} /> Authenticate via GitHub
+                            width: '100%', padding: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 20,
+                            background: '#fff', color: '#1e293b', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 100, fontSize: 15, fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = '#f8fafc'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = '#fff'}
+                        >
+                            <FiGithub size={20} /> Sign up with GitHub
                         </button>
                     </a>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
-                        <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.05)' }} />
-                        <span style={{ fontSize: '0.75rem', color: '#64748B', fontFamily: 'monospace' }}>OR MANUAL</span>
-                        <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.05)' }} />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
+                        <div style={{ flex: 1, height: 1, background: 'rgba(0,0,0,0.05)' }} />
+                        <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 700, textTransform: 'uppercase' }}>or register manually</span>
+                        <div style={{ flex: 1, height: 1, background: 'rgba(0,0,0,0.05)' }} />
                     </div>
 
                     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                         {error && (
-                            <div style={{ background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: 4, padding: '12px', fontSize: '0.85rem', color: '#EF4444' }}>
+                            <div style={{ background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.1)', borderRadius: 12, padding: '12px', fontSize: '0.9rem', color: '#EF4444', fontWeight: 500 }}>
                                 {error}
                             </div>
                         )}
 
                         <div>
-                            <label style={{ fontSize: '0.8rem', color: '#94A3B8', marginBottom: 8, display: 'block', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>Full Name</label>
+                            <label style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: 6, display: 'block', fontWeight: 700 }}>Full Name</label>
                             <div style={{ position: 'relative' }}>
-                                <FiUser size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#64748B' }} />
-                                <input type="text" placeholder="Jane Doe" value={name} onChange={(e) => setName(e.target.value)} required 
-                                    style={{ width: '100%', padding: '12px 12px 12px 40px', background: '#0F172A', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 4, color: '#F8FAFC', outline: 'none', fontSize: 14 }}
+                                <FiUser size={18} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                                <input 
+                                    type="text" 
+                                    placeholder="Enter your name" 
+                                    value={name} 
+                                    onChange={(e) => setName(e.target.value)} 
+                                    required 
+                                    style={{ width: '100%', padding: '12px 12px 12px 48px', background: 'rgba(0,0,0,0.03)', border: '1px solid rgba(0,0,0,0.05)', borderRadius: 14, color: '#1e293b', outline: 'none', fontSize: 15, transition: 'all 0.2s' }}
+                                    onFocus={(e) => { e.target.style.background = '#fff'; e.target.style.borderColor = '#3b82f6'; e.target.style.boxShadow = '0 0 0 4px rgba(59, 130, 246, 0.1)' }}
+                                    onBlur={(e) => { e.target.style.background = 'rgba(0,0,0,0.03)'; e.target.style.borderColor = 'rgba(0,0,0,0.05)'; e.target.style.boxShadow = 'none' }}
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label style={{ fontSize: '0.8rem', color: '#94A3B8', marginBottom: 8, display: 'block', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>Identifier</label>
+                            <label style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: 6, display: 'block', fontWeight: 700 }}>Email Address</label>
                             <div style={{ position: 'relative' }}>
-                                <FiMail size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#64748B' }} />
-                                <input type="email" placeholder="you@domain.com" value={email} onChange={(e) => setEmail(e.target.value)} required 
-                                    style={{ width: '100%', padding: '12px 12px 12px 40px', background: '#0F172A', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 4, color: '#F8FAFC', outline: 'none', fontSize: 14 }}
+                                <FiMail size={18} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                                <input 
+                                    type="email" 
+                                    placeholder="name@company.com" 
+                                    value={email} 
+                                    onChange={(e) => setEmail(e.target.value)} 
+                                    required 
+                                    style={{ width: '100%', padding: '12px 12px 12px 48px', background: 'rgba(0,0,0,0.03)', border: '1px solid rgba(0,0,0,0.05)', borderRadius: 14, color: '#1e293b', outline: 'none', fontSize: 15, transition: 'all 0.2s' }}
+                                    onFocus={(e) => { e.target.style.background = '#fff'; e.target.style.borderColor = '#3b82f6'; e.target.style.boxShadow = '0 0 0 4px rgba(59, 130, 246, 0.1)' }}
+                                    onBlur={(e) => { e.target.style.background = 'rgba(0,0,0,0.03)'; e.target.style.borderColor = 'rgba(0,0,0,0.05)'; e.target.style.boxShadow = 'none' }}
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label style={{ fontSize: '0.8rem', color: '#94A3B8', marginBottom: 8, display: 'block', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>Access Key</label>
+                            <label style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: 6, display: 'block', fontWeight: 700 }}>Password</label>
                             <div style={{ position: 'relative' }}>
-                                <FiLock size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#64748B' }} />
-                                <input type="password" placeholder="Min 6 length" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6}
-                                    style={{ width: '100%', padding: '12px 12px 12px 40px', background: '#0F172A', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 4, color: '#F8FAFC', outline: 'none', fontSize: 14 }}
+                                <FiLock size={18} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                                <input 
+                                    type="password" 
+                                    placeholder="Min. 6 characters" 
+                                    value={password} 
+                                    onChange={(e) => setPassword(e.target.value)} 
+                                    required 
+                                    style={{ width: '100%', padding: '12px 12px 12px 48px', background: 'rgba(0,0,0,0.03)', border: '1px solid rgba(0,0,0,0.05)', borderRadius: 14, color: '#1e293b', outline: 'none', fontSize: 15, transition: 'all 0.2s' }}
+                                    onFocus={(e) => { e.target.style.background = '#fff'; e.target.style.borderColor = '#3b82f6'; e.target.style.boxShadow = '0 0 0 4px rgba(59, 130, 246, 0.1)' }}
+                                    onBlur={(e) => { e.target.style.background = 'rgba(0,0,0,0.03)'; e.target.style.borderColor = 'rgba(0,0,0,0.05)'; e.target.style.boxShadow = 'none' }}
                                 />
                             </div>
                         </div>
 
-                        <button type="submit" disabled={loading} style={{ marginTop: 8, padding: '12px', background: '#2563EB', color: '#fff', border: 'none', borderRadius: 4, fontSize: 14, fontWeight: 600, cursor: 'pointer', opacity: loading ? 0.7 : 1 }}>
-                            {loading ? 'Registering...' : 'Execute Registration'}
+                        <button 
+                            type="submit" 
+                            disabled={loading} 
+                            style={{ 
+                                marginTop: 8, 
+                                padding: '16px', 
+                                background: 'linear-gradient(to right, #7c3aed, #3b82f6)', 
+                                color: '#fff', 
+                                border: 'none', 
+                                borderRadius: 100, 
+                                fontSize: 16, 
+                                fontWeight: 700, 
+                                cursor: 'pointer', 
+                                opacity: loading ? 0.7 : 1,
+                                boxShadow: '0 10px 20px rgba(124, 58, 237, 0.2)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: 10
+                            }}
+                        >
+                            {loading ? 'Creating Account...' : <><FiZap /> Get Started Free</>}
                         </button>
                     </form>
                 </div>
 
-                <p style={{ textAlign: 'center', marginTop: 32, fontSize: '0.85rem', color: '#94A3B8' }}>
-                    Already have access? <Link href="/login" style={{ color: '#38BDF8', textDecoration: 'none', fontWeight: 600 }}>Authenticate here</Link>
+                <p style={{ textAlign: 'center', marginTop: 32, fontSize: '0.95rem', color: '#64748b' }}>
+                    Already have an account? <Link href="/login" style={{ color: '#3b82f6', textDecoration: 'none', fontWeight: 700 }}>Log in here</Link>
                 </p>
             </motion.div>
         </div>

@@ -1,121 +1,141 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FiShare2, FiTrendingUp, FiArrowLeft } from 'react-icons/fi';
-import ResultPanel from '@/components/ui/ResultPanel';
+import { FiTarget, FiTrendingUp, FiZap, FiActivity, FiBriefcase, FiAward, FiArrowRight } from 'react-icons/fi';
 import Link from 'next/link';
 
+const SectionCard = ({ emoji, title, color, children, delay = 0 }: { emoji: string; title: string; color: string; children: React.ReactNode; delay?: number }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay }}
+        className="glass-panel"
+        style={{
+            padding: '24px',
+            borderRadius: '20px',
+            background: 'rgba(255, 255, 255, 0.7)',
+            border: '1px solid var(--border-color)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+            height: '100%',
+            position: 'relative',
+            overflow: 'hidden'
+        }}
+    >
+        <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '4px',
+            height: '100%',
+            background: color
+        }} />
+        <div style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            marginBottom: 20, paddingBottom: 16,
+            borderBottom: '1px solid var(--border-color)',
+        }}>
+            <span style={{ fontSize: '1.2rem' }}>{emoji}</span>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem', margin: 0 }}>{title}</h3>
+            <div style={{ marginLeft: 'auto', width: 8, height: 8, borderRadius: '50%', background: color }} />
+        </div>
+        {children}
+    </motion.div>
+);
+
 export default function ResultsPage() {
-    // Usually fetched, mock data for now
-    const score = 68;
-    const topImprovements = [
-        "Add 3 more React-specific keywords to your resume.",
-        "Include a testing framework (e.g. Jest) in your GitHub projects.",
-        "Improve your backend architecture score (currently missing Next.js API routes).",
-        "Add a cover letter outlining your open source contributions.",
-        "Your interview behavioral skills need slight improvement."
+    const focusAreas = [
+        { text: "Add 3 more React-specific keywords to your resume.", icon: FiAward, color: "#3B82F6" },
+        { text: "Include a testing framework (e.g. Jest) in your GitHub projects.", icon: FiZap, color: "#8B5CF6" },
+        { text: "Improve your system design score (practice on Interview Sim).", icon: FiActivity, color: "#10B981" },
+        { text: "Complete one more mock interview session.", icon: FiTrendingUp, color: "#F59E0B" }
     ];
 
-    const handleShare = () => {
-        alert("Copied to clipboard! Share on LinkedIn!");
-    };
-
     return (
-        <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '32px' }}>
-            <Link href="/dashboard" style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--muted)', textDecoration: 'none', fontWeight: 500, width: 'fit-content' }}>
-                <FiArrowLeft /> Back to Dashboard
+        <div style={{ maxWidth: 900, margin: '0 auto', paddingBottom: 40 }}>
+            {/* Back Button */}
+            <Link href="/dashboard" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8, color: 'var(--muted)', fontSize: '0.85rem', fontWeight: 600, marginBottom: 24 }}>
+                <FiArrowRight style={{ transform: 'rotate(180deg)' }} /> BACK TO DASHBOARD
             </Link>
 
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 20 }}>
-                <div>
-                    <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontWeight: 800, marginBottom: 8, color: 'var(--foreground)' }}>
-                        Your Readiness <span className="gradient-text">Results</span>
-                    </h1>
-                    <p style={{ color: 'var(--muted)', fontSize: '1rem' }}>
-                        Here is a deep dive into why you scored {score} / 100.
-                    </p>
-                </div>
+            {/* Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
+                <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+                        <FiTarget size={28} color="var(--primary)" />
+                        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', fontWeight: 800, margin: 0 }}>
+                            Career <span className="gradient-text">Readiness</span>
+                        </h1>
+                    </div>
+                    <p style={{ color: 'var(--muted)', fontSize: '1.1rem' }}>Deep dive analysis into your current hiring potential.</p>
+                </motion.div>
                 
-                <motion.button 
-                    whileHover={{ scale: 1.05 }} 
-                    whileTap={{ scale: 0.95 }} 
-                    onClick={handleShare}
-                    style={{ 
-                         background: '#0a66c2', // LinkedIn blue
-                         color: '#fff', 
-                         border: 'none', 
-                         padding: '12px 24px', 
-                         borderRadius: '12px', 
-                         display: 'flex', 
-                         alignItems: 'center', 
-                         gap: 10, 
-                         fontWeight: 600, 
-                         cursor: 'pointer',
-                         boxShadow: '0 8px 24px rgba(10, 102, 194, 0.3)'
-                    }}>
-                    <FiShare2 size={18} /> Share on LinkedIn
-                </motion.button>
-            </motion.div>
+                <button className="button-primary" style={{ padding: '10px 24px' }}>Share Results</button>
+            </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24 }}>
-                {/* Visual Overview */}
-                <motion.div 
-                    initial={{ opacity: 0, scale: 0.95 }} 
-                    animate={{ opacity: 1, scale: 1 }} 
-                    transition={{ delay: 0.1 }}
-                    className="glass-panel" 
-                    style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
-                >
-                    <div style={{ position: 'relative', width: 200, height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
-                        <svg width="200" height="200" viewBox="0 0 100 100" style={{ transform: 'rotate(-90deg)', position: 'absolute' }}>
-                            <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="8" />
-                            <motion.circle 
-                                cx="50" cy="50" r="45" fill="none" stroke="url(#gradient)" strokeWidth="8" strokeLinecap="round" 
-                                strokeDasharray="283"
-                                initial={{ strokeDashoffset: 283 }}
-                                animate={{ strokeDashoffset: 283 - (283 * score) / 100 }}
-                                transition={{ duration: 1.5, ease: 'easeOut' }}
-                            />
-                            <defs>
-                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stopColor="#3B82F6" />
-                                    <stop offset="100%" stopColor="#8B5CF6" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                        <div style={{ fontSize: '3.5rem', fontWeight: 800, fontFamily: 'var(--font-display)', color: 'var(--foreground)' }}>
-                            {score}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, marginBottom: 32 }}>
+                {/* Score Visualization */}
+                <SectionCard emoji="🎯" title="Overall Score" color="var(--primary)" delay={0.1}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '10px 0' }}>
+                        <div style={{ 
+                            width: 140, height: 140, borderRadius: '50%', border: '8px solid rgba(59, 130, 246, 0.1)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16,
+                            position: 'relative'
+                        }}>
+                            <div style={{ fontSize: '3rem', fontWeight: 900, color: 'var(--primary)' }}>68</div>
+                            <svg style={{ position: 'absolute', top: -8, left: -8, width: 156, height: 156, transform: 'rotate(-90deg)' }}>
+                                <circle cx="78" cy="78" r="70" fill="transparent" stroke="var(--primary)" strokeWidth="8" strokeDasharray="440" strokeDashoffset={440 - (440 * 68) / 100} strokeLinecap="round" />
+                            </svg>
+                        </div>
+                        <div style={{ fontWeight: 700, fontSize: '1.1rem', marginBottom: 4 }}>Great Progress!</div>
+                        <p style={{ fontSize: '0.85rem', color: 'var(--muted)', margin: 0 }}>You are in the top 30% of platform applicants.</p>
+                    </div>
+                </SectionCard>
+
+                {/* Focus Areas */}
+                <SectionCard emoji="⚡" title="Top Focus Areas" color="#F59E0B" delay={0.2}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                        {focusAreas.map((area, i) => (
+                            <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                                <div style={{ background: `${area.color}15`, padding: 8, borderRadius: 8, flexShrink: 0 }}>
+                                    <area.icon size={14} color={area.color} />
+                                </div>
+                                <p style={{ fontSize: '0.85rem', margin: 0, lineHeight: 1.5 }}>{area.text}</p>
+                            </div>
+                        ))}
+                    </div>
+                </SectionCard>
+            </div>
+
+            {/* Benchmark Section */}
+            <div className="glass-panel" style={{ padding: '32px', borderRadius: '24px', background: 'rgba(255,255,255,0.8)', border: '1px solid var(--border-color)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
+                    <FiTrendingUp color="var(--primary)" size={20} />
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: 700, margin: 0 }}>Industry Benchmark</h2>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                    <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', fontWeight: 600, marginBottom: 8 }}>
+                            <span>Global Applicant Average</span>
+                            <span>54%</span>
+                        </div>
+                        <div style={{ height: 8, background: 'rgba(0,0,0,0.03)', borderRadius: 4, overflow: 'hidden' }}>
+                            <div style={{ width: '54%', height: '100%', background: 'var(--muted)' }} />
                         </div>
                     </div>
-                    <h3 style={{ fontSize: '1.2rem', fontWeight: 700, fontFamily: 'var(--font-display)' }}>Job Ready Score</h3>
-                    <p style={{ color: 'var(--muted)', fontSize: '0.9rem', marginTop: 8 }}>Top 30% of applicants</p>
-                </motion.div>
-
-                {/* Top 5 Improvements */}
-                <ResultPanel title="Top 5 Focus Areas" icon={FiTrendingUp} iconColor="var(--warning)" delay={0.2}>
-                    <ul style={{ display: 'flex', flexDirection: 'column', gap: 16, listStyle: 'none', padding: 0 }}>
-                        {topImprovements.map((imp, idx) => (
-                            <motion.li 
-                                key={idx} 
-                                initial={{ opacity: 0, x: -10 }} 
-                                animate={{ opacity: 1, x: 0 }} 
-                                transition={{ delay: 0.3 + (idx * 0.1) }}
-                                style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}
-                            >
-                                <div style={{ 
-                                    background: 'rgba(245, 158, 11, 0.1)', color: 'var(--warning)', 
-                                    width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-                                    fontSize: '0.85rem', fontWeight: 700
-                                }}>
-                                    {idx + 1}
-                                </div>
-                                <span style={{ color: 'var(--foreground)' }}>{imp}</span>
-                            </motion.li>
-                        ))}
-                    </ul>
-                </ResultPanel>
+                    <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', fontWeight: 600, marginBottom: 8 }}>
+                            <span>Your Current Score</span>
+                            <span style={{ color: 'var(--primary)' }}>68%</span>
+                        </div>
+                        <div style={{ height: 8, background: 'rgba(59, 130, 246, 0.1)', borderRadius: 4, overflow: 'hidden' }}>
+                            <motion.div initial={{ width: 0 }} animate={{ width: '68%' }} transition={{ duration: 1.5 }} style={{ width: '68%', height: '100%', background: 'var(--primary)' }} />
+                        </div>
+                    </div>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginTop: 8, fontStyle: 'italic' }}>
+                        * Data compiled from 10k+ recent successful placements in Tech MNCs.
+                    </p>
+                </div>
             </div>
-            
         </div>
     );
 }

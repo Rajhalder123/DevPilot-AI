@@ -40,7 +40,7 @@ export default function UploadBox({
       className={`glass-panel ${isDragActive ? 'active-drop' : ''}`}
       style={{
         border: `2px dashed ${isDragActive ? 'var(--primary)' : 'var(--border-color)'}`,
-        padding: '60px 40px',
+        padding: '30px 20px', // Reduced from 60px 40px for better mobile fit
         textAlign: 'center',
         cursor: 'pointer',
         background: isDragActive ? 'rgba(59, 130, 246, 0.05)' : 'var(--card)',
