@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable}`}>
-      <body className="font-sans antialiased bg-slate-900 text-slate-50 min-h-screen" suppressHydrationWarning>
+      <body className="font-sans antialiased bg-white text-slate-900 min-h-screen selection:bg-blue-500/30" suppressHydrationWarning>
         <AuthProvider>
           {children}
         </AuthProvider>

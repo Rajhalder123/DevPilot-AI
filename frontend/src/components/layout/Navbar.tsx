@@ -53,9 +53,8 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
     }, [query]);
 
     return (
-        <header className="glass" style={{
+        <header className="bg-white/90 backdrop-blur-xl border-b border-indigo-100 shadow-sm shadow-indigo-100/50" style={{
             height: 72,
-            borderBottom: '1px solid var(--border-color)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',

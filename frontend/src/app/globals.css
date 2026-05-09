@@ -15,6 +15,10 @@
 :root {
   --background: #FFFFFF;
   --foreground: #0F172A;
+  --muted: #64748b;
+  --border-color: rgba(79, 70, 229, 0.15); /* Indigo 100 tint */
+  --primary: #3b82f6;
+  --gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
 }
 
 body {

@@ -150,7 +150,7 @@ export default function LandingPage() {
                             className="relative animate-float"
                         >
                             <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-2xl blur-2xl" />
-                            <Card glass glow className="p-2 border-slate-200 shadow-2xl overflow-hidden relative z-10 lg:rotate-2 hover:rotate-0 transition-transform duration-500">
+                            <Card glass glow className="p-2 border-slate-200 shadow-2xl overflow-hidden relative z-10 lg:rotate-2 hover:rotate-0 transition-all duration-500">
                                 <img src="/images/mnc_office.png" alt="Enterprise engineering team collaborating" className="rounded-xl w-full h-[400px] object-cover shadow-inner" />
                             </Card>
                         </motion.div>
@@ -305,7 +305,7 @@ export default function LandingPage() {
                             </div>
                         </div>
                         <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
-                            <Card glass glow className="p-2 border-slate-200 lg:rotate-2 hover:rotate-0 transition-transform duration-500">
+                            <Card glass glow className="p-2 border-slate-200 overflow-hidden lg:rotate-2 hover:rotate-0 transition-all duration-500">
                                 <img src="/images/students_coding.png" alt="Students coding at night" className="rounded-xl w-full h-[400px] object-cover shadow-2xl" />
                             </Card>
                         </motion.div>
@@ -317,40 +317,74 @@ export default function LandingPage() {
                     <div className="max-w-5xl mx-auto px-6">
                         <SectionHeading title="Simple, transparent pricing." description="Start analyzing for free. Upgrade when you need deep analytics and automated rewriting." className="mb-20" />
 
-                        <div className="grid md:grid-cols-2 gap-8 items-center">
+                        <div className="grid md:grid-cols-2 gap-8 items-stretch">
                             {/* Free Tier */}
-                            <Card glass className="p-8 border-slate-200">
-                                <h3 className="text-xl font-bold mb-2">Basic Access</h3>
-                                <div className="text-slate-600 text-sm mb-6">Perfect for students starting out.</div>
-                                <div className="text-5xl font-display font-extrabold mb-8">₹0<span className="text-lg text-slate-500 font-sans font-normal">/mo</span></div>
-                                <ul className="space-y-4 mb-8">
-                                    <li className="flex items-center gap-3 text-slate-700"><FiCheck className="text-blue-400" /> Basic Resume ATS Check</li>
-                                    <li className="flex items-center gap-3 text-slate-700"><FiCheck className="text-blue-400" /> GitHub Repository Scan (1 Repo)</li>
-                                    <li className="flex items-center gap-3 text-slate-700"><FiCheck className="text-blue-400" /> Limited Job Matches</li>
-                                </ul>
-                                <Link href="/signup">
-                                    <Button variant="outline" className="w-full">Create Free Account</Button>
-                                </Link>
-                            </Card>
+                            <motion.div whileHover={{ y: -8 }} transition={{ duration: 0.3 }}>
+                                <Card glass className="p-0 border-slate-200 h-full">
+                                    <div className="p-8">
+                                        <h3 className="text-xl font-bold mb-2 text-slate-900">Basic Access</h3>
+                                        <div className="text-slate-500 text-sm mb-6">Perfect for students starting out.</div>
+                                        <div className="flex items-baseline gap-1 mb-8">
+                                            <span className="text-5xl font-display font-extrabold text-slate-900">₹0</span>
+                                            <span className="text-slate-500 font-medium">/mo</span>
+                                        </div>
+                                        <ul className="space-y-4 mb-8">
+                                            {[
+                                                'Basic Resume ATS Check',
+                                                'GitHub Repository Scan (1 Repo)',
+                                                'Limited Job Matches'
+                                            ].map((feature, idx) => (
+                                                <li key={idx} className="flex items-center gap-3 text-slate-600 text-sm">
+                                                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center">
+                                                        <FiCheck className="text-blue-500" size={12} />
+                                                    </div>
+                                                    {feature}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <Link href="/signup">
+                                            <Button variant="outline" className="w-full rounded-xl py-6 border-slate-200 hover:bg-slate-50 text-slate-900 font-bold">Create Free Account</Button>
+                                        </Link>
+                                    </div>
+                                </Card>
+                            </motion.div>
 
                             {/* Pro Tier */}
-                            <Card gradientBorder glow className="p-8 relative">
-                                <div className="absolute top-0 right-8 -translate-y-1/2">
-                                    <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-slate-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg shadow-blue-500/20">Recommended</span>
-                                </div>
-                                <h3 className="text-xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Pro License</h3>
-                                <div className="text-slate-600 text-sm mb-6">For serious job seekers.</div>
-                                <div className="text-5xl font-display font-extrabold mb-8">₹99<span className="text-lg text-slate-500 font-sans font-normal">/mo</span></div>
-                                <ul className="space-y-4 mb-8">
-                                    <li className="flex items-center gap-3 text-slate-900"><FiCheck className="text-blue-400" /> Deep Architectural GitHub Scans</li>
-                                    <li className="flex items-center gap-3 text-slate-900"><FiCheck className="text-blue-400" /> Automated Resume Rewriting</li>
-                                    <li className="flex items-center gap-3 text-slate-900"><FiCheck className="text-blue-400" /> Unlimited Mock Interviews</li>
-                                    <li className="flex items-center gap-3 text-slate-900"><FiCheck className="text-blue-400" /> Priority Application Routing</li>
-                                </ul>
-                                <Link href="/signup">
-                                    <Button variant="primary" className="w-full">Upgrade to Pro</Button>
-                                </Link>
-                            </Card>
+                            <motion.div whileHover={{ y: -8 }} transition={{ duration: 0.3 }} className="relative">
+                                <Card gradientBorder glow className="p-0 h-full">
+                                    <div className="absolute -top-3 right-8 z-20">
+                                        <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] shadow-xl shadow-blue-500/40 border border-white/20">
+                                            Recommended
+                                        </span>
+                                    </div>
+                                    <div className="p-8">
+                                        <h3 className="text-xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Pro License</h3>
+                                        <div className="text-slate-500 text-sm mb-6">For serious job seekers.</div>
+                                        <div className="flex items-baseline gap-1 mb-8">
+                                            <span className="text-5xl font-display font-extrabold text-slate-900">₹99</span>
+                                            <span className="text-slate-500 font-medium">/mo</span>
+                                        </div>
+                                        <ul className="space-y-4 mb-8">
+                                            {[
+                                                'Deep Architectural GitHub Scans',
+                                                'Automated Resume Rewriting',
+                                                'Unlimited Mock Interviews',
+                                                'Priority Application Routing'
+                                            ].map((feature, idx) => (
+                                                <li key={idx} className="flex items-center gap-3 text-slate-800 text-sm font-medium">
+                                                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center">
+                                                        <FiCheck className="text-blue-600" size={12} />
+                                                    </div>
+                                                    {feature}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <Link href="/signup">
+                                            <Button variant="primary" className="w-full rounded-xl py-6 shadow-xl shadow-blue-500/25 font-bold">Upgrade to Pro</Button>
+                                        </Link>
+                                    </div>
+                                </Card>
+                            </motion.div>
                         </div>
                     </div>
                 </section>

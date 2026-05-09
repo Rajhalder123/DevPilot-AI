@@ -10,7 +10,7 @@ export interface CardProps extends HTMLMotionProps<"div"> {
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className = '', glass = false, glow = false, gradientBorder = false, children, ...props }, ref) => {
     
-    const baseStyles = "rounded-xl overflow-hidden relative";
+    const baseStyles = "rounded-xl relative";
     
     // Core background styling
     const bgStyles = glass 

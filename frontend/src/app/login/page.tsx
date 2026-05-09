@@ -65,7 +65,7 @@ export default function LoginPage() {
             >
                 <div style={{ textAlign: 'center', marginBottom: 40 }}>
                     <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-                        <div style={{ width: 40, height: 40, rounded: '12px', borderRadius: 12, background: 'linear-gradient(to bottom right, #3b82f6, #9333ea)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 10px 20px rgba(59, 130, 246, 0.2)' }}>
+                        <div style={{ width: 40, height: 40, borderRadius: 12, background: 'linear-gradient(to bottom right, #3b82f6, #9333ea)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 10px 20px rgba(59, 130, 246, 0.2)' }}>
                             <FiZap size={22} color="#fff" />
                         </div>
                         <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 800, color: '#1e293b', letterSpacing: '-0.5px' }}>
