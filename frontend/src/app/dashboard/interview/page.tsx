@@ -215,7 +215,8 @@ export default function InterviewPage() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0, maxWidth: 900, margin: '0 auto', paddingBottom: 40 }}>
+        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0, maxWidth: 900, margin: '0 auto', paddingBottom: 40 }}>
             {/* Header */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                 style={{ marginBottom: 32 }}>
@@ -714,6 +715,7 @@ export default function InterviewPage() {
                     </motion.div>
                 )}
             </AnimatePresence>
+        </div>
         </div>
     );
 }

@@ -10,13 +10,12 @@ const SectionCard = ({ emoji, title, color, children, delay = 0 }: { emoji: stri
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay }}
-        className="glass-panel"
         style={{
             padding: '24px',
             borderRadius: '20px',
-            background: 'rgba(255, 255, 255, 0.7)',
-            border: '1px solid var(--border-color)',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+            background: 'var(--d-card)',
+            border: '1px solid var(--d-border)',
+            boxShadow: 'var(--d-shadow)',
             height: '100%',
             position: 'relative',
             overflow: 'hidden'
@@ -33,10 +32,10 @@ const SectionCard = ({ emoji, title, color, children, delay = 0 }: { emoji: stri
         <div style={{
             display: 'flex', alignItems: 'center', gap: 10,
             marginBottom: 20, paddingBottom: 16,
-            borderBottom: '1px solid var(--border-color)',
+            borderBottom: '1px solid var(--d-border)',
         }}>
             <span style={{ fontSize: '1.2rem' }}>{emoji}</span>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem', margin: 0 }}>{title}</h3>
+            <h3 style={{ fontFamily: 'var(--font-display)', color: 'var(--d-text)', fontWeight: 700, fontSize: '1.1rem', margin: 0 }}>{title}</h3>
             <div style={{ marginLeft: 'auto', width: 8, height: 8, borderRadius: '50%', background: color }} />
         </div>
         {children}
@@ -72,7 +71,8 @@ export default function GitHubPage() {
     };
 
     return (
-        <div style={{ maxWidth: 900, margin: '0 auto', paddingBottom: 40 }}>
+        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+            <div style={{ maxWidth: 900, margin: '0 auto' }}>
             {/* Header */}
             <div style={{ marginBottom: 32 }}>
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
@@ -80,25 +80,25 @@ export default function GitHubPage() {
                         <div style={{ background: 'rgba(59, 130, 246, 0.1)', padding: 10, borderRadius: 12 }}>
                             <FiGithub size={24} color="var(--primary)" />
                         </div>
-                        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 800, margin: 0 }}>
+                        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: 'var(--d-text)', fontWeight: 800, margin: 0 }}>
                             GitHub <span className="gradient-text">Analyzer</span>
                         </h1>
                     </div>
-                    <p style={{ color: 'var(--muted)', fontSize: '1rem' }}>
+                    <p style={{ color: 'var(--d-sub)', fontSize: '1rem' }}>
                         Provide your repository URL to analyze code quality, tech stack, and architectural patterns.
                     </p>
                 </motion.div>
             </div>
 
             <form onSubmit={handleAnalyze} style={{ marginBottom: 32 }}>
-                <div className="glass-panel" style={{ padding: '32px', borderRadius: '24px', background: 'rgba(255,255,255,0.8)', border: '1px solid var(--border-color)' }}>
+                <div style={{ padding: '32px', borderRadius: '24px', background: 'var(--d-card)', border: '1px solid var(--d-border)', boxShadow: 'var(--d-shadow)' }}>
                     <div style={{ marginBottom: 20 }}>
-                        <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', marginBottom: 10, display: 'block' }}>🔗 Repository URL</label>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--d-muted)', textTransform: 'uppercase', marginBottom: 10, display: 'block' }}>🔗 Repository URL</label>
                         <div style={{ position: 'relative' }}>
-                            <FiCode style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: 'var(--muted)' }} />
+                            <FiCode style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: 'var(--d-muted)' }} />
                             <input
                                 className="input"
-                                style={{ paddingLeft: 48, fontSize: '1rem' }}
+                                style={{ paddingLeft: 48, fontSize: '1rem', background: 'var(--d-input)', color: 'var(--d-text)', border: '1px solid var(--d-border)' }}
                                 placeholder="https://github.com/username/project"
                                 value={repoUrl}
                                 onChange={(e) => setRepoUrl(e.target.value)}
@@ -136,11 +136,11 @@ export default function GitHubPage() {
                                     <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
                                         {analysis.qualityMetrics.map((m: any) => (
                                             <div key={m.label}>
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: 4 }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--d-text)', marginBottom: 4 }}>
                                                     <span>{m.label}</span>
                                                     <span style={{ fontWeight: 700 }}>{m.value}%</span>
                                                 </div>
-                                                <div style={{ height: 6, background: 'rgba(0,0,0,0.03)', borderRadius: 3, overflow: 'hidden' }}>
+                                                <div style={{ height: 6, background: 'var(--d-input)', borderRadius: 3, overflow: 'hidden' }}>
                                                     <motion.div initial={{ width: 0 }} animate={{ width: `${m.value}%` }} transition={{ duration: 1 }} style={{ height: '100%', background: m.color }} />
                                                 </div>
                                             </div>
@@ -151,10 +151,10 @@ export default function GitHubPage() {
 
                             {/* Tech Stack */}
                             <SectionCard emoji="🛠️" title="Tech Stack" color="#8B5CF6" delay={0.2}>
-                                <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: 16 }}>The primary technologies identified in this project:</p>
+                                <p style={{ fontSize: '0.85rem', color: 'var(--d-muted)', marginBottom: 16 }}>The primary technologies identified in this project:</p>
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
                                     {analysis.techStack.map((tech: string) => (
-                                        <div key={tech} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px', background: 'rgba(255,255,255,0.5)', border: '1px solid var(--border-color)', borderRadius: 12, fontSize: '0.85rem', fontWeight: 600 }}>
+                                        <div key={tech} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px', background: 'var(--d-input)', color: 'var(--d-text)', border: '1px solid var(--d-border)', borderRadius: 12, fontSize: '0.85rem', fontWeight: 600 }}>
                                             <FiCode size={14} color="#8B5CF6" /> {tech}
                                         </div>
                                     ))}
@@ -170,7 +170,7 @@ export default function GitHubPage() {
                                     {analysis.highlights.map((h: string, i: number) => (
                                         <div key={i} style={{ display: 'flex', gap: 10 }}>
                                             <FiZap color="#F59E0B" style={{ flexShrink: 0, marginTop: 3 }} />
-                                            <p style={{ fontSize: '0.85rem', margin: 0, color: 'var(--foreground)', lineHeight: 1.5 }}>{h}</p>
+                                            <p style={{ fontSize: '0.85rem', margin: 0, color: 'var(--d-text)', lineHeight: 1.5 }}>{h}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -178,10 +178,10 @@ export default function GitHubPage() {
                         </div>
 
                         {/* Action Bar */}
-                        <div className="glass-panel" style={{ padding: '20px 24px', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(59, 130, 246, 0.05)', border: '1px solid rgba(59, 130, 246, 0.1)' }}>
+                        <div style={{ padding: '20px 24px', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--d-card)', border: '1px solid var(--d-border)', boxShadow: 'var(--d-shadow)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                                 <FiActivity color="var(--primary)" />
-                                <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>This project significantly boosts your Architectural Score.</span>
+                                <span style={{ color: 'var(--d-text)', fontSize: '0.9rem', fontWeight: 600 }}>This project significantly boosts your Architectural Score.</span>
                             </div>
                             <Link href="/dashboard/results" style={{ textDecoration: 'none' }}>
                                 <button style={{ background: 'none', border: 'none', color: 'var(--primary)', fontWeight: 700, fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
@@ -192,6 +192,7 @@ export default function GitHubPage() {
                     </motion.div>
                 )}
             </AnimatePresence>
+            </div>
         </div>
     );
 }

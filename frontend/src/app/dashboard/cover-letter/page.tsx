@@ -10,12 +10,21 @@ const SectionCard = ({ emoji, title, color, children, delay = 0 }: { emoji: stri
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay }}
-        className="card"
-        style={{ borderTop: `3px solid ${color}`, borderRadius: '0 0 14px 14px', marginBottom: 20 }}
+        style={{
+            background: 'var(--d-card)',
+            boxShadow: 'var(--d-shadow)',
+            borderTop: `3px solid ${color}`,
+            borderLeft: '1px solid var(--d-border)',
+            borderRight: '1px solid var(--d-border)',
+            borderBottom: '1px solid var(--d-border)',
+            borderRadius: '0 0 14px 14px',
+            marginBottom: 20,
+            padding: '24px'
+        }}
     >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18, paddingBottom: 14, borderBottom: '1px solid var(--border-color)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18, paddingBottom: 14, borderBottom: '1px solid var(--d-border)' }}>
             <span style={{ fontSize: '1.3rem' }}>{emoji}</span>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem', margin: 0 }}>{title}</h3>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.1rem', color: 'var(--d-text)', margin: 0 }}>{title}</h3>
             <div style={{ marginLeft: 'auto', width: 8, height: 8, borderRadius: '50%', background: color, boxShadow: `0 0 8px ${color}` }} />
         </div>
         {children}
@@ -61,7 +70,8 @@ export default function CoverLetterPage() {
     };
 
     return (
-        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+            <div style={{ maxWidth: 900, margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 32 }}>
                 <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 800, marginBottom: 4 }}>
                     ✉️ Cover Letter <span className="gradient-text">Generator</span>
@@ -93,7 +103,7 @@ export default function CoverLetterPage() {
                         <SectionCard emoji="💼" title="Job Details" color="#8B5CF6" delay={0.1}>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                                 <div>
-                                    <label style={{ fontSize: '0.82rem', color: 'var(--muted)', marginBottom: 6, display: 'block', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>📋 Job Description</label>
+                                    <label style={{ fontSize: '0.82rem', color: 'var(--d-muted)', marginBottom: 6, display: 'block', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>📋 Job Description</label>
                                     <textarea
                                         className="input"
                                         placeholder="Paste the full job description here..."
@@ -101,12 +111,12 @@ export default function CoverLetterPage() {
                                         onChange={e => setJobDescription(e.target.value)}
                                         rows={5}
                                         required
-                                        style={{ resize: 'vertical', lineHeight: 1.7, fontSize: '0.88rem' }}
+                                        style={{ resize: 'vertical', lineHeight: 1.7, fontSize: '0.88rem', background: 'var(--d-input)', color: 'var(--d-text)', border: '1px solid var(--d-border)' }}
                                     />
                                 </div>
                                 <div>
-                                    <label style={{ fontSize: '0.82rem', color: 'var(--muted)', marginBottom: 6, display: 'block', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>🏢 Company Name</label>
-                                    <input className="input" placeholder="e.g. Google, Microsoft, Infosys..." value={companyName} onChange={e => setCompanyName(e.target.value)} />
+                                    <label style={{ fontSize: '0.82rem', color: 'var(--d-muted)', marginBottom: 6, display: 'block', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>🏢 Company Name</label>
+                                    <input className="input" placeholder="e.g. Google, Microsoft, Infosys..." value={companyName} onChange={e => setCompanyName(e.target.value)} style={{ background: 'var(--d-input)', color: 'var(--d-text)', border: '1px solid var(--d-border)' }} />
                                 </div>
                             </div>
                         </SectionCard>
@@ -178,9 +188,9 @@ export default function CoverLetterPage() {
                                 </div>
                                 <div style={{
                                     whiteSpace: 'pre-wrap', lineHeight: 1.9, fontSize: '0.88rem',
-                                    color: 'var(--foreground)', padding: '20px', borderRadius: 10,
-                                    background: 'rgba(16,185,129,0.04)',
-                                    border: '1px solid rgba(16,185,129,0.2)',
+                                    color: 'var(--d-text)', padding: '20px', borderRadius: 10,
+                                    background: 'var(--d-hover)',
+                                    border: '1px solid var(--d-border)',
                                     maxHeight: 520, overflowY: 'auto',
                                 }}>
                                     {coverLetter}
@@ -190,6 +200,7 @@ export default function CoverLetterPage() {
                     )}
                 </div>
             </form>
+            </div>
         </div>
     );
 }

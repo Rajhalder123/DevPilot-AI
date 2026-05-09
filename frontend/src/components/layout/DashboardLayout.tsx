@@ -6,11 +6,13 @@ import { useAuth } from '@/lib/auth';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { ConversationProvider, useConversation } from '@/context/ConversationContext';
+import { ThemeProvider, useTheme } from '@/context/ThemeContext';
 
 function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
     const { user, loading } = useAuth();
     const router = useRouter();
     const { currentConversationId, setCurrentConversationId } = useConversation();
+    const { isDark } = useTheme();
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     useEffect(() => {
@@ -40,7 +42,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
     if (!user) return null;
 
     return (
-        <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--background)' }}>
+        <div data-theme={isDark ? 'dark' : 'light'} style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--d-bg)', transition: 'background 0.3s ease' }}>
             <Sidebar 
                 isOpen={isSidebarOpen} 
                 onClose={() => setIsSidebarOpen(!isSidebarOpen)} 
@@ -72,8 +74,10 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     return (
-        <ConversationProvider>
-            <DashboardLayoutContent>{children}</DashboardLayoutContent>
-        </ConversationProvider>
+        <ThemeProvider>
+            <ConversationProvider>
+                <DashboardLayoutContent>{children}</DashboardLayoutContent>
+            </ConversationProvider>
+        </ThemeProvider>
     );
 }

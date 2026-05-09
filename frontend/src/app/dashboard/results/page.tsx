@@ -9,13 +9,12 @@ const SectionCard = ({ emoji, title, color, children, delay = 0 }: { emoji: stri
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay }}
-        className="glass-panel"
         style={{
             padding: '24px',
             borderRadius: '20px',
-            background: 'rgba(255, 255, 255, 0.7)',
-            border: '1px solid var(--border-color)',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+            background: 'var(--d-card)',
+            border: '1px solid var(--d-border)',
+            boxShadow: 'var(--d-shadow)',
             height: '100%',
             position: 'relative',
             overflow: 'hidden'
@@ -32,10 +31,10 @@ const SectionCard = ({ emoji, title, color, children, delay = 0 }: { emoji: stri
         <div style={{
             display: 'flex', alignItems: 'center', gap: 10,
             marginBottom: 20, paddingBottom: 16,
-            borderBottom: '1px solid var(--border-color)',
+            borderBottom: '1px solid var(--d-border)',
         }}>
             <span style={{ fontSize: '1.2rem' }}>{emoji}</span>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem', margin: 0 }}>{title}</h3>
+            <h3 style={{ fontFamily: 'var(--font-display)', color: 'var(--d-text)', fontWeight: 700, fontSize: '1.1rem', margin: 0 }}>{title}</h3>
             <div style={{ marginLeft: 'auto', width: 8, height: 8, borderRadius: '50%', background: color }} />
         </div>
         {children}
@@ -51,9 +50,10 @@ export default function ResultsPage() {
     ];
 
     return (
-        <div style={{ maxWidth: 900, margin: '0 auto', paddingBottom: 40 }}>
+        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+            <div style={{ maxWidth: 900, margin: '0 auto' }}>
             {/* Back Button */}
-            <Link href="/dashboard" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8, color: 'var(--muted)', fontSize: '0.85rem', fontWeight: 600, marginBottom: 24 }}>
+            <Link href="/dashboard" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8, color: 'var(--d-muted)', fontSize: '0.85rem', fontWeight: 600, marginBottom: 24 }}>
                 <FiArrowRight style={{ transform: 'rotate(180deg)' }} /> BACK TO DASHBOARD
             </Link>
 
@@ -62,11 +62,11 @@ export default function ResultsPage() {
                 <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
                         <FiTarget size={28} color="var(--primary)" />
-                        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', fontWeight: 800, margin: 0 }}>
+                        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', color: 'var(--d-text)', fontWeight: 800, margin: 0 }}>
                             Career <span className="gradient-text">Readiness</span>
                         </h1>
                     </div>
-                    <p style={{ color: 'var(--muted)', fontSize: '1.1rem' }}>Deep dive analysis into your current hiring potential.</p>
+                    <p style={{ color: 'var(--d-sub)', fontSize: '1.1rem' }}>Deep dive analysis into your current hiring potential.</p>
                 </motion.div>
                 
                 <button className="button-primary" style={{ padding: '10px 24px' }}>Share Results</button>
@@ -86,8 +86,8 @@ export default function ResultsPage() {
                                 <circle cx="78" cy="78" r="70" fill="transparent" stroke="var(--primary)" strokeWidth="8" strokeDasharray="440" strokeDashoffset={440 - (440 * 68) / 100} strokeLinecap="round" />
                             </svg>
                         </div>
-                        <div style={{ fontWeight: 700, fontSize: '1.1rem', marginBottom: 4 }}>Great Progress!</div>
-                        <p style={{ fontSize: '0.85rem', color: 'var(--muted)', margin: 0 }}>You are in the top 30% of platform applicants.</p>
+                        <div style={{ fontWeight: 700, fontSize: '1.1rem', color: 'var(--d-text)', marginBottom: 4 }}>Great Progress!</div>
+                        <p style={{ fontSize: '0.85rem', color: 'var(--d-muted)', margin: 0 }}>You are in the top 30% of platform applicants.</p>
                     </div>
                 </SectionCard>
 
@@ -99,7 +99,7 @@ export default function ResultsPage() {
                                 <div style={{ background: `${area.color}15`, padding: 8, borderRadius: 8, flexShrink: 0 }}>
                                     <area.icon size={14} color={area.color} />
                                 </div>
-                                <p style={{ fontSize: '0.85rem', margin: 0, lineHeight: 1.5 }}>{area.text}</p>
+                                <p style={{ fontSize: '0.85rem', color: 'var(--d-text)', margin: 0, lineHeight: 1.5 }}>{area.text}</p>
                             </div>
                         ))}
                     </div>
@@ -107,23 +107,23 @@ export default function ResultsPage() {
             </div>
 
             {/* Benchmark Section */}
-            <div className="glass-panel" style={{ padding: '32px', borderRadius: '24px', background: 'rgba(255,255,255,0.8)', border: '1px solid var(--border-color)' }}>
+            <div style={{ padding: '32px', borderRadius: '24px', background: 'var(--d-card)', border: '1px solid var(--d-border)', boxShadow: 'var(--d-shadow)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
                     <FiTrendingUp color="var(--primary)" size={20} />
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 700, margin: 0 }}>Industry Benchmark</h2>
+                    <h2 style={{ fontSize: '1.25rem', color: 'var(--d-text)', fontWeight: 700, margin: 0 }}>Industry Benchmark</h2>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                     <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', fontWeight: 600, marginBottom: 8 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--d-text)', fontSize: '0.85rem', fontWeight: 600, marginBottom: 8 }}>
                             <span>Global Applicant Average</span>
                             <span>54%</span>
                         </div>
-                        <div style={{ height: 8, background: 'rgba(0,0,0,0.03)', borderRadius: 4, overflow: 'hidden' }}>
-                            <div style={{ width: '54%', height: '100%', background: 'var(--muted)' }} />
+                        <div style={{ height: 8, background: 'var(--d-input)', borderRadius: 4, overflow: 'hidden' }}>
+                            <div style={{ width: '54%', height: '100%', background: 'var(--d-sub)' }} />
                         </div>
                     </div>
                     <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', fontWeight: 600, marginBottom: 8 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--d-text)', fontSize: '0.85rem', fontWeight: 600, marginBottom: 8 }}>
                             <span>Your Current Score</span>
                             <span style={{ color: 'var(--primary)' }}>68%</span>
                         </div>
@@ -131,10 +131,11 @@ export default function ResultsPage() {
                             <motion.div initial={{ width: 0 }} animate={{ width: '68%' }} transition={{ duration: 1.5 }} style={{ width: '68%', height: '100%', background: 'var(--primary)' }} />
                         </div>
                     </div>
-                    <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginTop: 8, fontStyle: 'italic' }}>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--d-muted)', marginTop: 8, fontStyle: 'italic' }}>
                         * Data compiled from 10k+ recent successful placements in Tech MNCs.
                     </p>
                 </div>
+            </div>
             </div>
         </div>
     );

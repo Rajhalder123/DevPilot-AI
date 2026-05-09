@@ -52,16 +52,16 @@ export default function CareerMentorPage() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 124px)' }}>
+        <div style={{ padding: '28px 36px 120px 36px', flex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 16 }}>
                 <div className="section-label"><FiCompass size={11} /> AI Career Mentor</div>
-                <h1 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.5rem', fontWeight: 800, color: '#0F172A' }}>
+                <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 800, color: 'var(--d-text)' }}>
                     Career <span className="gradient-text">Mentor</span>
                 </h1>
             </motion.div>
 
             {/* Chat Container */}
-            <div className="card" style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, background: 'var(--d-card)', boxShadow: 'var(--d-shadow)', border: '1px solid var(--d-border)', borderRadius: 16, padding: 20 }}>
                 {/* Messages */}
                 <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 16, padding: '4px 0', paddingRight: 4, marginBottom: 16 }}>
                     {messages.map((msg, i) => (
@@ -93,9 +93,9 @@ export default function CareerMentorPage() {
                                     borderRadius: msg.role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
                                     background: msg.role === 'user'
                                         ? 'var(--primary)'
-                                        : '#F1F5F9',
-                                    color: msg.role === 'user' ? '#FFFFFF' : '#334155',
-                                    border: msg.role === 'assistant' ? '1px solid rgba(15, 23, 42, 0.05)' : 'none',
+                                        : 'var(--d-hover)',
+                                    color: msg.role === 'user' ? '#FFFFFF' : 'var(--d-text)',
+                                    border: msg.role === 'assistant' ? '1px solid var(--d-border)' : 'none',
                                     fontSize: '0.88rem', lineHeight: 1.75,
                                     whiteSpace: 'pre-wrap',
                                 }}
@@ -116,7 +116,7 @@ export default function CareerMentorPage() {
                             </div>
                             <div style={{
                                 padding: '14px 18px', borderRadius: '16px 16px 16px 4px',
-                                background: '#F1F5F9', border: '1px solid rgba(15, 23, 42, 0.05)',
+                                background: 'var(--d-hover)', border: '1px solid var(--d-border)',
                                 display: 'flex', gap: 5, alignItems: 'center',
                             }}>
                                 {[0, 1, 2].map(j => (
@@ -136,17 +136,17 @@ export default function CareerMentorPage() {
                 <AnimatePresence>
                     {messages.length <= 1 && (
                         <motion.div initial={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ marginBottom: 12 }}>
-                            <p style={{ fontSize: '0.75rem', color: '#475569', marginBottom: 8, fontWeight: 600 }}>✨ Try asking:</p>
+                            <p style={{ fontSize: '0.75rem', color: 'var(--d-muted)', marginBottom: 8, fontWeight: 600 }}>✨ Try asking:</p>
                             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                                 {QUICK_PROMPTS.map((p, i) => (
                                     <button key={i} onClick={() => sendMessage(p)} style={{
-                                        background: 'rgba(249, 115, 22, 0.08)', border: '1px solid rgba(249, 115, 22, 0.2)',
-                                        borderRadius: 10, padding: '6px 12px', color: 'var(--primary)',
-                                        fontSize: '0.78rem', cursor: 'pointer', fontFamily: "'Inter', sans-serif",
+                                        background: 'var(--d-badge-bg)', border: '1px solid var(--d-border)',
+                                        borderRadius: 10, padding: '6px 12px', color: 'var(--d-btn-primary)',
+                                        fontSize: '0.78rem', cursor: 'pointer', fontFamily: 'var(--font-sans)',
                                         transition: 'all 0.2s',
                                     }}
-                                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(249, 115, 22, 0.15)'; }}
-                                        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(249, 115, 22, 0.08)'; }}
+                                        onMouseEnter={e => { e.currentTarget.style.background = 'var(--d-hover)'; e.currentTarget.style.borderColor = 'var(--d-border-hover)' }}
+                                        onMouseLeave={e => { e.currentTarget.style.background = 'var(--d-badge-bg)'; e.currentTarget.style.borderColor = 'var(--d-border)' }}
                                     >
                                         {p}
                                     </button>
@@ -159,8 +159,8 @@ export default function CareerMentorPage() {
                 {/* Input */}
                 <div style={{
                     display: 'flex', gap: 10, padding: '12px 14px',
-                    background: '#F1F5F9', borderRadius: 12,
-                    border: '1px solid rgba(15, 23, 42, 0.1)',
+                    background: 'var(--d-input)', borderRadius: 12,
+                    border: '1px solid var(--d-border)',
                 }}>
                     <input
                         className="input"
@@ -168,7 +168,7 @@ export default function CareerMentorPage() {
                         value={input}
                         onChange={e => setInput(e.target.value)}
                         onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
-                        style={{ border: 'none', background: 'transparent', flex: 1 }}
+                        style={{ border: 'none', background: 'transparent', flex: 1, color: 'var(--d-text)' }}
                     />
                     <motion.button
                         whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}

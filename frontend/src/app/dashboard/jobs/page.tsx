@@ -151,7 +151,8 @@ export default function JobsPage() {
     };
 
     return (
-        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+            <div style={{ maxWidth: 900, margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
                 <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 700, marginBottom: 4 }}>
                     Job <span className="gradient-text">Search</span>
@@ -179,7 +180,7 @@ export default function JobsPage() {
                             onChange={(e) => { setQuery(e.target.value); setShowSuggestions(true); }}
                             onFocus={() => setShowSuggestions(true)}
                             onKeyDown={(e) => { if (e.key === 'Escape') setShowSuggestions(false); }}
-                            style={{ paddingLeft: 44, fontSize: '1rem' }}
+                            style={{ paddingLeft: 44, fontSize: '1rem', background: 'var(--d-input)', color: 'var(--d-text)', border: '1px solid var(--d-border)' }}
                             autoComplete="off"
                         />
 
@@ -193,12 +194,12 @@ export default function JobsPage() {
                                     transition={{ duration: 0.15 }}
                                     style={{
                                         position: 'absolute', top: 'calc(100% + 6px)', left: 0, right: 0,
-                                        background: '#1E293B', border: '1px solid var(--border-color)',
-                                        borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+                                        background: 'var(--d-card)', border: '1px solid var(--d-border)',
+                                        borderRadius: 12, boxShadow: 'var(--d-shadow)',
                                         zIndex: 100, overflow: 'hidden',
                                     }}
                                 >
-                                    <div style={{ padding: '8px 12px 4px', fontSize: '0.72rem', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: 5, borderBottom: '1px solid var(--border-color)' }}>
+                                    <div style={{ padding: '8px 12px 4px', fontSize: '0.72rem', color: 'var(--d-muted)', display: 'flex', alignItems: 'center', gap: 5, borderBottom: '1px solid var(--d-border)' }}>
                                         <FiTrendingUp size={11} /> {query ? 'Matching searches' : 'Popular searches'}
                                     </div>
                                     {filteredSuggestions.map((s, i) => (
@@ -209,19 +210,19 @@ export default function JobsPage() {
                                             style={{
                                                 width: '100%', textAlign: 'left', padding: '10px 16px',
                                                 background: 'none', border: 'none', cursor: 'pointer',
-                                                color: 'var(--foreground)', fontSize: '0.875rem',
+                                                color: 'var(--d-text)', fontSize: '0.875rem',
                                                 display: 'flex', alignItems: 'center', gap: 10,
                                                 transition: 'background 0.15s',
-                                                borderBottom: i < filteredSuggestions.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+                                                borderBottom: i < filteredSuggestions.length - 1 ? '1px solid var(--d-border)' : 'none',
                                             }}
-                                            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(108,92,231,0.1)')}
+                                            onMouseEnter={e => (e.currentTarget.style.background = 'var(--d-hover)')}
                                             onMouseLeave={e => (e.currentTarget.style.background = 'none')}
                                         >
-                                            <FiSearch size={13} color="var(--muted)" style={{ flexShrink: 0 }} />
+                                            <FiSearch size={13} color="var(--d-muted)" style={{ flexShrink: 0 }} />
                                             <span>
                                                 {query ? (
                                                     <>
-                                                        <span style={{ color: 'var(--accent)', fontWeight: 600 }}>{s.substring(0, s.toLowerCase().indexOf(query.toLowerCase()))}<mark style={{ background: 'rgba(108,92,231,0.25)', color: 'var(--accent)', borderRadius: 3, padding: '0 2px' }}>{s.substring(s.toLowerCase().indexOf(query.toLowerCase()), s.toLowerCase().indexOf(query.toLowerCase()) + query.length)}</mark>{s.substring(s.toLowerCase().indexOf(query.toLowerCase()) + query.length)}</span>
+                                                        <span style={{ color: 'var(--d-btn-primary)', fontWeight: 600 }}>{s.substring(0, s.toLowerCase().indexOf(query.toLowerCase()))}<mark style={{ background: 'var(--d-badge-bg)', color: 'var(--d-btn-primary)', borderRadius: 3, padding: '0 2px' }}>{s.substring(s.toLowerCase().indexOf(query.toLowerCase()), s.toLowerCase().indexOf(query.toLowerCase()) + query.length)}</mark>{s.substring(s.toLowerCase().indexOf(query.toLowerCase()) + query.length)}</span>
                                                     </>
                                                 ) : s}
                                             </span>
@@ -248,9 +249,9 @@ export default function JobsPage() {
                                     onClick={() => setExperience(level)}
                                     style={{
                                         padding: '5px 12px', borderRadius: 20, fontSize: '0.78rem',
-                                        border: `1px solid ${experience === level ? 'var(--primary)' : 'var(--border-color)'}`,
-                                        background: experience === level ? 'rgba(108,92,231,0.15)' : 'transparent',
-                                        color: experience === level ? 'var(--accent)' : 'var(--muted)',
+                                        border: `1px solid ${experience === level ? 'var(--d-btn-primary)' : 'var(--d-border)'}`,
+                                        background: experience === level ? 'var(--d-hover)' : 'transparent',
+                                        color: experience === level ? 'var(--d-btn-primary)' : 'var(--d-muted)',
                                         cursor: 'pointer', transition: 'all 0.2s',
                                     }}
                                 >{level}</button>
@@ -268,9 +269,9 @@ export default function JobsPage() {
                                     onClick={() => setJobType(type)}
                                     style={{
                                         padding: '5px 12px', borderRadius: 20, fontSize: '0.78rem',
-                                        border: `1px solid ${jobType === type ? '#00d2ff' : 'var(--border-color)'}`,
-                                        background: jobType === type ? 'rgba(0,210,255,0.1)' : 'transparent',
-                                        color: jobType === type ? '#00d2ff' : 'var(--muted)',
+                                        border: `1px solid ${jobType === type ? 'var(--d-btn-primary)' : 'var(--d-border)'}`,
+                                        background: jobType === type ? 'var(--d-hover)' : 'transparent',
+                                        color: jobType === type ? 'var(--d-btn-primary)' : 'var(--d-muted)',
                                         cursor: 'pointer', transition: 'all 0.2s',
                                     }}
                                 >{type}</button>
@@ -505,6 +506,7 @@ export default function JobsPage() {
                     </p>
                 </motion.div>
             )}
+            </div>
         </div>
     );
 }

@@ -52,9 +52,9 @@ export default function PortfolioPage() {
 
     if (previewing) {
         return (
-            <div>
+            <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-                    <h2 style={{ fontFamily: "'Outfit', sans-serif", color: '#0F172A', fontWeight: 700 }}>Portfolio Preview</h2>
+                    <h2 style={{ fontFamily: 'var(--font-display)', color: 'var(--d-text)', fontWeight: 700 }}>Portfolio Preview</h2>
                     <div style={{ display: 'flex', gap: 10 }}>
                         <button className="btn-ghost" onClick={() => setPreviewing(false)}>← Edit</button>
                         <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -63,9 +63,9 @@ export default function PortfolioPage() {
                     </div>
                 </div>
                 {/* Preview Card */}
-                <div className="card" style={{
-                    padding: '48px', textAlign: 'center', background: '#F8FAFC',
-                    border: '1px solid rgba(15, 23, 42, 0.1)',
+                <div style={{
+                    padding: '48px', textAlign: 'center', background: 'var(--d-card)',
+                    border: '1px solid var(--d-border)', borderRadius: 16, boxShadow: 'var(--d-shadow)'
                 }}>
                     <div style={{
                         width: 80, height: 80, borderRadius: '50%', margin: '0 auto 16px',
@@ -75,13 +75,13 @@ export default function PortfolioPage() {
                     }}>
                         {form.name.charAt(0) || 'D'}
                     </div>
-                    <h1 style={{ color: '#0F172A', fontSize: '2rem', fontFamily: "'Outfit', sans-serif", fontWeight: 800 }}>
+                    <h1 style={{ color: 'var(--d-text)', fontSize: '2rem', fontFamily: 'var(--font-display)', fontWeight: 800 }}>
                         {form.name || 'Your Name'}
                     </h1>
                     <p style={{ color: 'var(--primary)', fontSize: '1rem', marginTop: 6, margin: '6px 0 16px' }}>
                         {form.title || 'Full Stack Developer'}
                     </p>
-                    <p style={{ color: '#475569', maxWidth: 500, margin: '0 auto 24px', fontSize: '0.9rem', lineHeight: 1.7 }}>
+                    <p style={{ color: 'var(--d-sub)', maxWidth: 500, margin: '0 auto 24px', fontSize: '0.9rem', lineHeight: 1.7 }}>
                         {form.bio || 'Passionate developer building impactful applications.'}
                     </p>
                     {/* Skills */}
@@ -104,18 +104,19 @@ export default function PortfolioPage() {
                         )}
                     </div>
                 </div>
+                </div>
             </div>
         );
     }
 
     return (
-        <div>
+        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 28 }}>
                 <div className="section-label"><FiLayout size={11} /> Portfolio Builder</div>
-                <h1 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', marginBottom: 6 }}>
+                <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 800, color: 'var(--d-text)', marginBottom: 6 }}>
                     Build Your <span className="gradient-text">Portfolio</span>
                 </h1>
-                <p style={{ color: '#475569', fontSize: '0.9rem', margin: 0 }}>
+                <p style={{ color: 'var(--d-sub)', fontSize: '0.9rem', margin: 0 }}>
                     Fill in your details and generate a professional portfolio instantly.
                 </p>
             </motion.div>
@@ -123,10 +124,10 @@ export default function PortfolioPage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }}>
                 {/* Personal Info */}
                 <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-                    <div className="card">
+                    <div style={{ background: 'var(--d-card)', border: '1px solid var(--d-border)', borderRadius: 16, padding: '24px', boxShadow: 'var(--d-shadow)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
                             <FiUser size={16} color="var(--primary)" />
-                            <h3 style={{ color: '#0F172A', fontFamily: "'Outfit', sans-serif", fontWeight: 700 }}>Personal Info</h3>
+                            <h3 style={{ color: 'var(--d-text)', fontFamily: 'var(--font-display)', fontWeight: 700, margin: 0 }}>Personal Info</h3>
                         </div>
                         {[
                             { label: 'Full Name', field: 'name', placeholder: 'Rahul Sharma' },
@@ -134,22 +135,23 @@ export default function PortfolioPage() {
                             { label: 'Email', field: 'email', placeholder: 'rahul@example.com' },
                         ].map(({ label, field, placeholder }) => (
                             <div key={field} style={{ marginBottom: 16 }}>
-                                <label style={{ fontSize: '0.8rem', color: '#475569', fontWeight: 600, display: 'block', marginBottom: 6 }}>{label}</label>
+                                <label style={{ fontSize: '0.8rem', color: 'var(--d-muted)', fontWeight: 600, display: 'block', marginBottom: 6 }}>{label}</label>
                                 <input
                                     className="input" placeholder={placeholder}
                                     value={(form as any)[field]}
                                     onChange={e => setForm(f => ({ ...f, [field]: e.target.value }))}
+                                    style={{ background: 'var(--d-input)', color: 'var(--d-text)', border: '1px solid var(--d-border)' }}
                                 />
                             </div>
                         ))}
                         <div style={{ marginBottom: 16 }}>
-                            <label style={{ fontSize: '0.8rem', color: '#475569', fontWeight: 600, display: 'block', marginBottom: 6 }}>Bio</label>
+                            <label style={{ fontSize: '0.8rem', color: 'var(--d-muted)', fontWeight: 600, display: 'block', marginBottom: 6 }}>Bio</label>
                             <textarea
                                 className="input" placeholder="Passionate developer from Bangalore..."
                                 value={form.bio}
                                 onChange={e => setForm(f => ({ ...f, bio: e.target.value }))}
                                 rows={3}
-                                style={{ resize: 'vertical', fontFamily: "'Inter', sans-serif" }}
+                                style={{ resize: 'vertical', fontFamily: 'var(--font-sans)', background: 'var(--d-input)', color: 'var(--d-text)', border: '1px solid var(--d-border)' }}
                             />
                         </div>
                         {[
@@ -157,10 +159,10 @@ export default function PortfolioPage() {
                             { label: 'LinkedIn URL', field: 'linkedin', icon: FiLinkedin, placeholder: 'https://linkedin.com/in/username' },
                         ].map(({ label, field, icon: Icon, placeholder }) => (
                             <div key={field} style={{ marginBottom: 16 }}>
-                                <label style={{ fontSize: '0.8rem', color: '#475569', fontWeight: 600, display: 'block', marginBottom: 6 }}>{label}</label>
+                                <label style={{ fontSize: '0.8rem', color: 'var(--d-muted)', fontWeight: 600, display: 'block', marginBottom: 6 }}>{label}</label>
                                 <div style={{ position: 'relative' }}>
-                                    <Icon size={14} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#475569' }} />
-                                    <input className="input" placeholder={placeholder} value={(form as any)[field]} onChange={e => setForm(f => ({ ...f, [field]: e.target.value }))} style={{ paddingLeft: 36 }} />
+                                    <Icon size={14} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--d-muted)' }} />
+                                    <input className="input" placeholder={placeholder} value={(form as any)[field]} onChange={e => setForm(f => ({ ...f, [field]: e.target.value }))} style={{ paddingLeft: 36, background: 'var(--d-input)', color: 'var(--d-text)', border: '1px solid var(--d-border)' }} />
                                 </div>
                             </div>
                         ))}
@@ -169,13 +171,13 @@ export default function PortfolioPage() {
 
                 {/* Skills & Projects */}
                 <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
-                    <div className="card" style={{ marginBottom: 20 }}>
+                    <div style={{ background: 'var(--d-card)', border: '1px solid var(--d-border)', borderRadius: 16, padding: '24px', boxShadow: 'var(--d-shadow)', marginBottom: 20 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                             <FiCode size={16} color="var(--primary)" />
-                            <h3 style={{ color: '#0F172A', fontFamily: "'Outfit', sans-serif", fontWeight: 700 }}>Skills</h3>
+                            <h3 style={{ color: 'var(--d-text)', fontFamily: 'var(--font-display)', fontWeight: 700, margin: 0 }}>Skills</h3>
                         </div>
                         <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
-                            <input className="input" placeholder="e.g. React, Node.js..." value={skillInput} onChange={e => setSkillInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && addSkill()} style={{ flex: 1 }} />
+                            <input className="input" placeholder="e.g. React, Node.js..." value={skillInput} onChange={e => setSkillInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && addSkill()} style={{ flex: 1, background: 'var(--d-input)', color: 'var(--d-text)', border: '1px solid var(--d-border)' }} />
                             <button className="btn-secondary" onClick={addSkill} style={{ padding: '10px 14px', whiteSpace: 'nowrap' }}>Add</button>
                         </div>
                         {form.skills.length > 0 && (
@@ -189,20 +191,20 @@ export default function PortfolioPage() {
                         )}
                     </div>
 
-                    <div className="card">
+                    <div style={{ background: 'var(--d-card)', border: '1px solid var(--d-border)', borderRadius: 16, padding: '24px', boxShadow: 'var(--d-shadow)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                 <FiLayout size={16} color="var(--accent)" />
-                                <h3 style={{ color: '#0F172A', fontFamily: "'Outfit', sans-serif", fontWeight: 700 }}>Projects</h3>
+                                <h3 style={{ color: 'var(--d-text)', fontFamily: 'var(--font-display)', fontWeight: 700, margin: 0 }}>Projects</h3>
                             </div>
                             <button className="btn-ghost" onClick={addProject} style={{ padding: '6px 12px', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: 5 }}>
                                 <FiPlus size={13} /> Add
                             </button>
                         </div>
                         {form.projects.map((proj, i) => (
-                            <div key={i} style={{ marginBottom: 16, padding: '14px', borderRadius: 10, background: '#FFFFFF', border: '1px solid rgba(15, 23, 42, 0.1)' }}>
+                            <div key={i} style={{ marginBottom: 16, padding: '16px', borderRadius: 10, background: 'var(--d-hover)', border: '1px solid var(--d-border)' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
-                                    <span style={{ fontSize: '0.78rem', color: '#475569', fontWeight: 600 }}>Project {i + 1}</span>
+                                    <span style={{ fontSize: '0.78rem', color: 'var(--d-muted)', fontWeight: 600 }}>Project {i + 1}</span>
                                     {form.projects.length > 1 && (
                                         <button onClick={() => removeProject(i)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#EF4444' }}>
                                             <FiTrash2 size={13} />
@@ -215,8 +217,8 @@ export default function PortfolioPage() {
                                     { label: 'URL', field: 'url', placeholder: 'https://github.com/...' },
                                 ].map(({ label, field, placeholder }) => (
                                     <div key={field} style={{ marginBottom: 8 }}>
-                                        <label style={{ fontSize: '0.75rem', color: '#475569', fontWeight: 600, display: 'block', marginBottom: 4 }}>{label}</label>
-                                        <input className="input" placeholder={placeholder} value={(proj as any)[field]} onChange={e => updateProject(i, field, e.target.value)} style={{ padding: '8px 12px' }} />
+                                        <label style={{ fontSize: '0.75rem', color: 'var(--d-muted)', fontWeight: 600, display: 'block', marginBottom: 4 }}>{label}</label>
+                                        <input className="input" placeholder={placeholder} value={(proj as any)[field]} onChange={e => updateProject(i, field, e.target.value)} style={{ padding: '8px 12px', background: 'var(--d-input)', color: 'var(--d-text)', border: '1px solid var(--d-border)' }} />
                                     </div>
                                 ))}
                             </div>

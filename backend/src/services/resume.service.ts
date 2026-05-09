@@ -15,8 +15,17 @@ const pdfParse = require('pdf-parse');
 /** Extract text from an uploaded PDF file */
 export const extractText = async (filePath: string): Promise<string> => {
     const dataBuffer = fs.readFileSync(filePath);
-    const pdfData = await pdfParse(dataBuffer);
-    return pdfData.text;
+    
+    // Simple check to see if it's a PDF by looking at the first few bytes
+    const isPDF = dataBuffer.length > 4 && dataBuffer.toString('utf8', 0, 4) === '%PDF';
+    
+    if (isPDF) {
+        const pdfData = await pdfParse(dataBuffer);
+        return pdfData.text;
+    }
+    
+    // Otherwise assume it's plain text
+    return dataBuffer.toString('utf8');
 };
 
 /** Create a resume record from file upload */
