@@ -30,7 +30,9 @@ export default function SignupPage() {
             if ((window as any).turnstile && widgetRef.current && !widgetRef.current.hasChildNodes()) {
                 try {
                     (window as any).turnstile.render(widgetRef.current, {
-                        sitekey: process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY || '0x4AAAAAADMb1zCLT3bNq0zz',
+                        sitekey: (typeof window !== 'undefined' && window.location.hostname === 'localhost') 
+                            ? '1x00000000000000000000AA' 
+                            : (process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY || '0x4AAAAAADMb1zCLT3bNq0zz'),
                         callback: (token: string) => setTurnstileToken(token),
                         theme: 'light',
                     });
