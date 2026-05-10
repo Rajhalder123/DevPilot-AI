@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Script from 'next/script';
 import { FiUser, FiMail, FiLock, FiZap, FiGithub } from 'react-icons/fi';
 import { useAuth } from '@/lib/auth';
 
@@ -19,13 +20,6 @@ export default function SignupPage() {
     const router = useRouter();
 
     useEffect(() => {
-        // Load Turnstile script manually
-        const script = document.createElement('script');
-        script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-        script.async = true;
-        script.defer = true;
-        document.body.appendChild(script);
-
         const renderTurnstile = () => {
             if ((window as any).turnstile && widgetRef.current && !widgetRef.current.hasChildNodes()) {
                 try {
@@ -42,16 +36,11 @@ export default function SignupPage() {
             }
         };
 
-        script.onload = () => {
-            renderTurnstile();
-        };
-
         const timer = setTimeout(() => {
             renderTurnstile();
         }, 1500);
 
         return () => {
-            document.body.removeChild(script);
             clearTimeout(timer);
         };
     }, []);
@@ -96,6 +85,7 @@ export default function SignupPage() {
             position: 'relative',
             overflow: 'hidden'
         }}>
+            <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" />
             {/* Background Glows (Matching Landing Page) */}
             <div style={{ position: 'absolute', bottom: '10%', right: '50%', transform: 'translateX(50%)', width: 600, height: 600, background: 'rgba(124, 58, 237, 0.08)', borderRadius: '50%', filter: 'blur(100px)', pointerEvents: 'none' }} />
             
