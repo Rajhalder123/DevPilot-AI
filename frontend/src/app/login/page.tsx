@@ -29,7 +29,7 @@ export default function LoginPage() {
             if ((window as any).turnstile && widgetRef.current && !widgetRef.current.hasChildNodes()) {
                 try {
                     (window as any).turnstile.render(widgetRef.current, {
-                        sitekey: (typeof window !== 'undefined' && window.location.hostname === 'localhost') 
+                        sitekey: (typeof window !== 'undefined' && ['localhost', '127.0.0.1'].includes(window.location.hostname)) 
                             ? '1x00000000000000000000AA' 
                             : (process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY || '0x4AAAAAADMb1zCLT3bNq0zz'),
                         callback: (token: string) => setTurnstileToken(token),
