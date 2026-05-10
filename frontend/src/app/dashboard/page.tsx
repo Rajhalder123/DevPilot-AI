@@ -44,13 +44,29 @@ export default function DashboardPage() {
         recognitionRef.current = new SR();
         recognitionRef.current.continuous = false;
         recognitionRef.current.interimResults = false;
-        recognitionRef.current.onresult = (e: any) => { setPrompt(p => p + ' ' + e.results[0][0].transcript); setIsListening(false); };
+        
+        recognitionRef.current.onstart = () => setIsListening(true);
+        recognitionRef.current.onresult = (e: any) => { 
+            setPrompt(p => p + ' ' + e.results[0][0].transcript); 
+            setIsListening(false); 
+        };
+        recognitionRef.current.onerror = () => setIsListening(false);
         recognitionRef.current.onend = () => setIsListening(false);
     }, []);
 
     const toggleListening = () => {
-        if (isListening) { recognitionRef.current?.stop(); setIsListening(false); }
-        else { setIsListening(true); recognitionRef.current?.start(); }
+        if (!recognitionRef.current) return;
+        
+        try {
+            if (isListening) {
+                recognitionRef.current.stop();
+            } else {
+                recognitionRef.current.start();
+            }
+        } catch (err) {
+            console.error("Speech recognition error:", err);
+            setIsListening(false);
+        }
     };
 
     useEffect(() => { chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [chatHistory]);

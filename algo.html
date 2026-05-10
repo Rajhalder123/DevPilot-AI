@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" class="html">
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1,user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link rel="preload" as="font" type="font/woff2" href="/static/fonts/Inter-Light.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/static/fonts/Inter-Regular.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/static/fonts/Inter-Medium.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/static/fonts/Inter-Bold.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/static/fonts/Inter-SemiBold.woff2" crossorigin>
+    
+            <link rel="preload stylesheet" as="style" href="/dist/css/tailwind.DniX_hbl.css" media="all" type="text/css">
+    <link rel="preload stylesheet" as="style" href="/dist/css/terms-and-conditions.Dgux4imX.css" media="all" type="text/css">
+    
+    <title>AlgoBuilder - Build Automated Trading Strategies in Plain English</title><link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png"><link rel="manifest" href="/static/img/favicon/site.webmanifest"><link rel="mask-icon" href="/static/img/favicon/safari-pinned-tab.svg" color="#5bbad5"><link rel="shortcut icon" href="/static/img/favicon/favicon.ico"><meta name="msapplication-TileColor" content="#2b5797"><meta name="msapplication-config" content="/static/img/favicon/browserconfig.xml"><meta name="theme-color" content="#ffffff"><meta name="description" content="No coding required - just describe your trading strategy and watch AlgoBuilder write the code."><meta name="robots" content="index,follow"><link rel="canonical" href="https://algobuilder.com/"><meta property="og:title" content="AlgoBuilder - Build Automated Trading Strategies in Plain English"><meta property="og:type" content="website"><meta property="og:image" content="https://algobuilder.com/static/img/meta/social-image.jpg"><meta property="og:url" content="https://algobuilder.com/"><meta name="twitter:card" content="summary_large_image"><meta property="og:description" content="No coding required - just describe your trading strategy and watch AlgoBuilder write the code."><meta property="og:site_name" content="AlgoBuilder">    <script>
+window.dataLayer = window.dataLayer || [];
+</script><link rel="preconnect" href="https://cdp.algobuilder.com/"><script src="https://cdp.algobuilder.com/algobuilder.min.js"></script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NLFF5L5P');</script>
+<script>!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '24000649622952605');
+fbq('track', 'PageView');</script>
+</head>
+<body class="body">
+    <section class="bg-black fixed w-full z-20 top-0 start-0 border-b border-gray-700" data-js-import="header-navigation">
+    <nav class="max-w-screen-xl flex flex-wrap md:flex-nowrap items-center justify-between mx-auto p-4">
+        <a href="/" class="flex items-center space-x-3">
+            <img src="/static/img/logo-white.svg" alt="AlgoBuilder logo white">
+        </a>
+        <button data-collapse-toggle="navbar-sticky" type="button" class="cursor-pointer inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden focus:outline-none" aria-controls="navbar-sticky" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+            </svg>
+        </button>
+
+        <div class="w-full md:w-auto md:flex max-h-0 md:max-h-none overflow-hidden transition-all duration-300 ease-in-out js-navbar-sticky">
+            <ul class="flex flex-col gap-4 items-center font-medium border-t border-gray-700 md:border-none md:flex-row border-0 mt-4 pt-4 md:mt-0 md:pt-0">
+                <li>
+                    <a href="/pricing" class="block text-gray-300 hover:text-white">Pricing</a>
+                </li>
+                                    <li>
+                        <a href="https://app.algobuilder.com/sign/in" class="block text-gray-300 hover:text-white">Login</a>
+                    </li>
+                    <li>
+                        <a href="https://app.algobuilder.com/sign/up" class="py-2 px-4 rounded-lg font-medium flex text-sm transition-all duration-200 items-center gap-2   bg-white text-black py-2 px-4 rounded-lg font-medium flex text-sm hover:bg-gray-100 transition-all duration-200 items-center gap-2" data-action="" data-event-source=""><span class="btn-caption">Get Started</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path d="M8.47949 2.8125L13.167 7.5M13.167 7.5L8.47949 12.1875M13.167 7.5H1.91699" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                    </li>
+                            </ul>
+        </div>
+    </nav>
+</section>
+<section class="bg-black py-20"><div class="max-w-full md:max-w-9/10 mx-auto px-4 md:px-0 z-10 relative"><div class="text-left lg:text-center max-w-5xl mx-auto mb-16 relative z-10"><div class="inline-flex items-center gap-2 rounded-full mt-6 mb-8 text-white opacity-60"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17" fill="none"><g clip-path="url(#clip0_457_344)"><path d="M9.7875 8.27812C10.2375 7.63437 10.5 6.85 10.5 6C10.5 3.79063 8.70937 2 6.5 2C4.29063 2 2.5 3.79063 2.5 6C2.5 6.85 2.7625 7.63437 3.2125 8.27812C3.32812 8.44375 3.46563 8.63125 3.6125 8.83125C4.01562 9.38438 4.49687 10.0469 4.85625 10.7C5.18125 11.2937 5.34687 11.9125 5.42812 12.4969L3.90625 12.5C3.8375 12.125 3.72187 11.7594 3.5375 11.4219C3.22812 10.8594 2.84375 10.3313 2.45938 9.80313C2.29688 9.58125 2.13437 9.35938 1.97812 9.13437C1.3625 8.24687 1 7.16563 1 6C1 2.9625 3.4625 0.5 6.5 0.5C9.5375 0.5 12 2.9625 12 6C12 7.16563 11.6375 8.24687 11.0188 9.13437C10.8625 9.35938 10.7 9.58125 10.5375 9.80313C10.1531 10.3281 9.76875 10.8562 9.45938 11.4219C9.275 11.7594 9.15938 12.125 9.09062 12.5H7.57188C7.65313 11.9156 7.81875 11.2937 8.14375 10.7031C8.50313 10.05 8.98438 9.3875 9.3875 8.83438C9.53438 8.63438 9.66875 8.44688 9.78438 8.28125L9.7875 8.27812ZM6.5 4.5C5.67188 4.5 5 5.17188 5 6C5 6.275 4.775 6.5 4.5 6.5C4.225 6.5 4 6.275 4 6C4 4.61875 5.11875 3.5 6.5 3.5C6.775 3.5 7 3.725 7 4C7 4.275 6.775 4.5 6.5 4.5ZM6.5 16.5C5.11875 16.5 4 15.3813 4 14V13.5H9V14C9 15.3813 7.88125 16.5 6.5 16.5Z" fill="white"/></g><defs><clipPath id="clip0_457_344"><rect width="12" height="16" fill="white" transform="translate(0.5 0.5)"/></clipPath></defs></svg><span class="text-sm font-medium">Ideas to algo, instantly.</span></div><h1 class="text-5xl md:text-6xl lg:text-7xl leading-14 md:leading-19 lg:leading-21 font-semibold mb-6 bg-[linear-gradient(180deg,_#FFFFFF_73.64%,_#999999_96.36%)] bg-clip-text text-transparent">Build automated trading<br>strategies in plain English</h1><p class="text-lg md:text-xl text-gray-400 mb-4 max-w-3xl ml-0 mr-0 lg:mx-auto">No coding needed — just describe your idea and watch it come to life.</p><div class="flex flex-row gap-4 justify-start lg:justify-center items-center mb-20"><a href="https://app.algobuilder.com/sign/up" class="py-2 px-4 rounded-lg font-medium flex text-sm transition-all duration-200 items-center gap-2   bg-white text-black py-2 px-4 rounded-lg font-medium flex text-sm hover:bg-gray-100 transition-all duration-200 items-center gap-2" data-action="" data-event-source=""><span class="btn-caption">Get Started</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path d="M8.47949 2.8125L13.167 7.5M13.167 7.5L8.47949 12.1875M13.167 7.5H1.91699" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="/pricing" class="flex items-center gap-2 text-white py-2 px-4 rounded-lg font-medium text-base hover:bg-white hover:text-black transition-all duration-200">View Pricing<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path d="M8.47949 2.8125L13.167 7.5M13.167 7.5L8.47949 12.1875M13.167 7.5H1.91699" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div><div class="max-w-7xl mx-auto"><div class="grid md:grid-cols-3 gap-6 blue-bg-glow"><div class="text-center order-1 md:order-1"><div class="text-white text-lg font-medium mb-2">1. Your strategy input</div><div class="w-px h-8 bg-gray-600 mx-auto"></div><div class="w-12 h-px bg-gray-600 mx-auto"></div></div><div class="text-center order-3 md:order-2 mt-8 md:mt-0"><div class="text-white text-lg font-medium mb-2">2. Auto-generated trading code</div><div class="w-px h-8 bg-gray-600 mx-auto"></div><div class="w-12 h-px bg-gray-600 mx-auto"></div></div><div class="text-center order-5 md:order-3 mt-8 md:mt-0"><div class="text-white text-lg font-medium mb-2">3. Simulated backtest</div><div class="w-px h-8 bg-gray-600 mx-auto"></div><div class="w-12 h-px bg-gray-600 mx-auto"></div></div><div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 gradient-border rounded-sm p-6 backdrop-blur-sm bg-gradient-to-br from-purple-600 to-blue-500 order-2 md:order-4"><h3 class="text-xl font-bold text-center text-white mb-4">Chat with AI</h3><img src="/static/img/homenew/chat.png" alt=""></div><div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 gradient-border rounded-sm p-6 backdrop-blur-sm bg-gradient-to-br from-purple-600 to-blue-500 order-4 md:order-5"><h3 class="text-xl font-bold text-center text-white mb-4">Code generated</h3><div class="gradient-border rounded-sm p-4"><div class="flex items-center justify-between"><button type="button" class="text-white border border-white font-medium rounded-sm text-sm px-5 py-2.5 text-center mb-2 w-full">Download MQL5</button></div><div class="pb-4"><div class="text-gray-400 text-sm text-center mt-2 mb-7">Runs live on MetaTrader 5</div><img src="/static/img/homenew/generated-code.png" alt=""></div></div></div><div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 gradient-border rounded-sm p-6 backdrop-blur-sm bg-gradient-to-br from-purple-600 to-blue-500 order-6 md:order-6"><h3 class="text-lg font-medium text-center text-white mb-2">Backtest</h3><div><img src="/static/img/homenew/backtest.png" alt="" class="object-contain w-100"></div><div class="text-center font-medium text-sm text-white mt-3 mb-2">Portfolio drawdown</div><div><img src="/static/img/homenew/portfolio-drawdown.png" alt="" class="object-contain w-100"></div></div></div></div></div></section><section class="bg-black py-20">
+    <div class="max-w-full md:max-w-9/10 mx-auto px-4 md:px-0">
+        <div class="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+            
+            <div>
+                                <span class="text-sm text-gray-300 font-medium">You think. We code.</span>
+                <h2 class="text-4xl font-semibold text-white mt-4 mb-4">You define the rules AlgoBuilder writes the code</h2>
+                <p class="text-base font-medium text-gray-400 mb-8">From entry and exit to risk filters, just describe it, the AI handles the syntax.</p>
+
+                                    <div class="grid md:grid-cols-2 gap-y-2">
+                                                    <div class="flex items-center gap-3">
+                                <svg width="20" height="16" class="text-gray-300"><use xlink:href="/dist/assets/icons/sprite.svg#sprite-language"></use></svg>
+                                <span class="text-gray-300">Chat in your language</span>
+                            </div>
+                                                    <div class="flex items-center gap-3">
+                                <svg width="18" height="16" class="text-gray-300"><use xlink:href="/dist/assets/icons/sprite.svg#sprite-code"></use></svg>
+                                <span class="text-gray-300">Code generated instantly</span>
+                            </div>
+                                                    <div class="flex items-center gap-3">
+                                <svg width="16" height="16" class="text-gray-300"><use xlink:href="/dist/assets/icons/sprite.svg#sprite-settings-slider"></use></svg>
+                                <span class="text-gray-300">Full control over logic</span>
+                            </div>
+                                                    <div class="flex items-center gap-3">
+                                <svg width="16" height="16" class="text-gray-300"><use xlink:href="/dist/assets/icons/sprite.svg#sprite-undo"></use></svg>
+                                <span class="text-gray-300">Backtest with one click</span>
+                            </div>
+                                            </div>
+                
+                <div class="flex gap-4 justify-start items-center mt-8">
+                    <a href="https://app.algobuilder.com/sign/up" class="py-2 px-4 rounded-lg font-medium flex text-sm transition-all duration-200 items-center gap-2   bg-white text-black py-2 px-4 rounded-lg font-medium flex text-sm hover:bg-gray-100 transition-all duration-200 items-center gap-2" data-action="" data-event-source=""><span class="btn-caption">Get Started</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path d="M8.47949 2.8125L13.167 7.5M13.167 7.5L8.47949 12.1875M13.167 7.5H1.91699" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+            </div>
+
+                            <div class="relative">
+                    <picture class="w-full">
+                        <!-- PNG fallback -->
+                        <source media="(max-width: 1199px)" type="image/png" srcset="/static/img/homenew/define-the-rules-mob.png" />
+                        <source media="(min-width: 1200px)" type="image/png" srcset="/static/img/homenew/define-the-rules.png" />
+                        <source media="(max-width: 1199px)" type="image/webp" srcset="/static/img/homenew/define-the-rules-mob.webp" />
+                        <source media="(min-width: 1200px)" type="image/webp" srcset="/static/img/homenew/define-the-rules.webp" />
+                        <img src="/static/img/homenew/define-the-rules.png" class="w-full sm:max-w-100 sm:mx-auto lg:max-w-full lg:mx-0" />
+                    </picture>
+                </div>
+                    </div>
+    </div>
+</section>
+<section class="bg-black py-20"><div class="max-w-full md:max-w-9/10 mx-auto px-4 md:px-0"><div class="text-left lg:text-center max-w-3xl mx-auto mb-16"><h2 class="text-4xl md:text-5xl font-semibold text-white mb-6">Watch and test your trading strategy on historical market data</h2><p class="text-xl text-gray-300 leading-relaxed">Watch every trade, entry, and exit in action, backtested across years of tick-level data.</p></div><div class="max-w-7xl mx-auto relative z-11 border border-gray-600 rounded-md p-6 bg-black backdrop-blur-xs"><div class="purple-bg-glow"><img src="/static/img/homenew/watch-and-test.png" alt="" class="w-full"></div></div><div class="flex gap-4 justify-center items-center mt-10"><a href="https://app.algobuilder.com/sign/up" class="py-2 px-4 rounded-lg font-medium flex text-sm transition-all duration-200 items-center gap-2  " data-action="" data-event-source=""><span class="btn-caption">Get Started</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path d="M8.47949 2.8125L13.167 7.5M13.167 7.5L8.47949 12.1875M13.167 7.5H1.91699" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></section><section class="bg-black py-20"><div class="max-w-full md:max-w-9/10 mx-auto px-4 md:px-0"><div class="flex flex-col lg:flex-row justify-between max-w-7xl mx-auto lg:mb-12"><div class="max-w-120"><h2 class="text-5xl md:text-4xl font-semibold text-white mb-4 lg:mb-0">Refine your trading edge with AI driven enhancements</h2></div><div class="max-w-110"><p class="text-xl text-gray-400 mb-15 lg:mb-0">AlgoBuilder can enhance your entry, exit, and risk logic, optimizing for performance while keeping your intent intact.</p></div></div></div><div class="md:max-w-9/10 lg:max-w-9/10 mx-auto"><div class="max-w-7xl relative mx-auto"><picture class="w-full"><!-- PNG fallback --><source media="(max-width: 767px)" type="image/png" srcset="/static/img/homenew/refine-your-edge-mob.png" /><source media="(min-width: 768px)" type="image/png" srcset="/static/img/homenew/refine-your-edge.png" /><source media="(max-width: 767px)" type="image/webp" srcset="/static/img/homenew/refine-your-edge-mob.webp" /><source media="(min-width: 768px)" type="image/webp" srcset="/static/img/homenew/refine-your-edge.webp" /><img src="/static/img/homenew/refine-your-edge.png" class="w-full relative z-10 mx-auto" /></picture><video playsinline loop autoplay muted class="w-full absolute top-0 left-0 right-0 bottom-0 max-w-110 mx-auto md:max-w-full z-9 js-video"><source type="video/webm" src="/static/videos/chip.webm"><source type="video/mp4" src="/static/videos/chip.mp4"></video></div></div></section><section class="bg-black py-20"><div class="max-w-full md:max-w-9/10 mx-auto px-4 md:px-0"><div class="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto"><div><span class="text-sm text-gray-300 font-medium">Test. Refine. Win. Repeat.</span><h2 class="text-4xl font-semibold text-white mt-4 mb-4">Stay ahead of the market curve with continuous strategy optimisation</h2><p class="text-base font-medium text-gray-400 mb-8">AlgoBuilder is your lifelong strategic partner, with you through every test, every tweak.</p><div class="flex gap-4 justify-start items-center mt-8"><a href="https://app.algobuilder.com/sign/up" class="py-2 px-4 rounded-lg font-medium flex text-sm transition-all duration-200 items-center gap-2   bg-white text-black py-2 px-4 rounded-lg font-medium flex text-sm hover:bg-gray-100 transition-all duration-200 items-center gap-2" data-action="" data-event-source=""><span class="btn-caption">Get Started</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path d="M8.47949 2.8125L13.167 7.5M13.167 7.5L8.47949 12.1875M13.167 7.5H1.91699" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div><div class="relative flex justify-center items-center"><picture class="relative right-4 z-11"><!-- PNG fallback --><source media="(max-width: 1199px)" type="image/png" srcset="/static/img/homenew/stay-ahead-mob.png" /><source media="(min-width: 1200px)" type="image/png" srcset="/static/img/homenew/stay-ahead.png" /><source media="(max-width: 1199px)" type="image/webp" srcset="/static/img/homenew/stay-ahead-mob.webp" /><source media="(min-width: 1200px)" type="image/webp" srcset="/static/img/homenew/stay-ahead.webp" /><img src="/static/img/homenew/stay-ahead.png" class="w-full max-w-lg mx-auto" /></picture><video playsinline loop autoplay muted class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 max-w-[15rem] z-10 js-video"><source type="video/webm" src="/static/videos/globe.webm"><source type="video/mp4" src="/static/videos/globe.mp4"></video></div></div></div></section><section class="bg-black py-20"><div class="max-w-full md:max-w-9/10 mx-auto px-4 md:px-0"><div class="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto"><div class="relative order-2 lg:order-1"><video playsinline loop autoplay muted class="w-full sm:max-w-100 sm:mx-auto relative z-10 js-video"><source type="video/mp4" src="/static/videos/shield.mp4"><source type="video/webm" src="/static/videos/shield.webm"></video></div><div class="order-1 lg:order-2"><span class="text-sm text-gray-300 font-medium">Own it. Edit it. Trade it.</span><h2 class="text-4xl font-semibold text-white mt-4 mb-4">Full rights to your code download and trade in MT5</h2><p class="text-base font-medium text-gray-400 mb-8">You own the full copyright — edit it, sell it, trade it, or build your own platform on top.</p><div class="grid md:grid-cols-2 gap-y-2"><div class="flex items-center gap-3"><svg width="16" height="16" class="text-gray-300"><use xlink:href="/dist/assets/icons/sprite.svg#sprite-copyright"></use></svg><span class="text-gray-300">Full copyright ownership</span></div><div class="flex items-center gap-3"><svg width="16" height="16" class="text-gray-300"><use xlink:href="/dist/assets/icons/sprite.svg#sprite-file-money"></use></svg><span class="text-gray-300">Sell or license your code</span></div><div class="flex items-center gap-3"><svg width="16" height="16" class="text-gray-300"><use xlink:href="/dist/assets/icons/sprite.svg#sprite-file-edit"></use></svg><span class="text-gray-300">Fully editable strategy</span></div><div class="flex items-center gap-3"><svg width="16" height="16" class="text-gray-300"><use xlink:href="/dist/assets/icons/sprite.svg#sprite-cloud-download"></use></svg><span class="text-gray-300">One-click MT5 export</span></div></div><div class="flex gap-4 justify-start items-center mt-8"><a href="https://app.algobuilder.com/sign/up" class="py-2 px-4 rounded-lg font-medium flex text-sm transition-all duration-200 items-center gap-2   bg-white text-black py-2 px-4 rounded-lg font-medium flex text-sm hover:bg-gray-100 transition-all duration-200 items-center gap-2" data-action="" data-event-source=""><span class="btn-caption">Get Started</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path d="M8.47949 2.8125L13.167 7.5M13.167 7.5L8.47949 12.1875M13.167 7.5H1.91699" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></div></div></section><section class="bg-black pb-20 pt-0 lg:pt-20"><div class="max-w-7xl mx-auto"><img src="/static/img/homenew/leverage.png" alt=""></div><div class="max-w-full md:max-w-9/10 mx-auto px-4 md:px-0"><div class="text-left lg:text-center max-w-5xl mx-auto mb-16"><span class="text-sm text-gray-300 font-medium">Trade smarter. Everywhere.</span><h2 class="text-4xl md:text-6xl font-semibold text-white mb-4">Leverage institutional-grade<br>financial data, markets and tools</h2></div><div class="max-w-7xl mx-auto"><div class="grid md:grid-cols-2 gap-8 mb-12 relative"><div class="border border-slate-700 rounded-2xl p-8 relative purple-bg-glow"><h3 class="text-2xl font-bold text-white mb-4">Every technical indicator you’ll ever need.</h3><p class="text-gray-400 mb-4">From MACD to bollinger bands, everything’s built-in and ready for AI-powered strategies — no code or manual config required.</p><img src="/static/img/homenew/technical-indicator.png" alt="" class="w-full"></div><div class="border border-slate-700 rounded-2xl p-8"><h3 class="text-2xl font-bold text-white mb-4">3.8TB of tick-data. Zero guesswork.</h3><p class="text-gray-400 mb-4">Simulate five years in a few minutes, with millisecond resolution and built-in slippage modelling. Test like the hedge funds do.</p><img src="/static/img/homenew/backtest2.png" alt="" class="w-full"></div></div><div class="border border-slate-700 rounded-2xl p-8 relative blue-bg-glow sm-glow"><h3 class="text-2xl font-bold text-white mb-4">Global market access, zero limits.</h3><p class="text-gray-400 mb-8 text-left max-w-lg mr-auto">From forex to crypto, our AI supports every major market,<br> with code-ready insights, even when backtesting isn’t available.</p><picture class=""><!-- PNG fallback --><source media="(max-width: 1199px)" type="image/png" srcset="/static/img/homenew/global-market-mob.png" /><source media="(min-width: 1200px)" type="image/png" srcset="/static/img/homenew/global-market.png" /><img src="/static/img/homenew/stay-ahead.png" class="w-full sm:max-w-100 sm:mx-auto lg:max-w-full lg:mx-0" /></picture></div></div><div class="flex gap-4 justify-center items-center mt-10"><a href="https://app.algobuilder.com/sign/up" class="py-2 px-4 rounded-lg font-medium flex text-sm transition-all duration-200 items-center gap-2   bg-white text-black py-2 px-4 rounded-lg font-medium flex text-sm hover:bg-gray-100 transition-all duration-200 items-center gap-2" data-action="" data-event-source=""><span class="btn-caption">Get Started</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path d="M8.47949 2.8125L13.167 7.5M13.167 7.5L8.47949 12.1875M13.167 7.5H1.91699" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></section><section class="bg-black py-20"><div class="max-w-full md:max-w-9/10 mx-auto px-4 md:px-0"><div class="grid lg:grid-cols-2 gap-40 max-w-7xl mx-auto"><div><h2 class="text-4xl font-semibold text-white mb-4 leading-tight">Emotional trading, missed trades, poor risk management? AlgoBuilder fixes that.</h2><p class="text-xl text-gray-400 mb-8 leading-relaxed">With built-in stop-loss logic, trade timing adjustments, and performance feedback, our AI removes bias and plugs gaps — so your edge stays sharp.</p><img src="/static/img/homenew/fog-to-clarity.png" alt="fog to clarity img" class="w-full sm:max-w-100 sm:mx-auto lg:max-w-full"></div><div><h2 class="text-4xl font-semibold text-white mb-4 leading-tight">No more black-box trading. Gain full transparency & control.</h2><p class="text-xl text-gray-400 mb-8 leading-relaxed">No freelancers. No executables. Just transparent logic you control. Every line editable. Every rule visible. The strategy is yours — forever.</p><img src="/static/img/homenew/full-transparency.png" alt="full transparency img" class="w-full sm:max-w-100 sm:mx-auto lg:max-w-100"></div></div></div></section><section class="bg-black py-20">
+    <div class="max-w-full md:max-w-7xl mx-auto px-4">
+                    <div class="flex flex-col lg:flex-row justify-between max-w-7xl mx-auto mb-4">
+                <p class="text-sm font-medium px-4 py-1 border-1 border-gray-400 text-white rounded-sm self-start">Coming Soon</p>
+            </div>
+                <div class="flex flex-col lg:flex-row justify-between max-w-7xl mx-auto lg:mb-12">
+            <div class="max-w-120">
+                <h2 class="text-4xl font-semibold text-white mb-4 lg:mb-0">Kickstart with community strategy templates</h2>
+            </div>
+
+            <div class="max-w-110">
+                <p class="text-xl text-gray-400 mb-15 lg:mb-0">Some come with a full plan. Others start with a hunch. AlgoBuilder adapts to both — whether you're sharpening logic or just seeing what clicks.</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="max-w-7xl mx-auto px-4 lg:px-0">
+        <picture class="w-full">
+            <!-- PNG fallback -->
+            <source media="(max-width: 1199px)" type="image/png" srcset="/static/img/homenew/community-templates-mob.png" />
+            <source media="(min-width: 1200px)" type="image/png" srcset="/static/img/homenew/community-templates.png" />
+            <source media="(max-width: 1199px)" type="image/webp" srcset="/static/img/homenew/community-templates-mob.webp" />
+            <source media="(min-width: 1200px)" type="image/webp" srcset="/static/img/homenew/community-templates.webp" />
+            <img src="/static/img/homenew/community-templates.png" class="w-full max-w-110 mx-auto lg:max-w-full" />
+        </picture>
+    </div>
+            <div class="flex gap-4 justify-center items-center mt-10">
+            <a href="https://app.algobuilder.com/sign/up" class="py-2 px-4 rounded-lg font-medium flex text-sm transition-all duration-200 items-center gap-2   bg-white text-black py-2 px-4 rounded-lg font-medium flex text-sm hover:bg-gray-100 transition-all duration-200 items-center gap-2" data-action="" data-event-source=""><span class="btn-caption">Get Started</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path d="M8.47949 2.8125L13.167 7.5M13.167 7.5L8.47949 12.1875M13.167 7.5H1.91699" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+    </section>
+<section class="bg-black py-20">
+    <div class="max-w-full md:max-w-9/10 mx-auto px-4 md:px-0">
+        <div class="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+            
+            <div>
+                                    <div class="flex flex-col lg:flex-row justify-between max-w-7xl mx-auto mb-4">
+                        <p class="text-sm font-medium px-4 py-1 border-1 border-gray-400 text-white rounded-sm self-start">Coming Soon</p>
+                    </div>
+                                <span class="text-sm text-gray-300 font-medium">Built by traders. Made for you.</span>
+                <h2 class="text-4xl font-semibold text-white mt-4 mb-4">Learn as you build — with our on-demand video library</h2>
+                <p class="text-base font-medium text-gray-400 mb-8">Whether you're new to AlgoBuilder or fine-tuning your strategy, our expert videos walk you through every step — from first prompt to final backtest.</p>
+
+                
+                <div class="flex gap-4 justify-start items-center mt-8">
+                    <a href="https://app.algobuilder.com/sign/up" class="py-2 px-4 rounded-lg font-medium flex text-sm transition-all duration-200 items-center gap-2   bg-white text-black py-2 px-4 rounded-lg font-medium flex text-sm hover:bg-gray-100 transition-all duration-200 items-center gap-2" data-action="" data-event-source=""><span class="btn-caption">Get Started</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path d="M8.47949 2.8125L13.167 7.5M13.167 7.5L8.47949 12.1875M13.167 7.5H1.91699" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+            </div>
+
+                            <div class="relative">
+                    <picture class="w-full">
+                        <!-- PNG fallback -->
+                        <source media="(max-width: 1199px)" type="image/png" srcset="/static/img/homenew/video-library-mob.png" />
+                        <source media="(min-width: 1200px)" type="image/png" srcset="/static/img/homenew/video-library.png" />
+                        <source media="(max-width: 1199px)" type="image/webp" srcset="/static/img/homenew/video-library-mob.webp" />
+                        <source media="(min-width: 1200px)" type="image/webp" srcset="/static/img/homenew/video-library.webp" />
+                        <img src="/static/img/homenew/video-library.png" class="w-full sm:max-w-100 sm:mx-auto lg:max-w-full lg:mx-0" />
+                    </picture>
+                </div>
+                    </div>
+    </div>
+</section>
+<section class="bg-black py-20">
+    <div class="max-w-full md:max-w-9/10 mx-auto px-4 md:px-0">
+        <div class="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+                            <div class="relative order-2 lg:order-1">
+                    <picture class="w-full">
+                        <!-- PNG fallback -->
+                        <source media="(max-width: 1199px)" type="image/png" srcset="/static/img/homenew/ai-strategist-mob.png" />
+                        <source media="(min-width: 1200px)" type="image/png" srcset="/static/img/homenew/ai-strategist.png" />
+                        <source media="(max-width: 1199px)" type="image/webp" srcset="/static/img/homenew/ai-strategist-mob.webp" />
+                        <source media="(min-width: 1200px)" type="image/webp" srcset="/static/img/homenew/ai-strategist.webp" />
+                        <img src="/static/img/homenew/ai-strategist.png" class="w-full sm:max-w-100 sm:mx-auto lg:max-w-full lg:mx-0" />
+                    </picture>
+                </div>
+            
+            <div class="order-1 lg-order-2">
+                                <span class="text-sm text-gray-300 font-medium">Built for the long game.</span>
+                <h2 class="text-4xl font-semibold text-white mt-4 mb-4">Your AI driven trading strategist for long-term success.</h2>
+                <p class="text-base font-medium text-gray-400 mb-8">From ideation to execution, AlgoBuilder doesn’t just automate — it guides. Think of it as your strategy coach, helping you refine, test, and improve with every trade.</p>
+
+                
+                <div class="flex gap-4 justify-start items-center mt-8">
+                    <a href="https://app.algobuilder.com/sign/up" class="py-2 px-4 rounded-lg font-medium flex text-sm transition-all duration-200 items-center gap-2   bg-white text-black py-2 px-4 rounded-lg font-medium flex text-sm hover:bg-gray-100 transition-all duration-200 items-center gap-2" data-action="" data-event-source=""><span class="btn-caption">Get Started</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path d="M8.47949 2.8125L13.167 7.5M13.167 7.5L8.47949 12.1875M13.167 7.5H1.91699" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+            </div>
+
+                    </div>
+    </div>
+</section>
+<section class="bg-black py-20"><div class="relative z-10 max-w-full md:max-w-9/10 mx-auto px-4 md:px-0 text-center"><div class="max-w-7xl mx-auto border border-gray-600 rounded-md px-6 relative bg-black purple-bg-glow backdrop-blur-xs"><h2 class="text-5xl md:text-7xl font-bold text-white mt-19 mb-8 relative z-2">Harness the world’s most<br> <span class="text-blue-600">advanced AI</span>. Automate your<br> trading strategy now.</h2><p class="text-base text-white font-medium max-w-xl mb-17 mx-auto relative z-2">You don’t need a perfect plan — just an idea worth testing. AlgoBuilder helps you shape it, stress-test it, and get sharper with every step.</p><img src="/static/img/homenew/grid-candlestick.png" alt="" class="absolute z-1 top-0 left-0 right-0 bottom-0 w-full h-full object-cover"></div><p class="bg-[linear-gradient(180deg,_#F7F8F8_57.27%,_#999999_96.36%)] bg-clip-text text-transparent text-4xl font-semibold mt-11">Start with an idea</p></div></section><section class="bg-black text-gray-300 py-10"><footer class="max-w-screen-xl mx-auto px-4"><div class="flex flex-col md:flex-row justify-between"><div class="flex justify-center md:justify-start"><a href="/" class="footer-logo"><img src="/static/img/logo-white.svg" alt="AlgoBuilder logo white"></a></div><ul class="flex flex-col md:flex-row justify-center md:justify-between items-center text-base gap-4 md:gap-2 mt-10 md:mt-0 mb-5 md:mb-0"><li><a href="/contact-us/">Contact Us</a></li><li><a href="https://app.algobuilder.com/sign/in">Login</a></li><li><a href="https://app.algobuilder.com/sign/up">Register</a></li><li><a href="/terms-and-conditions/">Terms</a></li><li><a href="/privacy-policy/">Privacy Policy</a></li><li><a href="/cookie-policy/">Cookie Policy</a></li></ul></div><hr class="footer-line mt-4 mb-4"><div class="flex justify-between"><div class="gap-2 hidden md:flex"><div class="flex items-center gap-2"><h3 class="text-sm text-gray-500">Partnership</h3><a href="https://www.switchmarkets.com/" target="_blank"><img src="/static/img/sm_logo_white.svg" alt="SwitchMarkets website"></a></div></div><div class="text-center mx-auto md:mx-0 md:text-right text-sm text-gray-500"><p>Address: 26th Floor, Beautiful Group Tower, 77&nbsp;Connaught Road Central, Central Hong Kong</p><p>Copyright © 2026 AlgoBuilder</p></div></div></footer></section>
+<script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "AlgoBuilder",
+                "url": "https://algobuilder.com/",
+                "logo": "https://algobuilder.com/static/img/logo.svg",
+                "alternateName": "AlgoBuilder - Build Automated Trading Strategies in Plain English"
+            }
+        </script>
+
+            <script src="https://cmp.algobuilder.com/algobuilder.min.js"></script><script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof window.initCookieConsent === 'function') {
+        window.initCookieConsent({
+            translations: {
+                cookieMsgTitle: 'This website uses cookies',
+                cookieMsgP: 'We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.',
+                cookieMsgBtnDeny: 'Deny',
+                cookieMsgBtnAccept: 'Accept All'
+            }
+        });
+    }
+});
+</script>    
+        <script>
+    const abApp = Object();
+
+    abApp.cdnUrl = '';
+    abApp.svgSpriteUrl = '';
+    abApp.recaptchaSiteKey = '6LeJfTsqAAAAAH39AIevf-o3cBmArbDMHr1rxsXl';
+
+    abApp.appUrl = 'https://app.algobuilder.com';
+
+    abApp.mouse = {
+        clientX: 0,
+        clientY: 0,
+    }
+
+    abApp.freshChatToken = '';
+    abApp.freshChatWidgetUid = '';
+
+    
+    abApp.freshChatDisabled = false;
+</script>
+    
+    
+            <script async defer src="https://www.google.com/recaptcha/api.js?render=6LeJfTsqAAAAAH39AIevf-o3cBmArbDMHr1rxsXl"></script>
+        
+        <script type="module" src="/dist/assets/algobuilder-bundle-DrTRzPRI.js"></script>
+            <noscript>
+<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NLFF5L5P" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<noscript>
+<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=24000649622952605&ev=PageView&noscript=1"/>
+</noscript>
+
+    
+  <script>
+    function initFreshChat() {
+      window.fcWidget.init({
+        token: `${abApp.freshChatToken}`,
+        host: "https://thinkhuge.freshchat.com",
+        widgetUuid: `${abApp.freshChatWidgetUid}`
+      });
+    }
+    function initialize(i,t){var e;i.getElementById(t)?
+            initFreshChat():((e=i.createElement("script")).id=t,e.async=!0,
+                    e.src="https://thinkhuge.freshchat.com/js/widget.js",e.onload=initFreshChat,i.head.appendChild(e))}
+    function initiateCall(){initialize(document,"Freshchat-js-sdk")}
+    window.addEventListener?window.addEventListener("load",initiateCall,!1):
+            window.attachEvent("load",initiateCall,!1);
+  </script>
+
+    
+
+</body>
+</html>

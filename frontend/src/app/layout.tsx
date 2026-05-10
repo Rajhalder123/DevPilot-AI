@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Outfit, Geist } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-display" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "DevPilot AI — Land Better Developer Jobs Faster",
@@ -30,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn(outfit.variable, "font-sans", geist.variable)}>
-      <body className="font-sans antialiased bg-white text-slate-900 min-h-screen selection:bg-blue-500/30" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={cn(inter.variable, "font-sans")}>
+      <body className="font-sans antialiased bg-white text-slate-900 min-h-screen selection:bg-indigo-500/30" suppressHydrationWarning>
         <AuthProvider>
           {children}
         </AuthProvider>
