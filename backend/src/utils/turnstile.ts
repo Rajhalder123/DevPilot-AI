@@ -21,7 +21,10 @@ export async function verifyTurnstile(token: string, ip?: string): Promise<boole
         let response = await axios.post(
             'https://challenges.cloudflare.com/turnstile/v0/siteverify',
             params.toString(),
-            { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+            { 
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                validateStatus: () => true
+            }
         );
 
         // Fallback for testing keys on localhost if production secret fails
@@ -30,7 +33,10 @@ export async function verifyTurnstile(token: string, ip?: string): Promise<boole
             response = await axios.post(
                 'https://challenges.cloudflare.com/turnstile/v0/siteverify',
                 params.toString(),
-                { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+                { 
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    validateStatus: () => true
+                }
             );
         }
 
