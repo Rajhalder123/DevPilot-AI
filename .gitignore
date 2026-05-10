@@ -26,6 +26,7 @@ dist/
 build/
 .next/
 out/
+backend/dist/
 frontend/.next/
 frontend/out/
 
