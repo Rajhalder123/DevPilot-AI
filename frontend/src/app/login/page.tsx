@@ -29,7 +29,7 @@ export default function LoginPage() {
             if ((window as any).turnstile && widgetRef.current && !widgetRef.current.hasChildNodes()) {
                 try {
                     (window as any).turnstile.render(widgetRef.current, {
-                        sitekey: process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY || '1x00000000000000000000AA',
+                        sitekey: process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY || '',
                         callback: (token: string) => setTurnstileToken(token),
                         theme: 'light',
                     });
