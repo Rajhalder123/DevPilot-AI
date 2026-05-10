@@ -7,19 +7,28 @@ import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: "DevPilot AI — Land Better Developer Jobs Faster",
-  description: "Build Your Developer Career with AI. Analyze resumes, improve ATS scores, prepare for interviews, and discover AI-powered job opportunities tailored for developers.",
-  keywords: ["AI resume analyzer", "mock interview", "github reviewer", "job matching", "career platform", "students", "developers"],
+  title: "DevPilot AI — Land Your Dream Developer Role with AI",
+  description: "The ultimate AI-powered career platform for developers. Optimize your resume for ATS, master system design interviews, and discover high-paying jobs tailored to your GitHub patterns.",
+  keywords: ["AI resume analyzer", "developer jobs", "ATS optimization", "mock interviews", "system design preparartion", "GitHub portfolio audit", "DevPilot AI"],
+  authors: [{ name: "DevPilot Team", url: "https://devpilot-ai.com" }],
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+  robots: "index, follow",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
   openGraph: {
-    title: "DevPilot AI — Land Better Developer Jobs Faster",
-    description: "Build Your Developer Career with AI. Analyze resumes, improve ATS scores, prepare for interviews, and discover AI-powered job opportunities tailored for developers.",
+    title: "DevPilot AI — Land Your Dream Developer Role with AI",
+    description: "The ultimate AI-powered career platform for developers. Optimize your resume for ATS, master system design interviews, and discover high-paying jobs.",
     type: "website",
     siteName: "DevPilot AI",
+    locale: "en_US",
+    url: "https://devpilot-ai.com",
   },
   twitter: {
     card: "summary_large_image",
-    title: "DevPilot AI — Land Better Developer Jobs Faster",
-    description: "Build Your Developer Career with AI. Analyze resumes, improve ATS scores, prepare for interviews, and discover AI-powered job opportunities tailored for developers.",
+    title: "DevPilot AI — Land Your Dream Developer Role with AI",
+    description: "The ultimate AI-powered career platform for developers. Optimize your resume for ATS and land better jobs faster.",
   },
 };
 

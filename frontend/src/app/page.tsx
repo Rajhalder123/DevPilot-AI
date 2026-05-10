@@ -7,7 +7,7 @@ import {
     FiZap, FiArrowRight, FiFileText, FiGithub,
     FiTarget, FiCodesandbox, FiMenu, FiX, FiCheck,
     FiTerminal, FiActivity, FiCode, FiCpu, FiSun, FiMoon,
-    FiPlay, FiShield, FiUsers, FiTrendingUp, FiCheckCircle, FiBriefcase, FiMic, FiSend, FiPlus, FiMap, FiSearch, FiMessageCircle, FiGlobe, FiClock
+    FiPlay, FiShield, FiUsers, FiTrendingUp, FiCheckCircle, FiBriefcase, FiMic, FiSend, FiPlus, FiMap, FiSearch, FiMessageCircle, FiGlobe, FiClock, FiMail
 } from 'react-icons/fi';
 import { ThemeProvider, useTheme } from '@/context/ThemeContext';
 
