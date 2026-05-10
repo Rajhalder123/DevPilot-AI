@@ -77,6 +77,16 @@ app.get('/api-docs.json', (_req, res) => {
     res.send(swaggerSpec);
 });
 
+// Root route
+app.get('/', (_req, res) => {
+    res.json({
+        success: true,
+        message: 'DevPilot AI Backend Running Successfully 🚀',
+        version: '1.0.0',
+        docs: '/api-docs'
+    });
+});
+
 // Health check
 app.get('/api/health', (_req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });

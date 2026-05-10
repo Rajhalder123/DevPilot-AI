@@ -59,7 +59,8 @@ export default function CoverLetterPage() {
             });
             setCoverLetter(res.data.coverLetter);
         } catch (err: any) {
-            setError(err.response?.data?.error || 'Generation failed. Please try again.');
+            const errorData = err.response?.data?.error;
+            setError(typeof errorData === 'string' ? errorData : errorData?.message || 'Generation failed. Please try again.');
         } finally { setGenerating(false); }
     };
 

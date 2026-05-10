@@ -65,7 +65,8 @@ export default function LoginPage() {
             await login(email, password, turnstileToken);
             router.push('/dashboard');
         } catch (err: any) {
-            setError(err.response?.data?.error || 'Login failed');
+            const errorData = err.response?.data?.error;
+            setError(typeof errorData === 'string' ? errorData : errorData?.message || 'Login failed');
             // Reset turnstile on failure
             if ((window as any).turnstile) (window as any).turnstile.reset();
             setTurnstileToken(null);
@@ -74,7 +75,7 @@ export default function LoginPage() {
         }
     };
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://devpilot-backend-d4dv.onrender.com/api';
 
     return (
         <div style={{

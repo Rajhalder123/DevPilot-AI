@@ -120,7 +120,8 @@ export default function JobsPage() {
             }
             setJobs(results);
         } catch (err: any) {
-            setError(err.response?.data?.error || 'Failed to fetch jobs. Please try again.');
+            const errorData = err.response?.data?.error;
+            setError(typeof errorData === 'string' ? errorData : errorData?.message || 'Failed to fetch jobs. Please try again.');
         } finally {
             setLoading(false);
         }

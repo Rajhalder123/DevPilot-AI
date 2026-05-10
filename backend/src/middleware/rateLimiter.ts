@@ -9,11 +9,7 @@ export const generalLimiter = rateLimit({
     standardHeaders: true,
     legacyHeaders: false,
     message: {
-        success: false,
-        error: {
-            code: 'RATE_LIMIT_EXCEEDED',
-            message: 'Too many requests. Please try again in a few minutes.',
-        },
+        error: 'Too many requests. Please try again in a few minutes.',
     },
 });
 
@@ -27,11 +23,7 @@ export const authLimiter = rateLimit({
     standardHeaders: true,
     legacyHeaders: false,
     message: {
-        success: false,
-        error: {
-            code: 'RATE_LIMIT_EXCEEDED',
-            message: 'Too many authentication attempts. Please try again later.',
-        },
+        error: 'Too many authentication attempts. Please try again later.',
     },
 });
 
@@ -45,10 +37,6 @@ export const aiLimiter = rateLimit({
     standardHeaders: true,
     legacyHeaders: false,
     message: {
-        success: false,
-        error: {
-            code: 'RATE_LIMIT_EXCEEDED',
-            message: 'Too many AI requests. Please wait before trying again.',
-        },
+        error: 'Too many AI requests. Please wait before trying again.',
     },
 });

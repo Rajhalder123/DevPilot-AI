@@ -67,7 +67,8 @@ export default function SettingsPage() {
             setSaved(true);
             setTimeout(() => setSaved(false), 3000);
         } catch (err: any) {
-            setError(err.response?.data?.error || 'Failed to save');
+            const errorData = err.response?.data?.error;
+            setError(typeof errorData === 'string' ? errorData : errorData?.message || 'Failed to save');
         } finally { setSaving(false); }
     };
 
