@@ -354,7 +354,7 @@ function LandingPageContent() {
             <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
 
             {/* --- NAVBAR (AlgoBuilder Style) --- */}
-            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${scrolled ? 'py-4 shadow-sm' : 'py-6'}`} style={{ backgroundColor: scrolled ? (isDark ? 'rgba(11, 15, 25, 0.9)' : 'rgba(255, 255, 255, 0.9)') : 'transparent', borderColor: 'var(--d-border)', backdropBlur: '12px' }}>
+            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${scrolled ? 'py-4 shadow-sm' : 'py-6'}`} style={{ backgroundColor: scrolled ? (isDark ? 'rgba(11, 15, 25, 0.9)' : 'rgba(255, 255, 255, 0.9)') : 'transparent', borderColor: 'var(--d-border)', backdropFilter: scrolled ? 'blur(12px)' : 'none', WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none' }}>
                 <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3 group">
                         <PremiumLogo size="sm" />
