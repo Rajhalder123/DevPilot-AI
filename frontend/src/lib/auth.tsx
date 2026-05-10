@@ -19,8 +19,8 @@ interface AuthContextType {
     user: User | null;
     token: string | null;
     loading: boolean;
-    login: (email: string, password: string) => Promise<void>;
-    signup: (name: string, email: string, password: string) => Promise<void>;
+    login: (email: string, password: string, turnstileToken?: string) => Promise<void>;
+    signup: (name: string, email: string, password: string, turnstileToken?: string) => Promise<void>;
     logout: () => void;
     updateUser: (data: Partial<User>) => void;
 }
@@ -56,16 +56,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
     };
 
-    const login = async (email: string, password: string) => {
-        const res = await api.post('/auth/login', { email, password });
+    const login = async (email: string, password: string, turnstileToken?: string) => {
+        const res = await api.post('/auth/login', { email, password, turnstileToken });
         const { token: t, user: u } = res.data;
         localStorage.setItem('devpilot_token', t);
         setToken(t);
         setUser(u);
     };
 
-    const signup = async (name: string, email: string, password: string) => {
-        const res = await api.post('/auth/signup', { name, email, password });
+    const signup = async (name: string, email: string, password: string, turnstileToken?: string) => {
+        const res = await api.post('/auth/signup', { name, email, password, turnstileToken });
         const { token: t, user: u } = res.data;
         localStorage.setItem('devpilot_token', t);
         setToken(t);

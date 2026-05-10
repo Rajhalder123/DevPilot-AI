@@ -5,6 +5,7 @@ import { User } from '../models/User';
 import { env } from '../config/env';
 import { AppError } from '../utils/AppError';
 import { asyncHandler } from '../utils/asyncHandler';
+import { verifyTurnstile } from '../utils/turnstile';
 
 const generateToken = (userId: string): string => {
     return jwt.sign({ id: userId }, env.JWT_SECRET, { expiresIn: env.JWT_EXPIRES_IN } as any);
@@ -12,7 +13,13 @@ const generateToken = (userId: string): string => {
 
 // POST /api/auth/signup
 export const signup = asyncHandler(async (req: Request, res: Response) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, turnstileToken } = req.body;
+
+    // Verify Cloudflare Turnstile
+    const isHuman = await verifyTurnstile(turnstileToken, req.ip);
+    if (!isHuman) {
+        throw AppError.unauthorized('Security challenge failed. Please try again.');
+    }
 
     const existing = await User.findOne({ email });
     if (existing) throw AppError.conflict('Email already registered');
@@ -28,7 +35,13 @@ export const signup = asyncHandler(async (req: Request, res: Response) => {
 
 // POST /api/auth/login
 export const login = asyncHandler(async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const { email, password, turnstileToken } = req.body;
+
+    // Verify Cloudflare Turnstile
+    const isHuman = await verifyTurnstile(turnstileToken, req.ip);
+    if (!isHuman) {
+        throw AppError.unauthorized('Security challenge failed. Please try again.');
+    }
 
     const user = await User.findOne({ email }).select('+password');
     if (!user || !(await user.comparePassword(password))) {

@@ -38,7 +38,7 @@ const httpServer = createServer(app);
 // Socket.IO setup
 const io = new SocketIO(httpServer, {
     cors: {
-        origin: env.FRONTEND_URL,
+        origin: env.FRONTEND_URLS,
         methods: ['GET', 'POST'],
         credentials: true,
     },
@@ -46,7 +46,7 @@ const io = new SocketIO(httpServer, {
 
 // ── Global Middleware ────────────────────────────────────────────────────────
 app.use(helmet({ crossOriginResourcePolicy: false }));
-app.use(cors({ origin: env.FRONTEND_URL, credentials: true }));
+app.use(cors({ origin: env.FRONTEND_URLS, credentials: true }));
 app.use(requestLogger);
 app.use(generalLimiter);
 app.use(express.json({ limit: '10mb' }));

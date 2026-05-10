@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -12,18 +12,63 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+    const widgetRef = useRef<HTMLDivElement>(null);
     const { login } = useAuth();
     const router = useRouter();
 
+    useEffect(() => {
+        // Load Turnstile script manually
+        const script = document.createElement('script');
+        script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+        script.async = true;
+        script.defer = true;
+        document.body.appendChild(script);
+
+        const renderTurnstile = () => {
+            if ((window as any).turnstile && widgetRef.current && !widgetRef.current.hasChildNodes()) {
+                try {
+                    (window as any).turnstile.render(widgetRef.current, {
+                        sitekey: process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY || '1x00000000000000000000AA',
+                        callback: (token: string) => setTurnstileToken(token),
+                        theme: 'light',
+                    });
+                } catch (e) {
+                    console.error('Turnstile render error:', e);
+                }
+            }
+        };
+
+        script.onload = () => {
+            renderTurnstile();
+        };
+
+        const timer = setTimeout(() => {
+            renderTurnstile();
+        }, 1500);
+
+        return () => {
+            document.body.removeChild(script);
+            clearTimeout(timer);
+        };
+    }, []);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!turnstileToken) {
+            setError('Please complete the security challenge.');
+            return;
+        }
         setError('');
         setLoading(true);
         try {
-            await login(email, password);
+            await login(email, password, turnstileToken);
             router.push('/dashboard');
         } catch (err: any) {
             setError(err.response?.data?.error || 'Login failed');
+            // Reset turnstile on failure
+            if ((window as any).turnstile) (window as any).turnstile.reset();
+            setTurnstileToken(null);
         } finally {
             setLoading(false);
         }
@@ -140,6 +185,12 @@ export default function LoginPage() {
                                 />
                             </div>
                         </div>
+                        
+                        {/* Cloudflare Turnstile Widget */}
+                        <div 
+                            ref={widgetRef}
+                            style={{ display: 'flex', justifyContent: 'center', minHeight: '65px' }}
+                        ></div>
 
                         <button 
                             type="submit" 

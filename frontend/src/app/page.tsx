@@ -7,7 +7,7 @@ import {
     FiZap, FiArrowRight, FiFileText, FiGithub,
     FiTarget, FiCodesandbox, FiMenu, FiX, FiCheck,
     FiTerminal, FiActivity, FiCode, FiCpu, FiSun, FiMoon,
-    FiPlay, FiShield, FiUsers, FiTrendingUp, FiCheckCircle, FiBriefcase, FiMic, FiSend, FiPlus, FiMap, FiSearch, FiMessageCircle
+    FiPlay, FiShield, FiUsers, FiTrendingUp, FiCheckCircle, FiBriefcase, FiMic, FiSend, FiPlus, FiMap, FiSearch, FiMessageCircle, FiGlobe
 } from 'react-icons/fi';
 import { ThemeProvider, useTheme } from '@/context/ThemeContext';
 
@@ -215,6 +215,125 @@ const DemoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
     );
 };
 
+// --- Feature Card Component ---
+const FeatureCard = ({ 
+    icon: Icon, 
+    title, 
+    desc, 
+    span = "col-span-1", 
+    color = "indigo",
+    children
+}: { 
+    icon: any, 
+    title: string, 
+    desc: string, 
+    span?: string, 
+    color?: "indigo" | "purple" | "emerald" | "pink",
+    children?: React.ReactNode
+}) => {
+    const colorClasses = {
+        indigo: "from-indigo-500/20 text-indigo-500 border-indigo-500/20 bg-indigo-500/5",
+        purple: "from-purple-500/20 text-purple-500 border-purple-500/20 bg-purple-500/5",
+        emerald: "from-emerald-500/20 text-emerald-500 border-emerald-500/20 bg-emerald-500/5",
+        pink: "from-pink-500/20 text-pink-500 border-pink-500/20 bg-pink-500/5"
+    };
+
+    return (
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -5 }}
+            className={`${span} relative overflow-hidden rounded-[2.5rem] border bg-white/[0.02] backdrop-blur-md p-8 md:p-10 group transition-all duration-500`}
+            style={{ borderColor: 'var(--d-border)' }}
+        >
+            {/* Background Glow */}
+            <div className={`absolute -inset-24 bg-gradient-to-br ${colorClasses[color].split(' ')[0]} blur-[80px] opacity-0 group-hover:opacity-40 transition-opacity duration-700`} />
+            
+            {/* Decorative Grid */}
+            <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity pointer-events-none" style={{ backgroundImage: `radial-gradient(var(--d-text) 1px, transparent 1px)`, backgroundSize: '24px 24px' }} />
+
+            <div className="relative z-10 h-full flex flex-col">
+                <div className={`w-14 h-14 rounded-2xl ${colorClasses[color].split(' ')[3]} border ${colorClasses[color].split(' ')[2]} flex items-center justify-center mb-8 shadow-xl transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3`}>
+                    <Icon size={28} className={colorClasses[color].split(' ')[1]} />
+                </div>
+                
+                <h3 className="text-2xl font-black mb-4 tracking-tight" style={{ color: 'var(--d-text)' }}>{title}</h3>
+                <p className="text-lg leading-relaxed opacity-60 mb-8" style={{ color: 'var(--d-sub)' }}>{desc}</p>
+                
+                <div className="mt-auto">
+                    {children}
+                </div>
+            </div>
+        </motion.div>
+    );
+};
+
+const ScanningEffect = () => (
+    <div className="relative w-full h-32 rounded-2xl bg-black/20 border border-white/5 overflow-hidden">
+        <motion.div 
+            animate={{ top: ['0%', '100%', '0%'] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            className="absolute left-0 right-0 h-0.5 bg-indigo-500 shadow-[0_0_15px_rgba(99,102,241,1)] z-10"
+        />
+        <div className="p-6 space-y-3 opacity-30">
+            <div className="h-2 w-3/4 bg-white/20 rounded-full" />
+            <div className="h-2 w-1/2 bg-white/20 rounded-full" />
+            <div className="h-2 w-2/3 bg-white/20 rounded-full" />
+            <div className="h-2 w-1/3 bg-white/20 rounded-full" />
+        </div>
+    </div>
+);
+
+// --- Interactive Nav Items Component ---
+const NavItems = () => {
+    const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+    const navLinks = [
+        { name: 'Features', href: '#features' },
+        { name: 'Dashboard', href: '#dashboard' },
+        { name: 'Jobs', href: '#jobs' },
+        { name: 'Pricing', href: '#pricing' },
+    ];
+
+    const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+        e.preventDefault();
+        const element = document.getElementById(id.replace('#', ''));
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    return (
+        <nav className="hidden md:flex items-center gap-1 p-1 rounded-full border border-white/5 bg-white/5 backdrop-blur-xl shadow-lg shadow-black/5">
+            {navLinks.map((item) => (
+                <a
+                    key={item.name}
+                    href={item.href}
+                    onClick={(e) => handleScroll(e, item.href)}
+                    onMouseEnter={() => setHoveredItem(item.name)}
+                    onMouseLeave={() => setHoveredItem(null)}
+                    className="relative px-5 py-2 text-[13px] font-bold tracking-tight transition-colors duration-300 cursor-pointer"
+                    style={{ color: hoveredItem === item.name ? 'var(--d-text)' : 'var(--d-sub)' }}
+                >
+                    <AnimatePresence>
+                        {hoveredItem === item.name && (
+                            <motion.div
+                                layoutId="nav-pill-background"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute inset-0 bg-gradient-to-br from-indigo-500/15 to-purple-500/15 rounded-full border border-indigo-500/20 z-0"
+                                transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                            />
+                        )}
+                    </AnimatePresence>
+                    <span className="relative z-10">{item.name}</span>
+                </a>
+            ))}
+        </nav>
+    );
+};
+
 function LandingPageContent() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -246,25 +365,24 @@ function LandingPageContent() {
                         </span>
                     </Link>
 
-                    <nav className="hidden md:flex items-center gap-8">
-                        {['Features', 'Dashboard', 'Jobs', 'Pricing'].map((item) => (
-                            <Link key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium transition-colors hover:text-indigo-500" style={{ color: 'var(--d-sub)' }}>
-                                {item}
-                            </Link>
-                        ))}
-                    </nav>
+                    <NavItems />
 
                     <div className="hidden md:flex items-center gap-4">
                         <button onClick={toggleTheme} className="p-2 rounded-full transition-colors hover:bg-black/5 dark:hover:bg-white/5" style={{ color: 'var(--d-sub)' }}>
                             {isDark ? <FiSun size={20} /> : <FiMoon size={20} />}
                         </button>
-                        <Link href="/login" className="text-sm font-semibold transition-colors px-4 py-2" style={{ color: 'var(--d-text)' }}>
+                        <Link href="/login" className="text-[13px] font-bold transition-all px-4 py-2 rounded-full hover:bg-white/5 border border-transparent hover:border-white/5" style={{ color: 'var(--d-text)' }}>
                             Log in
                         </Link>
                         <Link href="/signup">
-                            <button className="px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg hover:opacity-90" style={{ background: 'var(--d-btn-primary)', color: '#fff' }}>
+                            <motion.button 
+                                whileHover={{ scale: 1.05, translateY: -1 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="px-6 py-2.5 rounded-full text-[13px] font-black transition-all shadow-xl shadow-indigo-500/10 hover:shadow-indigo-500/20" 
+                                style={{ background: 'var(--d-btn-primary)', color: '#fff' }}
+                            >
                                 Get Started
-                            </button>
+                            </motion.button>
                         </Link>
                     </div>
 
@@ -293,9 +411,20 @@ function LandingPageContent() {
                         </div>
                         <div className="flex flex-col gap-6 text-2xl font-display font-semibold">
                             {['Features', 'Dashboard', 'Jobs', 'Pricing'].map((item) => (
-                                <Link key={item} href={`#${item.toLowerCase()}`} onClick={() => setMobileMenuOpen(false)} className="transition-colors hover:text-indigo-400" style={{ color: 'var(--d-text)' }}>
+                                <a 
+                                    key={item} 
+                                    href={`#${item.toLowerCase()}`} 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setMobileMenuOpen(false);
+                                        const element = document.getElementById(item.toLowerCase());
+                                        if (element) element.scrollIntoView({ behavior: 'smooth' });
+                                    }} 
+                                    className="transition-colors hover:text-indigo-400" 
+                                    style={{ color: 'var(--d-text)' }}
+                                >
                                     {item}
-                                </Link>
+                                </a>
                             ))}
                         </div>
                         <div className="mt-auto flex flex-col gap-4">
@@ -312,7 +441,7 @@ function LandingPageContent() {
 
             <main>
                 {/* --- HERO SECTION --- */}
-                <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+                <section id="dashboard" className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden" style={{ scrollMarginTop: '100px' }}>
                     <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/10 blur-[150px] rounded-full" />
                     <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
                         <motion.div initial="hidden" animate="visible" variants={fadeUp}>
@@ -430,17 +559,20 @@ function LandingPageContent() {
                                             </div>
                                         </div>
 
-                                        {/* Bottom Stats Cards (from Image 1) */}
+                                        {/* Bottom Stats Cards */}
                                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 w-full mt-auto">
                                             {[
-                                                { label: 'Profile Strength', val: '100%', color: 'text-indigo-500' },
-                                                { label: 'AI Match Score', val: '72%', color: 'text-emerald-500' },
-                                                { label: 'Job Matches', val: '6', color: 'text-slate-400' },
-                                                { label: 'Interviews', val: '7', color: 'text-slate-400' }
+                                                { label: 'Profile Strength', val: '100%', color: 'text-indigo-500', progress: 'w-full' },
+                                                { label: 'AI Match Score', val: '72%', color: 'text-emerald-500', progress: 'w-[72%]' },
+                                                { label: 'Job Matches', val: '6', color: 'text-slate-400', progress: 'w-[40%]' },
+                                                { label: 'Interviews', val: '7', color: 'text-slate-400', progress: 'w-[60%]' }
                                             ].map((stat, i) => (
                                                 <div key={i} className="bg-white/[0.02] border p-2.5 rounded-xl text-left" style={{ borderColor: 'var(--d-border)', background: 'var(--d-card)' }}>
                                                     <div className="text-[7px] font-black uppercase tracking-widest text-slate-500 mb-1">{stat.label}</div>
-                                                    <div className={`text-[10px] font-black ${stat.color}`}>{stat.val}</div>
+                                                    <div className={`text-[10px] font-black ${stat.color} mb-1`}>{stat.val}</div>
+                                                    <div className="w-full h-0.5 bg-white/5 rounded-full overflow-hidden">
+                                                        <div className={`h-full bg-current ${stat.color} ${stat.progress}`} />
+                                                    </div>
                                                 </div>
                                             ))}
                                         </div>
@@ -475,57 +607,181 @@ function LandingPageContent() {
                     </div>
                 </section>
 
-                {/* --- BENTO GRID FEATURES --- */}
-                <section id="features" className="py-32 relative border-b" style={{ borderColor: 'var(--d-border)' }}>
+                {/* --- PRODUCT CAPABILITIES (DASHBOARD STYLE) --- */}
+                <section id="features" className="py-32 relative border-b" style={{ borderColor: 'var(--d-border)', scrollMarginTop: '100px' }}>
                     <div className="max-w-7xl mx-auto px-6">
-                        <div className="mb-20 text-center">
-                            <div className="inline-block px-3 py-1 rounded bg-indigo-500/10 text-indigo-500 text-[10px] font-bold uppercase tracking-widest mb-4">The Engine</div>
-                            <h2 className="font-display text-4xl md:text-6xl font-black tracking-tight" style={{ color: 'var(--d-text)' }}>Intelligence at every stage.</h2>
+                        <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+                            <div className="max-w-2xl">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-500 text-[10px] font-black uppercase tracking-[0.2em] mb-4 border border-indigo-500/20">
+                                    <FiZap size={14} className="animate-pulse" /> Product Ecosystem
+                                </div>
+                                <h2 className="font-display text-4xl md:text-6xl font-black tracking-tighter" style={{ color: 'var(--d-text)' }}>
+                                    Engineered for the <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500">modern developer.</span>
+                                </h2>
+                            </div>
+                            <p className="text-lg opacity-60 max-w-sm mb-2" style={{ color: 'var(--d-sub)' }}>
+                                A suite of AI-native tools designed to audit your career and accelerate your growth.
+                            </p>
                         </div>
 
-                        <div className="grid md:grid-cols-4 md:grid-rows-2 gap-4">
-                            {/* Large Feature 1 */}
-                            <motion.div variants={fadeUp} className="md:col-span-2 md:row-span-2 border rounded-3xl p-10 flex flex-col justify-between group overflow-hidden relative" style={{ background: 'var(--d-card)', borderColor: 'var(--d-border)' }}>
-                                <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
-                                <div className="relative z-10">
-                                    <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-8 border border-indigo-500/20">
-                                        <FiFileText size={28} className="text-indigo-500" />
+                        <div className="grid lg:grid-cols-2 gap-8">
+                            {/* Card 1: Resume */}
+                            <motion.div 
+                                whileHover={{ y: -8 }}
+                                className="relative rounded-[2.5rem] border p-1 group overflow-hidden"
+                                style={{ background: 'var(--d-card)', borderColor: 'var(--d-border)' }}
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                <div className="p-8 md:p-12">
+                                    <div className="flex justify-between items-start mb-12">
+                                        <div>
+                                            <h3 className="text-3xl font-black mb-3 tracking-tight">AI Resume Engine</h3>
+                                            <p className="text-lg opacity-60 max-w-sm">Deep ATS scoring & real-time optimization for enterprise roles.</p>
+                                        </div>
+                                        <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-500">
+                                            <FiFileText size={32} />
+                                        </div>
                                     </div>
-                                    <h3 className="text-3xl font-black mb-4 tracking-tight">AI Resume Intelligence</h3>
-                                    <p className="text-lg leading-relaxed max-w-sm" style={{ color: 'var(--d-sub)' }}>Our proprietary engine reverse-engineers enterprise ATS logic to score your resume against real-world job descriptions.</p>
+                                    
+                                    {/* Mockup UI */}
+                                    <div className="rounded-2xl border bg-black/20 p-6 flex flex-col gap-4 shadow-2xl relative overflow-hidden">
+                                        <div className="absolute top-0 right-0 p-4">
+                                            <div className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black">ATS_VERIFIED // 98%</div>
+                                        </div>
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-full bg-indigo-500/20 flex items-center justify-center font-black text-indigo-500">89</div>
+                                            <div>
+                                                <div className="text-xs font-bold mb-1">Resume Strength</div>
+                                                <div className="w-32 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                                    <motion.div initial={{ width: 0 }} whileInView={{ width: '89%' }} transition={{ duration: 1.5 }} className="h-full bg-indigo-500" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-3 mt-4">
+                                            <div className="h-12 rounded-xl bg-white/5 border border-white/5 flex items-center px-4 text-[10px] font-bold">Optimization_Active</div>
+                                            <div className="h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center px-4 text-[10px] font-bold text-indigo-500">Keyword_Sync</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.div>
 
-                            {/* Small Feature 1 */}
-                            <motion.div variants={fadeUp} className="md:col-span-2 border rounded-3xl p-8 flex items-center gap-8 group" style={{ background: 'var(--d-card2)', borderColor: 'var(--d-border)' }}>
-                                <div className="w-12 h-12 shrink-0 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20">
-                                    <FiGithub size={24} className="text-purple-500" />
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-bold mb-2">Architecture Scanner</h3>
-                                    <p className="text-sm" style={{ color: 'var(--d-sub)' }}>AI analyzes your repository patterns and suggests architectural improvements.</p>
+                            {/* Card 2: GitHub */}
+                            <motion.div 
+                                whileHover={{ y: -8 }}
+                                className="relative rounded-[2.5rem] border p-1 group overflow-hidden"
+                                style={{ background: 'var(--d-card)', borderColor: 'var(--d-border)' }}
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                <div className="p-8 md:p-12">
+                                    <div className="flex justify-between items-start mb-12">
+                                        <div>
+                                            <h3 className="text-3xl font-black mb-3 tracking-tight">Repo Intelligence</h3>
+                                            <p className="text-lg opacity-60 max-w-sm">Automated architecture audit and repository pattern analysis.</p>
+                                        </div>
+                                        <div className="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-500">
+                                            <FiGithub size={32} />
+                                        </div>
+                                    </div>
+
+                                    {/* Mockup UI */}
+                                    <div className="rounded-2xl border bg-black/20 p-6 shadow-2xl relative">
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <div className="flex gap-1.5">
+                                                <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+                                                <div className="w-2.5 h-2.5 rounded-full bg-amber-500/50" />
+                                                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/50" />
+                                            </div>
+                                            <div className="text-[10px] font-mono opacity-40">analyzer // src/main.ts</div>
+                                        </div>
+                                        <div className="space-y-3 font-mono">
+                                            <div className="flex justify-between text-[10px]">
+                                                <span className="text-purple-400">Architecture Scanner</span>
+                                                <span className="text-emerald-500">READY</span>
+                                            </div>
+                                            <div className="p-3 rounded-lg bg-purple-500/5 border border-purple-500/10 text-[9px]">
+                                                <div className="text-purple-300 mb-1">! [ISSUE] Weak dependency injection pattern found.</div>
+                                                <div className="opacity-50">Suggestion: Implement interface-based decoupling in AuthService.</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.div>
 
-                            {/* Medium Feature 2 */}
-                            <motion.div variants={fadeUp} className="md:col-span-1 border rounded-3xl p-8 flex flex-col justify-between group" style={{ background: 'var(--d-card2)', borderColor: 'var(--d-border)' }}>
-                                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
-                                    <FiTerminal size={24} className="text-emerald-500" />
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-bold mb-2">Mock Prep</h3>
-                                    <p className="text-xs" style={{ color: 'var(--d-sub)' }}>Practice technical screens with AI interviewers.</p>
+                            {/* Card 3: Interview */}
+                            <motion.div 
+                                whileHover={{ y: -8 }}
+                                className="relative rounded-[2.5rem] border p-1 group overflow-hidden"
+                                style={{ background: 'var(--d-card)', borderColor: 'var(--d-border)' }}
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                <div className="p-8 md:p-12">
+                                    <div className="flex justify-between items-start mb-12">
+                                        <div>
+                                            <h3 className="text-3xl font-black mb-3 tracking-tight">Interview Mentor</h3>
+                                            <p className="text-lg opacity-60 max-w-sm">Live voice & chat technical screens with domain-specific AI.</p>
+                                        </div>
+                                        <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500">
+                                            <FiTerminal size={32} />
+                                        </div>
+                                    </div>
+
+                                    {/* Mockup UI */}
+                                    <div className="rounded-2xl border bg-black/20 p-6 shadow-2xl flex items-center gap-6">
+                                        <div className="relative">
+                                            <div className="w-20 h-20 rounded-full border border-emerald-500/30 flex items-center justify-center overflow-hidden">
+                                                <motion.div animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} className="absolute inset-0 bg-gradient-to-tr from-emerald-500/40 via-transparent to-transparent opacity-50" />
+                                                <FiZap size={32} className="text-emerald-500 relative z-10" />
+                                            </div>
+                                            <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 2, repeat: Infinity }} className="absolute -inset-2 bg-emerald-500/20 rounded-full blur-xl" />
+                                        </div>
+                                        <div className="flex-1 space-y-2">
+                                            <div className="h-2 w-3/4 bg-white/10 rounded-full" />
+                                            <div className="h-2 w-1/2 bg-white/10 rounded-full" />
+                                            <div className="px-3 py-1.5 rounded-lg bg-emerald-500 text-white text-[9px] font-black w-fit mt-4">START_SESSION</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.div>
 
-                            {/* Medium Feature 3 */}
-                            <motion.div variants={fadeUp} className="md:col-span-1 border rounded-3xl p-8 flex flex-col justify-between group" style={{ background: 'var(--d-card2)', borderColor: 'var(--d-border)' }}>
-                                <div className="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center border border-pink-500/20">
-                                    <FiTarget size={24} className="text-pink-500" />
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-bold mb-2">Smart Match</h3>
-                                    <p className="text-xs" style={{ color: 'var(--d-sub)' }}>Find roles that actually fit your verified skill set.</p>
+                            {/* Card 4: Career */}
+                            <motion.div 
+                                whileHover={{ y: -8 }}
+                                className="relative rounded-[2.5rem] border p-1 group overflow-hidden"
+                                style={{ background: 'var(--d-card)', borderColor: 'var(--d-border)' }}
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                <div className="p-8 md:p-12">
+                                    <div className="flex justify-between items-start mb-12">
+                                        <div>
+                                            <h3 className="text-3xl font-black mb-3 tracking-tight">Smart Match</h3>
+                                            <p className="text-lg opacity-60 max-w-sm">Automated career mapping based on your verified engineering data.</p>
+                                        </div>
+                                        <div className="w-16 h-16 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-500">
+                                            <FiTarget size={32} />
+                                        </div>
+                                    </div>
+
+                                    {/* Mockup UI */}
+                                    <div className="rounded-2xl border bg-black/20 p-6 shadow-2xl relative">
+                                        <div className="flex justify-between items-center mb-6">
+                                            <div className="text-[10px] font-bold opacity-40 uppercase tracking-widest">Global Opportunities</div>
+                                            <div className="w-6 h-6 rounded-lg bg-pink-500/20 border border-pink-500/30 flex items-center justify-center"><FiGlobe size={12} className="text-pink-500" /></div>
+                                        </div>
+                                        <div className="space-y-3">
+                                            {[
+                                                { role: 'Senior React Dev', company: 'TechFlow', match: '96%' },
+                                                { role: 'Fullstack Engineer', company: 'Nexus AI', match: '88%' }
+                                            ].map((job, i) => (
+                                                <div key={i} className="p-3 rounded-xl bg-white/5 border border-white/5 flex justify-between items-center">
+                                                    <div>
+                                                        <div className="text-[10px] font-bold">{job.role}</div>
+                                                        <div className="text-[8px] opacity-40">{job.company}</div>
+                                                    </div>
+                                                    <div className="text-[9px] font-black text-pink-500">{job.match} MATCH</div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.div>
                         </div>
@@ -541,78 +797,155 @@ function LandingPageContent() {
                                 { text: "GitHub analysis revealed my Node.js repos lacked testing. Adding Vitest changed everything.", author: "Sneha M.", role: "Backend Engineer" },
                                 { text: "DevPilot didn't just find me jobs, it prepared me for them. The AI Prep is incredibly realistic.", author: "Karan S.", role: "Frontend Dev" }
                             ].map((t, i) => (
-                                <div key={i} className="p-8 rounded-2xl border" style={{ background: 'var(--d-card)', borderColor: 'var(--d-border)' }}>
-                                    <p className="text-sm font-medium leading-relaxed mb-6 italic" style={{ color: 'var(--d-text)' }}>"{t.text}"</p>
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center font-bold text-xs">{t.author[0]}</div>
+                                <motion.div 
+                                    key={i} 
+                                    whileHover={{ y: -5 }}
+                                    className="p-8 rounded-[2rem] border relative overflow-hidden group" 
+                                    style={{ background: 'var(--d-card)', borderColor: 'var(--d-border)' }}
+                                >
+                                    <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-10 transition-opacity">
+                                        <FiMessageCircle size={60} />
+                                    </div>
+                                    <p className="text-sm font-medium leading-relaxed mb-8 italic relative z-10" style={{ color: 'var(--d-text)' }}>
+                                        "{t.text}"
+                                    </p>
+                                    <div className="flex items-center gap-4 relative z-10">
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center font-black text-white text-xs shadow-lg">
+                                            {t.author[0]}
+                                        </div>
                                         <div>
-                                            <div className="text-xs font-bold">{t.author}</div>
-                                            <div className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">{t.role}</div>
+                                            <div className="text-sm font-black tracking-tight">{t.author}</div>
+                                            <div className="text-[9px] font-black text-indigo-500 uppercase tracking-[0.2em]">{t.role}</div>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
                     </div>
                 </section>
 
-                {/* --- PRICING --- */}
-                <section id="pricing" className="py-32 border-t" style={{ borderColor: 'var(--d-border)', background: 'var(--d-card2)' }}>
-                    <div className="max-w-5xl mx-auto px-6">
+                {/* --- PRICING (PREMIUM 3-TIER MODEL) --- */}
+                <section id="pricing" className="py-32 border-t" style={{ borderColor: 'var(--d-border)', background: 'var(--d-card2)', scrollMarginTop: '100px' }}>
+                    <div className="max-w-7xl mx-auto px-6">
                         <div className="mb-20 text-center max-w-3xl mx-auto">
-                            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 tracking-tight" style={{ color: 'var(--d-text)' }}>Simple, transparent pricing.</h2>
-                            <p style={{ color: 'var(--d-sub)' }}>Start analyzing for free. Upgrade when you need deep analytics and unlimited AI mock interviews.</p>
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-500 text-[10px] font-black uppercase tracking-[0.2em] mb-4 border border-purple-500/20">
+                                <FiActivity size={14} className="animate-pulse" /> Scalable Growth
+                            </div>
+                            <h2 className="font-display text-4xl md:text-5xl font-black mb-4 tracking-tighter" style={{ color: 'var(--d-text)' }}>
+                                Investment in your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500">future self.</span>
+                            </h2>
+                            <p className="text-lg opacity-60" style={{ color: 'var(--d-sub)' }}>
+                                Start with our free core intelligence and upgrade as you scale your career ambitions.
+                            </p>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-8 items-stretch">
-                            {/* Free Tier */}
-                            <motion.div whileHover={{ y: -8 }} transition={{ duration: 0.3 }}>
-                                <div className="border rounded-3xl p-8 h-full flex flex-col" style={{ background: 'var(--d-bg)', borderColor: 'var(--d-border)' }}>
-                                    <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--d-text)' }}>Basic Access</h3>
-                                    <div className="flex items-baseline gap-1 mb-8">
-                                        <span className="text-5xl font-display font-extrabold" style={{ color: 'var(--d-text)' }}>₹0</span>
-                                        <span className="font-medium" style={{ color: 'var(--d-muted)' }}>/mo</span>
+                        <div className="grid md:grid-cols-3 gap-8 items-stretch">
+                            {/* Tier 1: Starter */}
+                            <motion.div 
+                                whileHover={{ y: -8 }} 
+                                className="relative rounded-[2.5rem] border p-10 flex flex-col transition-all duration-500"
+                                style={{ background: 'var(--d-bg)', borderColor: 'var(--d-border)' }}
+                            >
+                                <div className="mb-8">
+                                    <h3 className="text-xl font-bold mb-2 opacity-50" style={{ color: 'var(--d-text)' }}>Starter</h3>
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-5xl font-black tracking-tighter" style={{ color: 'var(--d-text)' }}>₹0</span>
+                                        <span className="text-sm font-bold opacity-30">/mo</span>
                                     </div>
-                                    <ul className="space-y-4 mb-8 flex-1 text-left">
-                                        {['AI Resume Scans', '1 GitHub Scan', 'App Tracker'].map((feature, idx) => (
-                                            <li key={idx} className="flex items-center gap-3 text-sm" style={{ color: 'var(--d-sub)' }}>
-                                                <FiCheck className="text-indigo-500" size={14} /> {feature}
+                                </div>
+                                <ul className="space-y-4 mb-12 flex-1">
+                                    {[
+                                        '5 AI Resume Scans / mo',
+                                        '1 GitHub Architecture Scan',
+                                        'Basic Job Tracker',
+                                        'Community Discord Access'
+                                    ].map((feature, idx) => (
+                                        <li key={idx} className="flex items-center gap-3 text-sm font-medium opacity-60" style={{ color: 'var(--d-text)' }}>
+                                            <FiCheck className="text-indigo-500" size={16} /> {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <Link href="/signup">
+                                    <button className="w-full py-4 rounded-2xl border font-bold text-sm transition-all hover:bg-white/5" style={{ borderColor: 'var(--d-border)', color: 'var(--d-text)' }}>Get Started</button>
+                                </Link>
+                            </motion.div>
+
+                            {/* Tier 2: Developer Pro (Popular) */}
+                            <motion.div 
+                                whileHover={{ y: -8 }} 
+                                className="relative rounded-[3rem] p-[2px] overflow-hidden shadow-2xl"
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 animate-gradient" />
+                                <div className="relative h-full rounded-[2.9rem] p-10 flex flex-col" style={{ background: 'var(--d-bg)' }}>
+                                    <div className="absolute top-6 right-8">
+                                        <div className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 text-[9px] font-black tracking-widest">MOST POPULAR</div>
+                                    </div>
+                                    <div className="mb-8">
+                                        <h3 className="text-xl font-bold mb-2 text-indigo-500">Developer Pro</h3>
+                                        <div className="flex items-baseline gap-1">
+                                            <span className="text-5xl font-black tracking-tighter" style={{ color: 'var(--d-text)' }}>₹499</span>
+                                            <span className="text-sm font-bold opacity-30">/mo</span>
+                                        </div>
+                                    </div>
+                                    <ul className="space-y-4 mb-12 flex-1">
+                                        {[
+                                            'Unlimited AI Resume Intelligence',
+                                            'Unlimited GitHub Insights',
+                                            'Unlimited AI Mock Interviews',
+                                            'Priority Smart-Matching',
+                                            'Early Access to New Features'
+                                        ].map((feature, idx) => (
+                                            <li key={idx} className="flex items-center gap-3 text-sm font-bold" style={{ color: 'var(--d-text)' }}>
+                                                <FiZap className="text-indigo-500" size={16} /> {feature}
                                             </li>
                                         ))}
                                     </ul>
-                                    <Link href="/signup" className="mt-auto">
-                                        <button className="w-full border rounded-xl py-4 font-bold transition-colors hover:bg-black/5 dark:hover:bg-white/5" style={{ borderColor: 'var(--d-border)', color: 'var(--d-text)' }}>Create Free Account</button>
+                                    <Link href="/signup">
+                                        <button className="w-full py-4 rounded-2xl font-black text-sm transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98]" style={{ background: 'var(--d-btn-primary)', color: '#fff' }}>Upgrade to Pro</button>
                                     </Link>
                                 </div>
                             </motion.div>
 
-                            {/* Pro Tier */}
-                            <motion.div whileHover={{ y: -8 }} transition={{ duration: 0.3 }} className="relative">
-                                <div className="absolute -inset-0.5 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl blur opacity-30" />
-                                <div className="relative border rounded-3xl p-8 h-full flex flex-col" style={{ background: 'var(--d-bg)', borderColor: 'var(--d-border)' }}>
-                                    <h3 className="text-2xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500">Pro License</h3>
-                                    <div className="flex items-baseline gap-1 mb-8">
-                                        <span className="text-5xl font-display font-extrabold" style={{ color: 'var(--d-text)' }}>₹149</span>
-                                        <span className="font-medium" style={{ color: 'var(--d-muted)' }}>/mo</span>
+                            {/* Tier 3: Engineering Elite */}
+                            <motion.div 
+                                whileHover={{ y: -8 }} 
+                                className="relative rounded-[2.5rem] border p-10 flex flex-col transition-all duration-500"
+                                style={{ background: 'var(--d-card)', borderColor: 'var(--d-border)' }}
+                            >
+                                <div className="mb-8">
+                                    <h3 className="text-xl font-bold mb-2 opacity-50" style={{ color: 'var(--d-text)' }}>Engineering Elite</h3>
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-5xl font-black tracking-tighter" style={{ color: 'var(--d-text)' }}>₹1,299</span>
+                                        <span className="text-sm font-bold opacity-30">/mo</span>
                                     </div>
-                                    <ul className="space-y-4 mb-8 flex-1 text-left">
-                                        {['Unlimited AI Scans', 'Deep Repo Scans', 'AI Mock Prep', 'Priority Matching'].map((feature, idx) => (
-                                            <li key={idx} className="flex items-center gap-3 text-sm font-medium" style={{ color: 'var(--d-text)' }}>
-                                                <FiCheck className="text-purple-500" size={14} /> {feature}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <Link href="/signup" className="mt-auto">
-                                        <button className="w-full rounded-xl py-4 font-bold transition-all shadow-lg hover:opacity-90" style={{ background: 'var(--d-btn-primary)', color: '#fff' }}>Upgrade to Pro</button>
-                                    </Link>
                                 </div>
+                                <ul className="space-y-4 mb-12 flex-1">
+                                    {[
+                                        'Everything in Pro',
+                                        'Personalized Upskilling Roadmap',
+                                        'Direct Referral Network',
+                                        'Dedicated AI Career Agent',
+                                        'Interview Call Guarantees*'
+                                    ].map((feature, idx) => (
+                                        <li key={idx} className="flex items-center gap-3 text-sm font-medium" style={{ color: 'var(--d-text)' }}>
+                                            <FiShield className="text-purple-500" size={16} /> {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <Link href="/signup">
+                                    <button className="w-full py-4 rounded-2xl border font-bold text-sm transition-all hover:bg-white/5" style={{ borderColor: 'var(--d-border)', color: 'var(--d-text)' }}>Contact Sales</button>
+                                </Link>
                             </motion.div>
+                        </div>
+                        
+                        <div className="mt-16 text-center text-xs font-bold opacity-30 uppercase tracking-[0.3em]">
+                            TRUSTED BY DEVELOPERS AT TOP ENTERPRISES // SECURE STRIPE PAYMENTS
                         </div>
                     </div>
                 </section>
 
                 {/* --- THE CAREER INTELLIGENCE PIPELINE --- */}
-                <section className="py-32 relative overflow-hidden">
+                <section id="jobs" className="py-32 relative overflow-hidden" style={{ scrollMarginTop: '100px' }}>
                     <div className="max-w-7xl mx-auto px-6">
                         <div className="text-center mb-24">
                             <h2 className="font-display text-4xl md:text-6xl font-black tracking-tight mb-6" style={{ color: 'var(--d-text)' }}>

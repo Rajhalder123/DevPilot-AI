@@ -11,6 +11,8 @@ export const env = {
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID || '',
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET || '',
     GITHUB_CALLBACK_URL: process.env.GITHUB_CALLBACK_URL || 'http://localhost:5000/api/auth/github/callback',
-    FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:3000',
+    FRONTEND_URL: (process.env.FRONTEND_URL || 'http://localhost:3000').split(',')[0].trim(),
+    FRONTEND_URLS: (process.env.FRONTEND_URL || 'http://localhost:3000').split(',').map(url => url.trim()),
     NODE_ENV: process.env.NODE_ENV || 'development',
+    CLOUDFLARE_TURNSTILE_SECRET: process.env.CLOUDFLARE_TURNSTILE_SECRET || '',
 };
