@@ -602,199 +602,117 @@ function LandingPageContent() {
                     </div>
  
                     <div className="max-w-7xl mx-auto px-6 z-10 relative">
-                        <div className="text-left lg:text-center max-w-5xl mx-auto mb-16 md:mb-20">
-                            {/* Badge */}
-                            <motion.div 
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 border transition-all bg-white/5 backdrop-blur-md" 
-                                style={{ borderColor: 'var(--d-border)' }}
-                            >
-                                <FiCpu className="text-indigo-500 animate-pulse" />
-                                <span className="text-[10px] md:text-sm font-black uppercase tracking-widest opacity-70">AI-Powered Career Platform</span>
-                            </motion.div>
- 
-                            {/* Heading */}
-                            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.1] mb-8" style={{ color: 'var(--d-text)' }}>
-                                Build your <br className="hidden md:block" />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-gray-500" style={{ backgroundImage: isDark ? 'linear-gradient(to bottom, #fff 70%, #666 100%)' : 'linear-gradient(to bottom, #000 70%, #444 100%)' }}>
-                                    developer career <br className="hidden md:block" />
-                                    with AI
-                                </span>
-                            </h1>
- 
-                            {/* Subtext */}
-                            <p className="text-base md:text-xl opacity-60 mb-10 md:mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
-                                No more manual searching — just describe your career goals and watch DevPilot AI analyze resumes, scan GitHub, and prepare you for interviews.
-                            </p>
- 
-                            {/* CTAs */}
-                            <div className="flex flex-col sm:flex-row gap-4 justify-start lg:justify-center items-center mb-16">
-                                <Link href="/signup" className="w-full sm:w-auto">
-                                    <button className="w-full px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all hover:scale-105 shadow-2xl active:scale-95" style={{ background: 'var(--d-text)', color: 'var(--d-bg)' }}>
-                                        Get Started Free <FiArrowRight size={20} />
-                                    </button>
-                                </Link>
-                                <button onClick={() => setDemoOpen(true)} className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-3 border hover:bg-white/5 transition-all backdrop-blur-sm" style={{ borderColor: 'var(--d-border)', color: 'var(--d-text)' }}>
-                                    Live Dashboard Demo <FiPlay size={20} />
-                                </button>
+                        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                            {/* Left Column: Text & Branding */}
+                            <div className="text-left">
+                                {/* Badge */}
+                                <motion.div 
+                                    initial={{ opacity: 0, y: -20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="inline-flex items-center gap-2 mb-8 font-black uppercase tracking-[0.2em] text-[10px]" 
+                                    style={{ color: 'var(--d-sub)' }}
+                                >
+                                    <span className="tracking-[0.4em] text-emerald-600 dark:text-emerald-400">DEVPILOT AI</span>
+                                </motion.div>
+     
+                                {/* Heading */}
+                                <motion.h1 
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="text-5xl md:text-7xl lg:text-[5.5rem] font-black tracking-tight leading-[1.05] mb-6" 
+                                    style={{ color: 'var(--d-text)' }}
+                                >
+                                    Build your <br />developer career <br />with AI.
+                                </motion.h1>
+     
+                                {/* Subtext */}
+                                <motion.p 
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.1 }}
+                                    className="text-lg md:text-xl opacity-60 mb-10 leading-relaxed font-medium max-w-lg"
+                                    style={{ color: 'var(--d-text)' }}
+                                >
+                                    No more manual searching — just describe your career goals and watch DevPilot AI analyze resumes, scan GitHub, and prepare you for interviews.
+                                </motion.p>
                             </div>
- 
-                            {/* Realistic Dashboard Preview (Mobile Optimized) */}
+
+                            {/* Right Column: Signup Form */}
                             <motion.div 
-                                initial={{ opacity: 0, y: 40 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1, delay: 0.2 }}
-                                viewport={{ once: true }}
-                                className="relative max-w-5xl mx-auto group mb-12 md:mb-24"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.2 }}
+                                className="w-full max-w-[460px] mx-auto lg:ml-auto"
                             >
-                                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 rounded-[2.5rem] blur-2xl opacity-20 group-hover:opacity-30 transition duration-1000" />
-                                <div className="relative rounded-[2rem] border overflow-hidden shadow-2xl flex flex-col md:flex-row h-[400px] md:h-[600px] backdrop-blur-xl transition-colors duration-500" style={{ background: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.95)', borderColor: 'var(--d-border)' }}>
-                                    
-                                    {/* Mock Sidebar (Hidden on mobile) */}
-                                    <div className="hidden md:flex w-56 border-r p-6 flex-col gap-8 transition-colors duration-500" style={{ borderColor: 'var(--d-border)', background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.02)' }}>
-                                        <div className="flex items-center gap-2 mb-4">
-                                            <PremiumLogo size="sm" />
-                                            <span className="text-[10px] font-black tracking-widest opacity-80">DEVPILOT_CORE</span>
-                                        </div>
-                                        <div className="space-y-2">
-                                            {['Insights', 'Resume', 'GitHub', 'Interviews', 'Settings'].map((item, i) => (
-                                                <div key={i} className={`px-4 py-2 rounded-lg text-[10px] font-bold transition-all ${i === 0 ? 'bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 shadow-inner' : 'opacity-40 hover:opacity-100 cursor-pointer'}`}>
-                                                    {item}
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <div className="mt-auto p-4 rounded-2xl bg-gradient-to-br from-indigo-600/20 to-purple-600/20 border border-white/5">
-                                            <div className="text-[8px] font-black mb-2 opacity-40 uppercase tracking-widest">Usage Limits</div>
-                                            <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                                                <motion.div 
-                                                    initial={{ width: 0 }}
-                                                    whileInView={{ width: '75%' }}
-                                                    transition={{ duration: 1.5 }}
-                                                    className="h-full bg-indigo-500 shadow-[0_0_8px_rgba(79,70,229,0.5)]" 
-                                                />
+                                <div 
+                                    className="rounded-[8px] p-8 md:p-10 relative overflow-hidden transition-colors"
+                                    style={{ 
+                                        background: isDark ? '#111827' : '#ffffff', 
+                                        border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.08)',
+                                        boxShadow: isDark ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : '0 12px 40px -12px rgba(0, 0, 0, 0.1)'
+                                    }}
+                                >
+                                    <h2 className="text-3xl font-black mb-8 text-center" style={{ color: 'var(--d-text)' }}>
+                                        Get started free
+                                    </h2>
+
+                                    {/* Google Button */}
+                                    <button 
+                                        className="w-full py-3 px-4 border flex items-center justify-center gap-3 font-bold transition-colors hover:bg-gray-50 dark:hover:bg-white/5 mb-8"
+                                        style={{ 
+                                            borderColor: 'var(--d-border)', 
+                                            color: 'var(--d-text)',
+                                            borderRadius: '8px'
+                                        }}
+                                    >
+                                        <svg className="w-5 h-5" viewBox="0 0 24 24">
+                                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                                        </svg>
+                                        <span className="text-[15px]">Sign up with Google</span>
+                                    </button>
+
+                                    <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                                        {/* Name Row */}
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div className="relative">
+                                                <input type="text" placeholder="First Name*" className="w-full bg-transparent border-b-2 border-transparent border-b-gray-300 dark:border-b-gray-600 outline-none py-2 text-[15px] transition-colors focus:border-b-indigo-500" style={{ color: 'var(--d-text)' }} />
+                                            </div>
+                                            <div className="relative">
+                                                <input type="text" placeholder="Last Name*" className="w-full bg-transparent border-b-2 border-transparent border-b-gray-300 dark:border-b-gray-600 outline-none py-2 text-[15px] transition-colors focus:border-b-indigo-500" style={{ color: 'var(--d-text)' }} />
                                             </div>
                                         </div>
-                                    </div>
- 
-                                    {/* Main Content Area */}
-                                    <div className="flex-1 flex flex-col min-w-0" style={{ background: isDark ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.01)' }}>
-                                        {/* Fake Header */}
-                                        <div className="h-14 md:h-16 border-b flex items-center justify-between px-6 md:px-8" style={{ borderColor: 'var(--d-border)' }}>
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                                                <span className="text-[9px] font-mono opacity-40 uppercase tracking-widest">System_Status: OK</span>
-                                            </div>
-                                            <div className="flex items-center gap-4">
-                                                <div className="hidden sm:block w-24 h-2 bg-white/5 rounded-full" />
-                                                <div className="w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center">
-                                                    <div className="w-4 h-4 rounded-full bg-indigo-500/40" />
-                                                </div>
-                                            </div>
+                                        
+                                        <div className="relative">
+                                            <input type="text" placeholder="Company" className="w-full bg-transparent border-b-2 border-transparent border-b-gray-300 dark:border-b-gray-600 outline-none py-2 text-[15px] transition-colors focus:border-b-indigo-500" style={{ color: 'var(--d-text)' }} />
                                         </div>
- 
-                                        {/* Dashboard Body */}
-                                        <div className="flex-1 p-5 md:p-10 flex flex-col overflow-hidden relative">
-                                            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 mb-6 md:mb-8">
-                                                <div className="flex-1 p-5 md:p-6 rounded-2xl md:rounded-3xl border transition-colors" style={{ borderColor: 'var(--d-border)', background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.8)' }}>
-                                                    <div className="text-[9px] font-black opacity-30 uppercase tracking-widest mb-3 md:mb-4">AI Talent Score</div>
-                                                    <div className="text-3xl md:text-4xl font-black mb-2">94.2 <span className="text-xs text-emerald-500 font-bold ml-1">+2.4%</span></div>
-                                                    <div className="text-[9px] opacity-40 font-bold uppercase tracking-wide">Top 5% Globally</div>
-                                                </div>
-                                                <div className="hidden sm:block flex-1 p-6 rounded-3xl border transition-colors" style={{ borderColor: 'var(--d-border)', background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.8)' }}>
-                                                    <div className="text-[10px] font-black opacity-30 uppercase tracking-widest mb-4">Market Readiness</div>
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                                                            <motion.div initial={{ width: 0 }} whileInView={{ width: '85%' }} transition={{ duration: 2 }} className="h-full bg-indigo-500" />
-                                                        </div>
-                                                        <span className="text-xs font-black">85%</span>
-                                                    </div>
-                                                </div>
-                                            </div>
- 
-                                            {/* AI Interaction Center */}
-                                            <div className="flex-1 flex flex-col items-center justify-center text-center relative py-4 md:py-0">
-                                                <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
-                                                    <div className="w-64 md:w-96 h-64 md:h-96 bg-indigo-500/20 blur-[80px] md:blur-[100px] rounded-full animate-pulse" />
-                                                </div>
-                                                <div className="relative z-10 space-y-4 md:space-y-6 max-w-md mx-auto">
-                                                    <div className="scale-60 md:scale-100 flex justify-center -mb-4 md:mb-0">
-                                                        <SiriOrb />
-                                                    </div>
-                                                    <p className="text-xs md:text-sm font-bold opacity-60 leading-relaxed px-4">
-                                                        "I've identified <span className="text-indigo-400">3 architectural patterns</span> in your latest commit that could be optimized."
-                                                    </p>
-                                                    <div className="flex flex-wrap justify-center gap-2 md:gap-3">
-                                                        {['Apply Fix', 'Review'].map((btn, i) => (
-                                                            <div key={i} className="px-3 md:px-4 py-1.5 md:py-2 rounded-full border text-[8px] md:text-[9px] font-black hover:bg-white/5 transition-all cursor-pointer uppercase tracking-widest shadow-sm" style={{ borderColor: 'var(--d-border)', background: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.9)' }}>
-                                                                {btn}
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            </div>
- 
-                                            {/* Chat Input Bar */}
-                                            <div className="mt-4 md:mt-8 p-2 md:p-3 rounded-xl md:rounded-2xl border flex items-center gap-3 md:gap-4 transition-colors" style={{ borderColor: 'var(--d-border)', background: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.9)' }}>
-                                                <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-white/5 flex items-center justify-center opacity-20"><FiPlus size={14} /></div>
-                                                <div className="flex-1 text-[9px] md:text-[10px] opacity-20 font-bold uppercase tracking-widest truncate">Ask anything to DevPilot...</div>
-                                                <div className="flex gap-2">
-                                                    <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg md:rounded-full bg-white/5 flex items-center justify-center opacity-40"><FiMic size={14} /></div>
-                                                    <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg md:rounded-full bg-indigo-500 flex items-center justify-center shadow-[0_0_10px_rgba(79,70,229,0.4)]"><FiSend size={14} className="text-white" /></div>
-                                                </div>
-                                            </div>
+                                        
+                                        <div className="relative">
+                                            <input type="email" placeholder="Email*" className="w-full bg-transparent border-b-2 border-transparent border-b-gray-300 dark:border-b-gray-600 outline-none py-2 text-[15px] transition-colors focus:border-b-indigo-500" style={{ color: 'var(--d-text)' }} />
                                         </div>
-                                    </div>
+                                        
+                                        <div className="relative flex items-center">
+                                            <input type="password" placeholder="Password*" className="w-full bg-transparent border-b-2 border-transparent border-b-gray-300 dark:border-b-gray-600 outline-none py-2 text-[15px] transition-colors focus:border-b-indigo-500" style={{ color: 'var(--d-text)' }} />
+                                            <FiActivity className="absolute right-2 opacity-30" size={16} />
+                                        </div>
+
+                                        <div className="flex items-start gap-3 pt-2">
+                                            <div className="flex items-center h-5 mt-0.5">
+                                                <input id="terms" type="checkbox" className="w-4 h-4 border-gray-300 rounded focus:ring-indigo-500 accent-indigo-600" />
+                                            </div>
+                                            <label htmlFor="terms" className="text-[13px] leading-tight opacity-70" style={{ color: 'var(--d-text)' }}>
+                                                I agree to the <span className="font-bold cursor-pointer hover:underline hover:text-indigo-500">Terms of Service</span> and <span className="font-bold cursor-pointer hover:underline hover:text-indigo-500">Privacy Policy</span>.
+                                            </label>
+                                        </div>
+
+                                        <button className="w-full py-4 rounded-xl font-bold transition-all hover:scale-[1.02] active:scale-[0.98] mt-2 text-white shadow-xl bg-indigo-600 hover:bg-indigo-500 hover:shadow-indigo-500/20">
+                                            Create your free account
+                                        </button>
+                                    </form>
                                 </div>
                             </motion.div>
-                            
-                        </div>
- 
-                        {/* Visual Mockup (AlgoBuilder Grid Layout) */}
-                        <div className="max-w-7xl mx-auto">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 relative">
-                                {[
-                                    { title: "1. AI Resume Analysis", icon: FiFileText, color: "indigo", rgb: "99, 102, 241", lines: ["Analyzing syntax...", "ATS Score: 92/100", "Keywords synced."] },
-                                    { title: "2. GitHub Pattern Scan", icon: FiGithub, color: "purple", rgb: "139, 92, 246", lines: ["Repo audit in progress...", "Logic flaws: 0", "Patterns: clean."] },
-                                    { title: "3. Mock Technical Screen", icon: FiTerminal, color: "emerald", rgb: "16, 185, 129", lines: ["Voice session active", "Speed: optimal", "Accuracy: 95%"] }
-                                ].map((step, i) => (
-                                    <div key={i} className="flex flex-col gap-4 md:gap-6">
-                                        <div className="text-center">
-                                            <div className="text-[9px] md:text-[10px] font-black opacity-40 mb-2 uppercase tracking-[0.3em]">{step.title}</div>
-                                            <div className="w-px h-6 md:h-8 mx-auto" style={{ background: 'var(--d-border)' }} />
-                                        </div>
-                                        <div className="relative group rounded-[2rem] md:rounded-[2.5rem] border overflow-hidden p-6 md:p-8 shadow-2xl transition-all hover:-translate-y-2 h-[240px] md:h-[280px] flex flex-col justify-between" style={{ background: isDark ? 'var(--d-card)' : 'rgba(255,255,255,0.95)', borderColor: 'var(--d-border)' }}>
-                                            <div className={`absolute inset-0 opacity-[0.03] bg-gradient-to-br from-${step.color}-500 to-transparent`} />
-                                            <div className="relative z-10">
-                                                <div className="flex items-center gap-4 mb-6">
-                                                    <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center border border-${step.color}-500/20 bg-${step.color}-500/10 text-${step.color}-500 shadow-inner`}>
-                                                        <step.icon size={22} />
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="font-black text-[10px] uppercase tracking-widest">Scanner</span>
-                                                        <span className={`text-[8px] md:text-[9px] font-bold text-${step.color}-500/60 animate-pulse`}>ACTIVE_CONNECTION</span>
-                                                    </div>
-                                                </div>
-                                                <div className="space-y-2 font-mono text-[9px] md:text-[10px] opacity-40 uppercase tracking-tight">
-                                                    {step.lines.map((line, idx) => (
-                                                        <div key={idx} className="flex items-center gap-2">
-                                                            <div className={`w-1 h-1 rounded-full bg-${step.color}-500`} />
-                                                            {line}
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                            <div className="relative z-10 w-full h-1 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
-                                                <motion.div 
-                                                    animate={{ x: ['-100%', '100%'] }} 
-                                                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }} 
-                                                    className={`w-1/2 h-full bg-${step.color}-500/40`} 
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
                         </div>
                     </div>
                 </section>
@@ -1893,8 +1811,36 @@ function LandingPageContent() {
                 </section>
             </main>
 
+            {/* --- CONTACT SECTION --- */}
+            <section id="contact" className="py-20 border-t relative overflow-hidden" style={{ borderColor: 'var(--d-border)', background: 'var(--d-bg)' }}>
+                <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_30%_50%,_var(--d-text)_1px,_transparent_1px)]" style={{ backgroundSize: '40px 40px' }} />
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <div className="max-w-2xl mx-auto text-center mb-16">
+                        <motion.div 
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 text-[10px] font-black uppercase tracking-widest mb-6"
+                        >
+                            <FiMail size={12} />
+                            Get In Touch
+                        </motion.div>
+                        <h2 className="text-4xl md:text-5xl font-black mb-6">Contact Us</h2>
+                        <p className="opacity-50 font-medium">Have a specific question or custom requirement? Send us a message and we'll get back to you within 24 hours.</p>
+                    </div>
+
+                    <motion.div 
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        className="max-w-xl mx-auto p-8 md:p-12 rounded-[2.5rem] border shadow-2xl backdrop-blur-xl"
+                        style={{ background: isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.7)', borderColor: 'var(--d-border)' }}
+                    >
+                        <ContactForm />
+                    </motion.div>
+                </div>
+            </section>
+
             {/* --- FOOTER (AlgoBuilder Style) --- */}
-            <footer className="py-20 border-t" style={{ borderColor: 'var(--d-border)', background: 'var(--d-bg)' }}>
+            <footer className="py-12 border-t" style={{ borderColor: 'var(--d-border)', background: 'var(--d-bg)' }}>
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-12">
                         <Link href="/" className="flex items-center gap-3">
@@ -1921,33 +1867,6 @@ function LandingPageContent() {
                         </div>
                     </div>
                 </div>
-                <section id="contact" className="py-20 border-t relative overflow-hidden" style={{ borderColor: 'var(--d-border)' }}>
-                    <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_30%_50%,_var(--d-text)_1px,_transparent_1px)]" style={{ backgroundSize: '40px 40px' }} />
-                    <div className="max-w-7xl mx-auto px-6 relative z-10">
-                        <div className="max-w-2xl mx-auto text-center mb-16">
-                            <motion.div 
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 text-[10px] font-black uppercase tracking-widest mb-6"
-                            >
-                                <FiMail size={12} />
-                                Get In Touch
-                            </motion.div>
-                            <h2 className="text-4xl md:text-5xl font-black mb-6">Contact Us</h2>
-                            <p className="opacity-50 font-medium">Have a specific question or custom requirement? Send us a message and we'll get back to you within 24 hours.</p>
-                        </div>
-
-                        <motion.div 
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            className="max-w-xl mx-auto p-8 md:p-12 rounded-[2.5rem] border shadow-2xl backdrop-blur-xl"
-                            style={{ background: isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.7)', borderColor: 'var(--d-border)' }}
-                        >
-                            <ContactForm />
-                        </motion.div>
-                    </div>
-                </section>
-
             </footer>
             <DemoModal isOpen={demoOpen} onClose={() => setDemoOpen(false)} />
             <InterestModal isOpen={interestOpen} onClose={() => setInterestOpen(false)} planName={selectedPlan} />

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth";
@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   description: "The ultimate AI-powered career platform for developers. Optimize your resume for ATS, master system design interviews, and discover high-paying jobs tailored to your GitHub patterns.",
   keywords: ["AI resume analyzer", "developer jobs", "ATS optimization", "mock interviews", "system design preparartion", "GitHub portfolio audit", "DevPilot AI"],
   authors: [{ name: "DevPilot Team", url: "https://devpilot-ai.com" }],
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   robots: "index, follow",
   icons: {
     icon: "/icon.png",
@@ -30,6 +29,12 @@ export const metadata: Metadata = {
     title: "DevPilot AI — Land Your Dream Developer Role with AI",
     description: "The ultimate AI-powered career platform for developers. Optimize your resume for ATS and land better jobs faster.",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
