@@ -69,3 +69,40 @@ export const getHistory = asyncHandler(async (req: Request, res: Response) => {
     const last20Messages = conversation.messages.slice(-20);
     res.json({ messages: last20Messages, title: conversation.title });
 });
+
+// DELETE /api/career-mentor/conversations/:id
+export const deleteConversation = asyncHandler(async (req: Request, res: Response) => {
+    const userId = (req as any).user._id;
+    const { id } = req.params;
+
+    const result = await Conversation.deleteOne({ _id: id, userId });
+
+    if (result.deletedCount === 0) {
+        throw AppError.notFound('Conversation not found or not authorized');
+    }
+
+    res.json({ success: true, message: 'Conversation deleted successfully' });
+});
+
+// PATCH /api/career-mentor/conversations/:id  (rename)
+export const renameConversation = asyncHandler(async (req: Request, res: Response) => {
+    const userId = (req as any).user._id;
+    const { id } = req.params;
+    const { title } = req.body;
+
+    if (!title || typeof title !== 'string' || title.trim().length === 0) {
+        throw AppError.badRequest('Title is required');
+    }
+
+    const conversation = await Conversation.findOneAndUpdate(
+        { _id: id, userId },
+        { title: title.trim().substring(0, 60) },
+        { new: true }
+    );
+
+    if (!conversation) {
+        throw AppError.notFound('Conversation not found or not authorized');
+    }
+
+    res.json({ success: true, conversation: { _id: conversation._id, title: conversation.title } });
+});

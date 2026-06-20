@@ -20,3 +20,11 @@ export const updateProfileSchema = z.object({
     website: z.string().url().or(z.literal('')).optional(),
     skills: z.array(z.string().trim().min(1)).max(50).optional(),
 });
+
+export const forgotPasswordSchema = z.object({
+    email: z.string().trim().email('Invalid email address').toLowerCase(),
+});
+
+export const resetPasswordSchema = z.object({
+    password: z.string().min(6, 'Password must be at least 6 characters').max(128),
+});

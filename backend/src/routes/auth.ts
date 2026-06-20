@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { authenticate } from '../middleware/auth';
 import { validate } from '../middleware/validate';
 import { authLimiter } from '../middleware/rateLimiter';
-import { signupSchema, loginSchema, updateProfileSchema } from '../validators/auth.validator';
+import { signupSchema, loginSchema, updateProfileSchema, forgotPasswordSchema, resetPasswordSchema } from '../validators/auth.validator';
 import * as authController from '../controllers/auth.controller';
 
 const router = Router();
@@ -24,5 +24,11 @@ router.get('/me', authenticate, authController.getMe);
 
 // PUT /api/auth/profile
 router.put('/profile', authenticate, validate(updateProfileSchema), authController.updateProfile);
+
+// POST /api/auth/forgot-password
+router.post('/forgot-password', authLimiter, validate(forgotPasswordSchema), authController.forgotPassword);
+
+// POST /api/auth/reset-password/:token
+router.post('/reset-password/:token', validate(resetPasswordSchema), authController.resetPassword);
 
 export default router;

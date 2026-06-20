@@ -16,4 +16,10 @@ router.get('/conversations', careerMentorController.getConversations);
 // GET /api/career-mentor/history/:id
 router.get('/history/:id', careerMentorController.getHistory);
 
+// DELETE /api/career-mentor/conversations/:id
+router.delete('/conversations/:id', careerMentorController.deleteConversation);
+
+// PATCH /api/career-mentor/conversations/:id  (rename)
+router.patch('/conversations/:id', careerMentorController.renameConversation);
+
 export default router;

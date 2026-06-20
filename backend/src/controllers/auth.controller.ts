@@ -136,3 +136,74 @@ export const updateProfile = asyncHandler(async (req: Request, res: Response) =>
     );
     res.json({ user });
 });
+
+// POST /api/auth/forgot-password
+export const forgotPassword = asyncHandler(async (req: Request, res: Response) => {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        throw AppError.notFound('There is no user with that email');
+    }
+
+    // Generate token
+    const crypto = await import('crypto');
+    const resetToken = crypto.randomBytes(32).toString('hex');
+
+    // Hash token and set to resetPasswordToken field
+    user.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    user.resetPasswordExpire = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+    await user.save({ validateBeforeSave: false });
+
+    // Create reset url
+    const resetUrl = `${env.FRONTEND_URL}/reset-password/${resetToken}`;
+
+    const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT/POST request to: \n\n ${resetUrl}`;
+
+    try {
+        const { sendEmail } = await import('../utils/email.service');
+        await sendEmail({
+            email: user.email,
+            subject: 'DevPilot AI - Password Reset Token',
+            message,
+        });
+
+        res.status(200).json({ success: true, message: 'Email sent' });
+    } catch (err) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        await user.save({ validateBeforeSave: false });
+        throw AppError.internal('Email could not be sent');
+    }
+});
+
+// POST /api/auth/reset-password/:token
+export const resetPassword = asyncHandler(async (req: Request, res: Response) => {
+    const crypto = await import('crypto');
+    // Get hashed token
+    const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: new Date() }
+    });
+
+    if (!user) {
+        throw AppError.badRequest('Invalid or expired password reset token');
+    }
+
+    // Set new password
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    const token = generateToken(user._id.toString());
+
+    res.status(200).json({
+        success: true,
+        token
+    });
+});

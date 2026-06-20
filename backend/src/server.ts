@@ -10,7 +10,7 @@ import { env } from './config/env';
 import { swaggerSpec } from './config/swagger';
 import { errorHandler } from './middleware/errorHandler';
 import { requestLogger } from './middleware/requestLogger';
-import { generalLimiter } from './middleware/rateLimiter';
+import { generalLimiter, authLimiter, uploadLimiter, githubLimiter } from './middleware/rateLimiter';
 import { logger } from './utils/logger';
 import { generateInterviewQuestion } from './services/ai.service';
 import { InterviewSession } from './models/InterviewSession';
@@ -54,7 +54,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // ── API Routes ──────────────────────────────────────────────────────────────
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/resume', resumeRoutes);
 app.use('/api/github', githubRoutes);
 app.use('/api/jobs', jobRoutes);

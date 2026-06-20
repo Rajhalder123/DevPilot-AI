@@ -1,15 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({ 
+  subsets: ["latin"], 
+  variable: "--font-inter",
+  display: "swap"
+});
+
+const outfit = Outfit({ 
+  subsets: ["latin"], 
+  variable: "--font-outfit",
+  display: "swap"
+});
 
 export const metadata: Metadata = {
-  title: "DevPilot AI — Land Your Dream Developer Role with AI",
-  description: "The ultimate AI-powered career platform for developers. Optimize your resume for ATS, master system design interviews, and discover high-paying jobs tailored to your GitHub patterns.",
-  keywords: ["AI resume analyzer", "developer jobs", "ATS optimization", "mock interviews", "system design preparartion", "GitHub portfolio audit", "DevPilot AI"],
+  title: "DevPilot AI — Your AI Copilot for Building, Debugging and Creating Faster",
+  description: "DevPilot AI helps developers write code, debug problems, understand technology, and ship projects faster. Your intelligent coding companion.",
+  keywords: ["AI coding assistant", "developer tools", "code generation", "bug finder", "AI copilot", "DevPilot AI"],
   authors: [{ name: "DevPilot Team", url: "https://devpilot-ai.com" }],
   robots: "index, follow",
   icons: {
@@ -17,8 +28,8 @@ export const metadata: Metadata = {
     apple: "/icon.png",
   },
   openGraph: {
-    title: "DevPilot AI — Land Your Dream Developer Role with AI",
-    description: "The ultimate AI-powered career platform for developers. Optimize your resume for ATS, master system design interviews, and discover high-paying jobs.",
+    title: "DevPilot AI — Your AI Copilot for Building, Debugging and Creating Faster",
+    description: "Write code, debug problems, and ship projects faster with your AI developer assistant.",
     type: "website",
     siteName: "DevPilot AI",
     locale: "en_US",
@@ -26,8 +37,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DevPilot AI — Land Your Dream Developer Role with AI",
-    description: "The ultimate AI-powered career platform for developers. Optimize your resume for ATS and land better jobs faster.",
+    title: "DevPilot AI — Build Faster. Code Smarter. With AI.",
+    description: "Write code, debug problems, and ship projects faster with your AI developer assistant.",
   },
 };
 
@@ -43,10 +54,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn(inter.variable, "font-sans")}>
-      <body className="font-sans antialiased bg-white text-slate-900 min-h-screen selection:bg-indigo-500/30" suppressHydrationWarning>
+    <html lang="en" className={cn(inter.variable, outfit.variable, "dark")} suppressHydrationWarning>
+      <body className="font-sans antialiased bg-[#050505] text-white min-h-screen" suppressHydrationWarning>
         <AuthProvider>
-          {children}
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
         </AuthProvider>
       </body>
     </html>

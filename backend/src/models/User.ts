@@ -17,6 +17,8 @@ export interface IUser extends Document {
     interviewCount: number;
     createdAt: Date;
     updatedAt: Date;
+    resetPasswordToken?: string;
+    resetPasswordExpire?: Date;
     comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
@@ -35,6 +37,8 @@ const userSchema = new Schema<IUser>(
         website: { type: String, default: '' },
         resumeCount: { type: Number, default: 0 },
         interviewCount: { type: Number, default: 0 },
+        resetPasswordToken: { type: String },
+        resetPasswordExpire: { type: Date },
     },
     { timestamps: true }
 );
