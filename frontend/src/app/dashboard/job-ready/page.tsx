@@ -61,7 +61,7 @@ export default function JobReadyPage() {
     const color = score >= 80 ? '#22C55E' : score >= 60 ? '#F59E0B' : '#EF4444';
 
     return (
-        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+        <div style={{ flex: 1, overflowY: 'auto' }} className="dp-page-pad hide-scrollbar">
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 28 }}>
                 <div className="section-label"><FiTarget size={11} /> Job Ready Score</div>
                 <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 800, color: 'var(--d-text)', marginBottom: 6 }}>
@@ -169,3 +169,7 @@ export default function JobReadyPage() {
         </div>
     );
 }
+
+
+
+

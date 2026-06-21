@@ -9,6 +9,7 @@ import {
     FiSend, FiCopy, FiTerminal
 } from 'react-icons/fi';
 import { SiReact, SiNodedotjs, SiMongodb, SiOpenai, SiFirebase, SiTypescript, SiNextdotjs, SiTailwindcss } from 'react-icons/si';
+import { useTheme, THEMES } from '@/context/ThemeContext';
 
 // ── AI Chat Window Demo ─────────────────────────────────────────────────────
 const AIChatDemo = () => {
@@ -274,8 +275,10 @@ const StepCard = ({ num, title, desc, delay = 0 }: any) => (
 export default function LandingPage() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [themePickerOpen, setThemePickerOpen] = useState(false);
     const { scrollY } = useScroll();
     const heroY = useTransform(scrollY, [0, 400], [0, -60]);
+    const { theme, setTheme } = useTheme();
 
     useEffect(() => {
         const handler = () => setScrolled(window.scrollY > 40);
@@ -309,7 +312,7 @@ export default function LandingPage() {
     ];
 
     return (
-        <div style={{ background: '#050505', color: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden', fontFamily: 'var(--font-inter)' }}>
+        <div style={{ background: 'var(--dp-bg, #050505)', color: 'var(--dp-text, #FFFFFF)', minHeight: '100vh', overflowX: 'hidden', fontFamily: 'var(--font-inter)' }}>
 
             {/* ── NAVBAR ── */}
             <motion.header
@@ -351,8 +354,88 @@ export default function LandingPage() {
                         ))}
                     </ul>
 
-                    {/* CTA buttons */}
+                    {/* CTA buttons + Theme Switcher */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }} className="md-hidden" id="desktop-cta">
+
+                        {/* ── Theme Switcher ── */}
+                        <div style={{ position: 'relative' }}>
+                            <motion.button
+                                onClick={() => setThemePickerOpen(o => !o)}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                title="Switch theme"
+                                style={{
+                                    display: 'flex', alignItems: 'center', gap: 5,
+                                    padding: '6px 10px', borderRadius: 20,
+                                    background: themePickerOpen ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
+                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    cursor: 'pointer', transition: 'all 0.2s',
+                                }}
+                            >
+                                {THEMES.map(t => (
+                                    <div key={t.id}
+                                        style={{
+                                            width: 12, height: 12, borderRadius: '50%',
+                                            background: `linear-gradient(135deg, ${t.accent}, ${t.accentAlt})`,
+                                            border: theme.id === t.id ? '2px solid #fff' : '2px solid transparent',
+                                            transition: 'border 0.2s', flexShrink: 0,
+                                        }}
+                                    />
+                                ))}
+                            </motion.button>
+
+                            <AnimatePresence>
+                                {themePickerOpen && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: 6, scale: 0.95 }}
+                                        style={{
+                                            position: 'absolute', top: 44, right: 0,
+                                            background: 'rgba(10,10,10,0.95)',
+                                            border: '1px solid rgba(255,255,255,0.1)',
+                                            borderRadius: 16, padding: 12, zIndex: 200,
+                                            backdropFilter: 'blur(20px)',
+                                            boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
+                                            minWidth: 180,
+                                        }}
+                                    >
+                                        <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 10, paddingLeft: 4 }}>Choose Theme</div>
+                                        {THEMES.map(t => {
+                                            const active = theme.id === t.id;
+                                            return (
+                                                <motion.button
+                                                    key={t.id}
+                                                    onClick={() => { setTheme(t.id); setThemePickerOpen(false); }}
+                                                    whileHover={{ x: 3 }}
+                                                    style={{
+                                                        display: 'flex', alignItems: 'center', gap: 10,
+                                                        width: '100%', padding: '9px 10px',
+                                                        background: active ? 'rgba(255,255,255,0.06)' : 'transparent',
+                                                        border: 'none', borderRadius: 10, cursor: 'pointer',
+                                                        textAlign: 'left', transition: 'all 0.15s',
+                                                    }}
+                                                >
+                                                    <div style={{
+                                                        width: 28, height: 28, borderRadius: 8, flexShrink: 0,
+                                                        background: `linear-gradient(135deg, ${t.accent}, ${t.accentAlt})`,
+                                                        boxShadow: active ? `0 0 10px ${t.accent}88` : 'none',
+                                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                    }}>
+                                                        {active && <FiCheck size={12} color="#fff" />}
+                                                    </div>
+                                                    <div>
+                                                        <div style={{ fontSize: '0.82rem', fontWeight: active ? 700 : 600, color: active ? '#fff' : 'rgba(255,255,255,0.6)', lineHeight: 1.2 }}>{t.label}</div>
+                                                        <div style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.3)', marginTop: 2 }}>{t.desc}</div>
+                                                    </div>
+                                                </motion.button>
+                                            );
+                                        })}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
                         <Link href="/login" style={{ padding: '8px 18px', fontSize: '0.9rem', color: '#A1A1AA', textDecoration: 'none', fontWeight: 500, borderRadius: 8, transition: 'color 0.2s' }}
                             onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#fff')}
                             onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = '#A1A1AA')}>
@@ -362,7 +445,7 @@ export default function LandingPage() {
                             <motion.button
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
-                                style={{ padding: '9px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #7C3AED, #06B6D4)', color: '#fff', border: 'none', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+                                style={{ padding: '9px 20px', borderRadius: 10, background: `linear-gradient(135deg, ${theme.accent}, ${theme.accentAlt})`, color: '#fff', border: 'none', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
                             >
                                 Get Started <FiArrowRight size={14} />
                             </motion.button>

@@ -2,10 +2,12 @@ import { Request, Response } from 'express';
 import { asyncHandler } from '../utils/asyncHandler';
 import { careerMentorChat } from '../services/ai.service';
 import { AppError } from '../utils/AppError';
+import { logger } from '../utils/logger';
 import { Conversation } from '../models/Conversation';
 
 // POST /api/career-mentor/chat
 export const chat = asyncHandler(async (req: Request, res: Response) => {
+    logger.info('entering careerMentorController.chat');
     const { message, conversationId, history = [] } = req.body;
     const userId = (req as any).user._id;
 
@@ -13,7 +15,9 @@ export const chat = asyncHandler(async (req: Request, res: Response) => {
         throw AppError.badRequest('Message is required');
     }
 
+    logger.info('calling careerMentorChat');
     const aiResponse = await careerMentorChat(message.trim(), history);
+    logger.info('careerMentorChat finished');
 
     // Persist to Database
     let conversation;
@@ -38,6 +42,7 @@ export const chat = asyncHandler(async (req: Request, res: Response) => {
         });
     }
 
+    logger.info('sending response');
     res.json({ 
         response: aiResponse,
         conversationId: conversation?._id 

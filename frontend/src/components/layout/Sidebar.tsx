@@ -12,7 +12,7 @@ import {
     FiSettings, FiLogOut, FiZap, FiChevronLeft, FiPlus,
     FiUser, FiDollarSign, FiMoreHorizontal, FiEdit3,
     FiBookmark, FiArchive, FiTrash2, FiShare2, FiCode, FiMic,
-    FiFileText, FiCheck
+    FiFileText, FiCheck, FiShield
 } from 'react-icons/fi';
 
 interface Conversation {
@@ -285,6 +285,17 @@ export default function Sidebar({ isOpen = false, onClose, onSelectConversation,
                         );
                     })}
 
+                    {/* Admin Panel link (only for admins) */}
+                    {user?.role === 'admin' && (
+                        <a href={process.env.NEXT_PUBLIC_ADMIN_URL || 'http://localhost:3001'} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 12px', borderRadius: 8, marginBottom: 1, cursor: 'pointer', transition: 'all 0.12s', background: 'rgba(220,38,38,0.06)', color: '#EF4444', fontSize: '0.84rem', fontWeight: 600, border: '1px solid rgba(220,38,38,0.12)' }}
+                                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(220,38,38,0.12)'; e.currentTarget.style.borderColor = 'rgba(220,38,38,0.25)'; }}
+                                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(220,38,38,0.06)'; e.currentTarget.style.borderColor = 'rgba(220,38,38,0.12)'; }}>
+                                <FiShield size={14} /> Admin Panel
+                            </div>
+                        </a>
+                    )}
+
                     {/* Upgrade banner */}
                     <div style={{ background: 'rgba(124,58,237,0.07)', border: '1px solid rgba(124,58,237,0.15)', borderRadius: 10, padding: '10px 12px', margin: '8px 0' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 3 }}>
@@ -331,3 +342,62 @@ export default function Sidebar({ isOpen = false, onClose, onSelectConversation,
         </>
     );
 }
+
+// ── Mobile Bottom Tab Bar ─────────────────────────────────────────────────────
+// Only visible on mobile (≤768px), provides thumb-friendly navigation
+function MobileBottomNav() {
+    const pathname = usePathname();
+
+    const tabs = [
+        { href: '/dashboard', icon: FiHome, label: 'Home' },
+        { href: '/chat', icon: FiMessageSquare, label: 'Chat' },
+        { href: '/tools', icon: FiCpu, label: 'Tools' },
+        { href: '/dashboard/settings', icon: FiSettings, label: 'Settings' },
+    ];
+
+    return (
+        <nav style={{
+            position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1100,
+            background: 'rgba(10,10,10,0.97)', borderTop: '1px solid rgba(255,255,255,0.07)',
+            display: 'flex', alignItems: 'center', height: 60,
+            backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+            paddingBottom: 'env(safe-area-inset-bottom)',
+        }} className="mobile-bottom-nav">
+            {tabs.map(tab => {
+                const active = pathname === tab.href || (tab.href !== '/dashboard' && pathname.startsWith(tab.href));
+                return (
+                    <Link key={tab.href} href={tab.href} style={{ flex: 1, textDecoration: 'none' }}>
+                        <div style={{
+                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                            gap: 3, padding: '8px 0',
+                            color: active ? '#A78BFA' : '#52525B',
+                            transition: 'color 0.15s',
+                        }}>
+                            <div style={{
+                                position: 'relative',
+                                width: 36, height: 28,
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                borderRadius: 10,
+                                background: active ? 'rgba(124,58,237,0.15)' : 'transparent',
+                                transition: 'background 0.2s',
+                            }}>
+                                <tab.icon size={18} />
+                                {active && (
+                                    <div style={{
+                                        position: 'absolute', bottom: -2, left: '50%', transform: 'translateX(-50%)',
+                                        width: 4, height: 4, borderRadius: '50%',
+                                        background: '#A78BFA',
+                                    }} />
+                                )}
+                            </div>
+                            <span style={{ fontSize: '0.6rem', fontWeight: active ? 700 : 500 }}>{tab.label}</span>
+                        </div>
+                    </Link>
+                );
+            })}
+        </nav>
+    );
+}
+
+// Re-export with mobile nav injected
+export { MobileBottomNav };

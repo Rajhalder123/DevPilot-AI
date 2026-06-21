@@ -52,7 +52,7 @@ export default function CareerMentorPage() {
     };
 
     return (
-        <div style={{ padding: '28px 36px 120px 36px', flex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div className="dp-page-pad" style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 16 }}>
                 <div className="section-label"><FiCompass size={11} /> AI Career Mentor</div>
                 <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 800, color: 'var(--d-text)' }}>
@@ -189,3 +189,6 @@ export default function CareerMentorPage() {
         </div>
     );
 }
+
+
+

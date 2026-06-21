@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 import Sidebar from './Sidebar';
+import { MobileBottomNav } from './Sidebar';
 import { ConversationProvider, useConversation } from '@/context/ConversationContext';
 import { FiZap } from 'react-icons/fi';
 import { motion } from 'framer-motion';
@@ -56,7 +57,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
                 currentConversationId={currentConversationId}
             />
             <div
-                className="dashboard-main-content"
+                className={`dashboard-main-content ${isSidebarOpen ? 'dp-main-with-sidebar' : 'dp-main-full'}`}
                 style={{
                     flex: 1,
                     display: 'flex',
@@ -64,9 +65,6 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
                     height: '100vh',
                     overflowY: 'auto',
                     overflowX: 'hidden',
-                    transition: 'margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    marginLeft: isSidebarOpen ? '260px' : '0',
-                    width: isSidebarOpen ? 'calc(100% - 260px)' : '100%',
                     background: 'var(--dp-bg)',
                 }}
             >
@@ -98,6 +96,8 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
                     {children}
                 </main>
             </div>
+            {/* Mobile bottom nav — only visible on screens ≤768px */}
+            <MobileBottomNav />
         </div>
     );
 }

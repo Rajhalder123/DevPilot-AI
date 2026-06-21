@@ -85,10 +85,15 @@ api.interceptors.response.use(
 
             // Auth routes must NEVER auto-retry — show countdown in the UI instead
             const isAuthRoute = url.includes('/auth/login') || url.includes('/auth/signup') || url.includes('/auth/register');
-            if (isAuthRoute) {
+            // Voice chats must fail fast so the AI can speak the error immediately
+            const isVoiceRoute = url.includes('/career-mentor/chat') || url.includes('/interview/message');
+            
+            if (isAuthRoute || isVoiceRoute) {
+                const errData = error.response?.data?.error;
+                const errMsg = typeof errData === 'object' && errData !== null ? errData.message : errData;
                 const err: any = new Error(
-                    error.response?.data?.error ||
-                    `Too many login attempts. Please wait ${Math.ceil(retryAfterSec / 60)} minute(s) before trying again.`
+                    errMsg ||
+                    (isVoiceRoute ? "I'm receiving too many requests right now. Please wait a moment." : `Please wait ${Math.ceil(retryAfterSec / 60)} minute(s) before trying again.`)
                 );
                 err.isRateLimit = true;
                 err.retryAfterSec = retryAfterSec;
@@ -112,12 +117,17 @@ api.interceptors.response.use(
 
         // ── 502 / 503 Transient server errors → short exponential retry ───
         if (status === 502 || status === 503) {
-            config._retryCount = (config._retryCount || 0) + 1;
-            if (config._retryCount <= 2) {
-                const waitMs = BASE_DELAY_MS * Math.pow(2, config._retryCount) + Math.random() * 500;
-                console.warn(`[API] ${status} server error. Retrying in ${(waitMs / 1000).toFixed(1)}s`);
-                await sleep(waitMs);
-                return api(config);
+            const url: string = config?.url || '';
+            const isVoiceRoute = url.includes('/career-mentor/chat') || url.includes('/interview/message');
+            
+            if (!isVoiceRoute) {
+                config._retryCount = (config._retryCount || 0) + 1;
+                if (config._retryCount <= 2) {
+                    const waitMs = BASE_DELAY_MS * Math.pow(2, config._retryCount) + Math.random() * 500;
+                    console.warn(`[API] ${status} server error. Retrying in ${(waitMs / 1000).toFixed(1)}s`);
+                    await sleep(waitMs);
+                    return api(config);
+                }
             }
         }
 

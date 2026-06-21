@@ -29,7 +29,7 @@ export const signup = asyncHandler(async (req: Request, res: Response) => {
 
     res.status(201).json({
         token,
-        user: { id: user._id, name: user.name, email: user.email, avatar: user.avatar },
+        user: { id: user._id, name: user.name, email: user.email, avatar: user.avatar, role: user.role },
     });
 });
 
@@ -48,11 +48,15 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
         throw AppError.unauthorized('Invalid email or password');
     }
 
+    if (!user.isActive) {
+        throw AppError.forbidden('Your account has been suspended. Please contact support.');
+    }
+
     const token = generateToken(user._id.toString());
 
     res.json({
         token,
-        user: { id: user._id, name: user.name, email: user.email, avatar: user.avatar, skills: user.skills },
+        user: { id: user._id, name: user.name, email: user.email, avatar: user.avatar, skills: user.skills, role: user.role },
     });
 });
 
@@ -142,8 +146,11 @@ export const forgotPassword = asyncHandler(async (req: Request, res: Response) =
     const { email } = req.body;
     const user = await User.findOne({ email });
 
+    // Security: always return the same response regardless of whether the email exists
+    // to prevent email enumeration attacks
     if (!user) {
-        throw AppError.notFound('There is no user with that email');
+        res.status(200).json({ success: true, message: 'If an account exists with that email, a password reset link has been sent.' });
+        return;
     }
 
     // Generate token

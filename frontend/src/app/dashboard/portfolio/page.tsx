@@ -52,7 +52,7 @@ export default function PortfolioPage() {
 
     if (previewing) {
         return (
-            <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+            <div style={{ flex: 1, overflowY: 'auto' }} className="dp-page-pad hide-scrollbar">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
                     <h2 style={{ fontFamily: 'var(--font-display)', color: 'var(--d-text)', fontWeight: 700 }}>Portfolio Preview</h2>
                     <div style={{ display: 'flex', gap: 10 }}>
@@ -109,7 +109,7 @@ export default function PortfolioPage() {
     }
 
     return (
-        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+        <div style={{ flex: 1, overflowY: 'auto' }} className="dp-page-pad hide-scrollbar">
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 28 }}>
                 <div className="section-label"><FiLayout size={11} /> Portfolio Builder</div>
                 <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 800, color: 'var(--d-text)', marginBottom: 6 }}>
@@ -247,3 +247,7 @@ export default function PortfolioPage() {
         </div>
     );
 }
+
+
+
+

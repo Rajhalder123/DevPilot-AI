@@ -69,6 +69,8 @@ export default function InterviewPage() {
     const [voiceSupported, setVoiceSupported] = useState(false);
     const [ttsEnabled, setTtsEnabled] = useState(true);
     const recognitionRef = useRef<any>(null);
+    const isMounted = useRef(true);
+    const vaCurrentTranscriptRef = useRef<string>('');
 
     const { socket, connected } = useSocket();
 
@@ -82,6 +84,7 @@ export default function InterviewPage() {
     // Cleanup on unmount
     useEffect(() => {
         return () => {
+            isMounted.current = false;
             window.speechSynthesis?.cancel();
             recognitionRef.current?.stop();
             vaRecRef.current?.stop();
@@ -95,19 +98,37 @@ export default function InterviewPage() {
     const speak = useCallback((text: string, onEnd?: () => void) => {
         if (!window.speechSynthesis) return;
         window.speechSynthesis.cancel();
-        const utt = new SpeechSynthesisUtterance(text);
-        utt.rate = 0.93;
-        utt.pitch = 1.1;
-        utt.volume = 1;
-        const tryVoice = () => {
+        
+        const playVoice = () => {
+            const utt = new SpeechSynthesisUtterance(text);
+            utt.rate = 0.93;
+            utt.pitch = 1.1;
+            utt.volume = 1;
             const v = getFemaleVoice();
             if (v) utt.voice = v;
+            utt.onstart = () => { setVaSpeaking(true); };
+            utt.onend = () => { setVaSpeaking(false); onEnd?.(); };
+            utt.onerror = () => { setVaSpeaking(false); onEnd?.(); };
+            window.speechSynthesis.speak(utt);
         };
-        tryVoice();
-        utt.onstart = () => { setVaSpeaking(true); };
-        utt.onend = () => { setVaSpeaking(false); onEnd?.(); };
-        utt.onerror = () => { setVaSpeaking(false); onEnd?.(); };
-        window.speechSynthesis.speak(utt);
+
+        if (window.speechSynthesis.getVoices().length === 0) {
+            let fired = false;
+            window.speechSynthesis.onvoiceschanged = () => {
+                if (fired) return;
+                fired = true;
+                playVoice();
+                window.speechSynthesis.onvoiceschanged = null;
+            };
+            setTimeout(() => {
+                if (!fired) {
+                    fired = true;
+                    playVoice();
+                }
+            }, 800);
+        } else {
+            playVoice();
+        }
     }, []);
 
     // ── Socket listeners (text interview) ────────────────────────────────
@@ -159,8 +180,17 @@ export default function InterviewPage() {
     // ── Voice Assistant STT ───────────────────────────────────────────────
     const startVaListening = useCallback(() => {
         if (vaSpeaking) window.speechSynthesis?.cancel();
+        
+        // Unlock speech synthesis in sync click
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+            const wake = new SpeechSynthesisUtterance(''); wake.volume = 0; window.speechSynthesis.speak(wake);
+        }
+
         const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SR) return;
+        
+        vaCurrentTranscriptRef.current = '';
+        
         const rec = new SR();
         rec.continuous = false; rec.interimResults = true; rec.lang = 'en-US';
         rec.onresult = (e: any) => {
@@ -169,14 +199,30 @@ export default function InterviewPage() {
                 if (e.results[i].isFinal) final += e.results[i][0].transcript;
                 else interim += e.results[i][0].transcript;
             }
-            setVaTranscript(final || interim);
-            if (final) {
-                setVaTranscript('');
+            const text = final || interim;
+            setVaTranscript(text);
+            vaCurrentTranscriptRef.current = text;
+            
+            if (final && final.trim()) {
+                vaCurrentTranscriptRef.current = ''; // prevent double send
                 sendVaMessage(final.trim());
             }
         };
-        rec.onend = () => setVaListening(false);
-        rec.onerror = () => { setVaListening(false); setVaTranscript(''); };
+        rec.onend = () => {
+            setVaListening(false);
+            if (vaCurrentTranscriptRef.current && vaCurrentTranscriptRef.current.trim()) {
+                const txt = vaCurrentTranscriptRef.current.trim();
+                vaCurrentTranscriptRef.current = '';
+                sendVaMessage(txt);
+            }
+        };
+        rec.onerror = (err: any) => { 
+            if (err.error !== 'aborted') {
+                setVaListening(false); 
+                setVaTranscript(''); 
+                vaCurrentTranscriptRef.current = '';
+            }
+        };
         vaRecRef.current = rec;
         rec.start();
         setVaListening(true);
@@ -186,6 +232,7 @@ export default function InterviewPage() {
 
     const sendVaMessage = async (text: string) => {
         if (!text || vaSending) return;
+        setVaTranscript('');
         setVaMessages(prev => [...prev, { role: 'user', content: text }]);
         setVaSending(true);
         try {
@@ -195,18 +242,23 @@ export default function InterviewPage() {
                 topic: 'General AI Interview Practice',
                 type: 'voice-assistant',
             });
+            if (!isMounted.current) return;
             const reply = res.data?.message || "I didn't catch that. Could you repeat?";
             setVaMessages(prev => [...prev, { role: 'assistant', content: reply }]);
             speak(reply);
         } catch {
+            if (!isMounted.current) return;
             const fallback = "I'm sorry, I couldn't process that. Please try again.";
             setVaMessages(prev => [...prev, { role: 'assistant', content: fallback }]);
             speak(fallback);
-        } finally { setVaSending(false); }
+        } finally { if (isMounted.current) setVaSending(false); }
     };
 
     // Activate voice assistant
     const activateVoiceAssistant = () => {
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+            const wake = new SpeechSynthesisUtterance(''); wake.volume = 0; window.speechSynthesis.speak(wake);
+        }
         setVaActive(true);
         setVaMessages([]);
         const greeting = "Hello! I'm Raj's AI, currently under training. How can I help you today? Feel free to ask me anything about your interview preparation.";
@@ -215,7 +267,7 @@ export default function InterviewPage() {
     };
 
     return (
-        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+        <div style={{ flex: 1, overflowY: 'auto' }} className="dp-page-pad hide-scrollbar">
             <div style={{ display: 'flex', flexDirection: 'column', gap: 0, maxWidth: 900, margin: '0 auto', paddingBottom: 40 }}>
             {/* Header */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
@@ -313,7 +365,7 @@ export default function InterviewPage() {
                                         />
                                     </div>
 
-                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+                                    <div className="dp-grid-2" style={{ gap: 20 }}>
                                         <div>
                                             <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--muted)', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                                                 Difficulty
@@ -719,3 +771,7 @@ export default function InterviewPage() {
         </div>
     );
 }
+
+
+
+

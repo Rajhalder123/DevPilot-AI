@@ -145,7 +145,7 @@ export default function SignupPage() {
                     style={{ width: '100%', maxWidth: 420, position: 'relative', zIndex: 1 }}
                 >
                     <div style={{ marginBottom: 32 }}>
-                        <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 8, fontFamily: 'var(--font-outfit)' }}>
+                        <h1 className="dp-h1-responsive" style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 8, fontFamily: 'var(--font-outfit)' }}>
                             Create your workspace
                         </h1>
                         <p style={{ color: '#71717A', fontSize: '0.95rem' }}>Set up your AI developer account in seconds.</p>
@@ -267,6 +267,12 @@ export default function SignupPage() {
                     </p>
                 </motion.div>
             </div>
+
+            <style>{`
+                @media (max-width: 480px) {
+                    .dp-h1-responsive { font-size: 1.6rem !important; }
+                }
+            `}</style>
         </div>
     );
 }

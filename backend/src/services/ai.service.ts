@@ -31,15 +31,19 @@ async function callAI(
 ): Promise<string> {
     const { temperature = 0.3, maxTokens = 2000 } = options;
 
+    logger.info('entering callAI');
     try {
+        logger.info('calling openai.chat.completions.create');
         const response = await openai.chat.completions.create({
             model: MODEL,
             messages,
             temperature,
             max_completion_tokens: maxTokens,
-        });
+        }, { timeout: 12000 }); // 12 seconds timeout to prevent hanging
+        logger.info('openai returned successfully');
         return response.choices[0].message.content || '';
     } catch (error: any) {
+        logger.info('openai threw an error: ' + error.message);
         logger.error('Groq API call failed', {
             error: error.message,
             status: error.status,

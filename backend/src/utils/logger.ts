@@ -26,6 +26,7 @@ export const logger = winston.createLogger({
     defaultMeta: { service: 'devpilot-api' },
     transports: [
         new winston.transports.Console(),
+        new winston.transports.File({ filename: 'debug.log', level: 'debug' })
     ],
     // Don't exit on uncaught exceptions — let the process manager handle restarts
     exitOnError: false,

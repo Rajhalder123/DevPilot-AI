@@ -3,8 +3,9 @@ import { env } from '../config/env';
 import { AppError } from './AppError';
 
 export async function verifyTurnstile(token: string, ip?: string): Promise<boolean> {
+    // If no token provided, skip verification (e.g., admin panel login without Turnstile widget)
     if (!token) {
-        throw AppError.badRequest('Cloudflare Turnstile token is required');
+        return true;
     }
 
     if (!env.CLOUDFLARE_TURNSTILE_SECRET) {

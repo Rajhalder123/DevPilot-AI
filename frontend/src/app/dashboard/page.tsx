@@ -71,7 +71,7 @@ const StatCard = ({ icon: Icon, label, value, color, loading }: any) => (
             {loading ? (
                 <div style={{ width: 40, height: 22, background: 'rgba(255,255,255,0.06)', borderRadius: 6, marginBottom: 4 }} className="animate-pulse" />
             ) : (
-                <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fff', letterSpacing: '-0.5px', fontFamily: 'var(--font-outfit)' }}>{value ?? 'Ã¢â‚¬â€'}</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fff', letterSpacing: '-0.5px', fontFamily: 'var(--font-outfit)' }}>{value ?? '—'}</div>
             )}
             <div style={{ fontSize: '0.78rem', color: '#71717A', fontWeight: 500 }}>{label}</div>
         </div>
@@ -214,7 +214,7 @@ export default function DashboardPage() {
                         </motion.div>
                         <div>
                             <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#fff' }}>DevPilot AI</div>
-                            <div style={{ fontSize: '0.68rem', color: '#10B981', fontWeight: 600 }}>Ã¢ââ— Online  -  Powered by AI</div>
+                            <div style={{ fontSize: '0.68rem', color: '#10B981', fontWeight: 600 }}>● Online  -  Powered by AI</div>
                         </div>
                     </div>
                     <button onClick={startNewChat}
@@ -272,7 +272,7 @@ export default function DashboardPage() {
     // Ã¢â€â‚¬Ã¢â€â‚¬ DASHBOARD HOME Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     return (
         <div style={{ height: '100%', overflowY: 'auto', background: '#050505' }} className="hide-scrollbar">
-            <div style={{ padding: '32px 36px 120px', maxWidth: 1100, margin: '0 auto' }}>
+            <div className="dp-page-pad" style={{ maxWidth: 1100, margin: '0 auto' }}>
 
                 {/* Greeting */}
                 <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 32 }}>
@@ -325,7 +325,7 @@ export default function DashboardPage() {
                 </motion.div>
 
                 {/* Stats Row */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 28 }}>
+                <div className="dp-grid-4" style={{ marginBottom: 28 }}>
                     <StatCard icon={FiMessageSquare} label="AI Chats" value={conversations.length} color="#7C3AED" loading={convLoading} />
                     <StatCard icon={FiCode} label="GitHub Projects" value={stats?.githubCount ?? githubProjects.length} color="#06B6D4" loading={statsLoading} />
                     <StatCard icon={FiTrendingUp} label="AI Interviews" value={stats?.interviewCount} color="#10B981" loading={statsLoading} />
@@ -333,7 +333,7 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Two column: Recent Chats + GitHub */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 20 }}>
+                <div className="dp-grid-2" style={{ marginBottom: 20 }}>
 
                     {/* Recent Chat History */}
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
@@ -447,8 +447,8 @@ export default function DashboardPage() {
 
                 </div>
 
-                {/* Ã¢â€â‚¬Ã¢â€â‚¬ Voice AI Assistant + Resume Analyzer Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 20 }}>
+                {/* Voice AI Assistant + Resume Analyzer */}
+                <div className="dp-grid-2" style={{ marginBottom: 20 }}>
 
                     {/* Voice AI Assistant */}
                     <VoiceAssistant onSend={handleSend} isListening={isListening} onToggleListen={toggleListen} />
@@ -460,7 +460,7 @@ export default function DashboardPage() {
                 {/* Quick Action Tiles */}
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
                     <h2 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#3F3F46', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>Quick Actions</h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+                    <div className="dp-grid-4">
                         {[
                             { label: 'Chat', desc: 'AI Developer Chat', icon: FiMessageSquare, color: '#7C3AED', href: '/chat', prompt: null },
                             { label: 'AI Tools', desc: 'Code generator & more', icon: FiZap, color: '#06B6D4', href: '/tools', prompt: null },
@@ -485,8 +485,7 @@ export default function DashboardPage() {
                 </motion.div>
             </div>
 
-            {/* Floating Input Bar */}
-            <div style={{ position: 'fixed', bottom: 0, left: '260px', right: 0, padding: '16px 36px 20px', background: 'linear-gradient(to top, #050505 60%, transparent)', zIndex: 50, transition: 'left 0.3s' }}>
+            <div className="dp-input-bar">
                 <InputBar input={input} setInput={setInput} attachedFile={attachedFile} setAttachedFile={setAttachedFile}
                     isTyping={isTyping} isListening={isListening} onToggleListen={toggleListen}
                     onSend={handleSend} fileRef={fileRef} textareaRef={textareaRef} />
@@ -496,8 +495,8 @@ export default function DashboardPage() {
     );
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ Voice Assistant Modal (Google Assistant style) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
-// Stable waveform heights Ã¢â‚¬â€ no Math.random() in render (causes layout jumps)
+// â‚¬â‚¬ Voice Assistant Modal (Google Assistant style) â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬â‚¬
+// Stable waveform heights â‚¬â€  no Math.random() in render (causes layout jumps)
 const LISTEN_BARS = [0.4, 1.6, 0.8, 2.1, 0.6, 1.9, 0.5, 1.3, 2.0, 0.7, 1.7, 0.4, 2.2, 0.9, 1.5, 0.6, 1.8, 0.5];
 const SPEAK_BARS  = [0.5, 2.0, 1.0, 2.5, 0.7, 2.2, 0.6, 1.4, 2.3, 0.8, 2.0, 0.5, 2.4, 1.1, 1.8, 0.7, 2.1, 0.6];
 
@@ -578,48 +577,135 @@ function VoiceAssistantModal({ onClose }: { onClose: () => void }) {
     useEffect(() => {
         const prev = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
+        
+        // Preemptively load voices to fix browser delay
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+            window.speechSynthesis.getVoices();
+        }
+
         return () => { document.body.style.overflow = prev; };
     }, []);
 
+    const startListeningRef = useRef<(() => void) | null>(null);
+    const currentTranscriptRef = useRef<string>('');
+
     useEffect(() => {
-        if (typeof window === 'undefined') return;
-        const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-        if (!SR) return;
-        const r = new SR();
-        r.continuous = true; r.interimResults = true;
-        r.onstart = () => setVoiceStatus('listening');
-        r.onresult = (e: any) => { let full = ''; for (let i = 0; i < e.results.length; i++) full += e.results[i][0].transcript; setTranscript(full); };
-        r.onend = () => setVoiceStatus(v => v === 'listening' ? 'idle' : v);
-        r.onerror = () => setVoiceStatus('idle');
-        recognitionRef.current = r;
-        try { r.start(); } catch { }
-        return () => { try { r.stop(); } catch { } };
-    }, []);
+        startListeningRef.current = () => {
+            if (typeof window === 'undefined') return;
+            const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+            if (!SR) return;
+            
+            try { recognitionRef.current?.stop(); } catch { }
+            currentTranscriptRef.current = '';
+            
+            const r = new SR();
+            r.continuous = false; 
+            r.interimResults = true;
+            
+            r.onstart = () => setVoiceStatus('listening');
+            
+            r.onresult = (e: any) => { 
+                let interim = '', final = '';
+                for (let i = e.resultIndex; i < e.results.length; i++) {
+                    if (e.results[i].isFinal) final += e.results[i][0].transcript;
+                    else interim += e.results[i][0].transcript;
+                }
+                const text = final || interim;
+                setTranscript(text);
+                currentTranscriptRef.current = text;
+                
+                // Send immediately when user finishes speaking
+                if (final && final.trim()) {
+                    currentTranscriptRef.current = ''; // Prevent double send
+                    sendVoiceMessage(final.trim());
+                }
+            };
+            
+            r.onend = () => {
+                setVoiceStatus(v => v === 'listening' ? 'idle' : v);
+                
+                // If browser ended recognition (user paused) but never sent isFinal, send the interim text!
+                if (currentTranscriptRef.current && currentTranscriptRef.current.trim()) {
+                    const textToSend = currentTranscriptRef.current.trim();
+                    currentTranscriptRef.current = '';
+                    sendVoiceMessage(textToSend);
+                }
+            };
+            
+            r.onerror = (err: any) => { 
+                if (err.error !== 'aborted') {
+                    console.error("Speech Recognition Error:", err.error); 
+                    setVoiceStatus(v => v === 'listening' ? 'idle' : v);
+                }
+            };
+            
+            recognitionRef.current = r;
+            try { r.start(); } catch (err) { console.error("Start failed", err); }
+        };
+    });
+
+    useEffect(() => {
+        if (startListeningRef.current) startListeningRef.current();
+        return () => { try { recognitionRef.current?.stop(); } catch { } };
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (historyRef.current) historyRef.current.scrollTo({ top: historyRef.current.scrollHeight, behavior: 'smooth' });
     }, [history]);
 
-    useEffect(() => {
-        if (!transcript || voiceStatus !== 'listening') return;
-        if (sendTimer.current) clearTimeout(sendTimer.current);
-        sendTimer.current = setTimeout(() => { if (transcript.trim()) sendVoiceMessage(transcript.trim()); }, 1800);
-        return () => { if (sendTimer.current) clearTimeout(sendTimer.current); };
-    }, [transcript]);
-
     const speak = (text: string) => {
-        if (!window.speechSynthesis) return;
-        window.speechSynthesis.cancel();
-        const utt = new SpeechSynthesisUtterance(text);
-        utt.rate = 1.0; utt.pitch = 1; utt.volume = 1;
-        const voices = window.speechSynthesis.getVoices();
-        const preferred = voices.find(v => v.lang.startsWith('en') && v.localService);
-        if (preferred) utt.voice = preferred;
-        utt.onstart = () => setVoiceStatus('speaking');
-        utt.onend = () => { setVoiceStatus('idle'); setTimeout(() => { try { recognitionRef.current?.start(); } catch { } }, 600); };
-        utt.onerror = () => setVoiceStatus('idle');
-        synthRef.current = utt;
-        window.speechSynthesis.speak(utt);
+        try {
+            if (!window.speechSynthesis) return;
+            window.speechSynthesis.cancel();
+            
+            const playVoice = () => {
+                const utt = new SpeechSynthesisUtterance(text);
+                utt.rate = 1.0; utt.pitch = 1; utt.volume = 1;
+                const voices = window.speechSynthesis.getVoices();
+                
+                // Dynamically select a female English voice if available
+                const isFemale = (v: SpeechSynthesisVoice) => {
+                    const n = v.name.toLowerCase();
+                    return n.includes('female') || n.includes('zira') || n.includes('samantha') || n.includes('hazel') || n.includes('catherine');
+                };
+                const engVoices = voices.filter(v => v?.lang?.startsWith('en') && v.localService);
+                const selectedVoice = engVoices.find(isFemale) || engVoices[0] || voices[0];
+                if (selectedVoice) utt.voice = selectedVoice;
+                
+                let startTimeout: ReturnType<typeof setTimeout>;
+                utt.onstart = () => { clearTimeout(startTimeout); setVoiceStatus('speaking'); };
+                utt.onend = () => { setVoiceStatus('idle'); setTimeout(() => { if (startListeningRef.current) startListeningRef.current(); }, 600); };
+                utt.onerror = () => { clearTimeout(startTimeout); setVoiceStatus('idle'); };
+                synthRef.current = utt;
+                window.speechSynthesis.speak(utt);
+                
+                // Fallback for Chrome bug where onstart never fires
+                startTimeout = setTimeout(() => { setVoiceStatus('speaking'); }, 1500);
+            };
+
+            // Browsers might load voices asynchronously
+            if (window.speechSynthesis.getVoices().length === 0) {
+                let fired = false;
+                window.speechSynthesis.onvoiceschanged = () => {
+                    if (fired) return;
+                    fired = true;
+                    playVoice();
+                    window.speechSynthesis.onvoiceschanged = null;
+                };
+                // Fallback just in case the event never fires
+                setTimeout(() => {
+                    if (!fired) {
+                        fired = true;
+                        playVoice();
+                    }
+                }, 800);
+            } else {
+                playVoice();
+            }
+        } catch (err) {
+            console.error("Speech synthesis failed:", err);
+            setVoiceStatus('idle'); // Ensure UI doesn't get stuck
+        }
     };
 
     const stopAll = () => { try { recognitionRef.current?.stop(); } catch { } window.speechSynthesis?.cancel(); setVoiceStatus('idle'); };
@@ -628,7 +714,18 @@ function VoiceAssistantModal({ onClose }: { onClose: () => void }) {
     const toggleMic = () => {
         if (voiceStatus === 'speaking') { window.speechSynthesis?.cancel(); setVoiceStatus('idle'); return; }
         if (voiceStatus === 'listening') { try { recognitionRef.current?.stop(); } catch { } }
-        else { setTranscript(''); try { recognitionRef.current?.start(); } catch { } }
+        else { 
+            setTranscript(''); 
+            
+            // Wake up speech synthesis in the synchronous click event to prevent browser blocking async speech
+            if (typeof window !== 'undefined' && window.speechSynthesis) {
+                const wake = new SpeechSynthesisUtterance(' ');
+                wake.volume = 0;
+                window.speechSynthesis.speak(wake);
+            }
+
+            if (startListeningRef.current) startListeningRef.current(); 
+        }
     };
 
     const deleteMessage = (id: number) => setHistory(h => h.filter(m => m.id !== id));
@@ -649,11 +746,13 @@ function VoiceAssistantModal({ onClose }: { onClose: () => void }) {
             setLatestAiId(aiId);
             const plain = reply.replace(/```[\s\S]*?```/g, 'code block').replace(/[#*`_~>]/g, '').trim();
             speak(plain);
-        } catch {
+        } catch (err: any) {
+            const errData = err.response?.data?.error;
+            const errText = (typeof errData === 'object' && errData !== null ? errData.message : errData) || err.message || 'Could not connect. Please try again.';
             const errId = ++idCounter.current;
-            setHistory(h => [...h, { id: errId, role: 'ai', text: 'Could not connect. Please try again.' }]);
+            setHistory(h => [...h, { id: errId, role: 'ai', text: errText }]);
             setLatestAiId(errId);
-            setVoiceStatus('idle');
+            speak(errText);
         }
     };
 
@@ -785,7 +884,10 @@ function VoiceAssistantModal({ onClose }: { onClose: () => void }) {
                         ))}
                     </div>
                     <p style={{ fontSize: '0.66rem', color: '#3F3F46', margin: 0, textAlign: 'center' }}>
-                        {voiceStatus === 'listening' ? 'Auto-sends after 1.8s silence - tap orb to stop' : voiceStatus === 'speaking' ? 'Tap orb to stop - listens again after' : 'Tap orb to start listening'}
+                        {voiceStatus === 'listening' ? 'Speak now... (Tap orb to send instantly)' 
+                            : voiceStatus === 'speaking' ? 'Tap orb to interrupt and reply' 
+                            : voiceStatus === 'processing' ? 'Waiting for AI response...' 
+                            : 'Tap orb to start listening'}
                     </p>
                 </div>
             </motion.div>
@@ -1016,5 +1118,8 @@ function InputBar({ input, setInput, attachedFile, setAttachedFile, isTyping, is
         </>
     );
 }
+
+
+
 
 

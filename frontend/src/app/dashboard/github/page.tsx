@@ -71,7 +71,7 @@ export default function GitHubPage() {
     };
 
     return (
-        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+        <div style={{ flex: 1, overflowY: 'auto' }} className="dp-page-pad hide-scrollbar">
             <div style={{ maxWidth: 900, margin: '0 auto' }}>
             {/* Header */}
             <div style={{ marginBottom: 32 }}>
@@ -196,3 +196,7 @@ export default function GitHubPage() {
         </div>
     );
 }
+
+
+
+

@@ -30,6 +30,7 @@ import jobReadyScoreRoutes from './routes/jobReadyScore';
 import roadmapRoutes from './routes/roadmap';
 import portfolioRoutes from './routes/portfolio';
 import scoreRoutes from './routes/score';
+import adminRoutes from './routes/admin';
 
 // Create Express app
 const app = express();
@@ -66,6 +67,7 @@ app.use('/api/job-ready-score', jobReadyScoreRoutes);
 app.use('/api/roadmap', roadmapRoutes);
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/score', scoreRoutes);
+app.use('/api/admin', adminRoutes);
 
 // ── Swagger API Documentation ───────────────────────────────────────────────
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {

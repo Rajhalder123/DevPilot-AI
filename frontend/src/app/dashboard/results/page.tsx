@@ -50,7 +50,7 @@ export default function ResultsPage() {
     ];
 
     return (
-        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+        <div style={{ flex: 1, overflowY: 'auto' }} className="dp-page-pad hide-scrollbar">
             <div style={{ maxWidth: 900, margin: '0 auto' }}>
             {/* Back Button */}
             <Link href="/dashboard" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8, color: 'var(--d-muted)', fontSize: '0.85rem', fontWeight: 600, marginBottom: 24 }}>
@@ -140,3 +140,7 @@ export default function ResultsPage() {
         </div>
     );
 }
+
+
+
+

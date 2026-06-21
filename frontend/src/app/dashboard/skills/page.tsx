@@ -57,7 +57,7 @@ export default function SkillsPage() {
     const data = skillData[selectedRole];
 
     return (
-        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+        <div className="dp-page-pad" style={{ flex: 1, overflowY: 'auto' }}>
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 32 }}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'var(--d-badge-bg)', color: 'var(--d-badge-text)', padding: '6px 12px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 700, marginBottom: 12, textTransform: 'uppercase', letterSpacing: 0.5 }}>
                     <FiBarChart2 size={12} /> Skill Gap Analyzer
@@ -90,7 +90,7 @@ export default function SkillsPage() {
             </div>
 
             {/* Match Score & Strengths */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 24, marginBottom: 32 }}>
+            <div className="dp-grid-1-2" style={{ marginBottom: 32 }}>
                 <motion.div
                     key={`score-${selectedRole}`}
                     initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
@@ -202,3 +202,6 @@ export default function SkillsPage() {
         </div>
     );
 }
+
+
+

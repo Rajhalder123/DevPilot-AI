@@ -231,7 +231,7 @@ export default function LoginPage() {
                     </div>
 
                     <div style={{ marginBottom: 36 }}>
-                        <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 8, fontFamily: 'var(--font-outfit)' }}>
+                        <h1 className="dp-h1-responsive" style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 8, fontFamily: 'var(--font-outfit)' }}>
                             Welcome Back
                         </h1>
                         <p style={{ color: '#71717A', fontSize: '0.95rem' }}>Sign in to your DevPilot workspace</p>
@@ -310,7 +310,6 @@ export default function LoginPage() {
                         <div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                                 <label style={{ fontSize: '0.82rem', color: '#A1A1AA', fontWeight: 600 }}>Password</label>
-                                <Link href="/forgot-password" style={{ fontSize: '0.78rem', color: '#7C3AED', textDecoration: 'none', fontWeight: 600 }}>Forgot?</Link>
                             </div>
                             <div style={{ position: 'relative' }}>
                                 <FiLock size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#3F3F46' }} />
@@ -365,6 +364,9 @@ export default function LoginPage() {
             <style>{`
                 @media (max-width: 768px) {
                     #mobile-logo-login { display: block !important; }
+                }
+                @media (max-width: 480px) {
+                    .dp-h1-responsive { font-size: 1.6rem !important; }
                 }
             `}</style>
         </div>

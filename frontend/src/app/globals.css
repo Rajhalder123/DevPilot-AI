@@ -492,6 +492,138 @@ body {
 .nav-item-active { background: rgba(124, 58, 237, 0.12); }
 @media (max-width: 768px) { .nav-item-active { background: transparent !important; padding-left: 0 !important; } }
 
+/* ── Mobile Bottom Nav Spacing ── */
+/* Ensures content isn't hidden behind the mobile bottom tab bar */
+@media (max-width: 768px) {
+  .dashboard-container,
+  .dashboard-main-content {
+    padding-bottom: 72px !important;
+  }
+}
+
+/* Mobile bottom nav — shown only on mobile */
+.mobile-bottom-nav {
+  display: none;
+}
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex;
+  }
+}
+
+/* ── Mobile Dashboard Layout ── */
+/* Main content offset from sidebar (desktop only) */
+.dp-main-with-sidebar {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dp-main-full {
+  margin-left: 0;
+  width: 100%;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (max-width: 768px) {
+  .dp-main-with-sidebar,
+  .dp-main-full {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* ── Mobile Responsive Grid Helpers ── */
+.dp-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+@media (max-width: 768px) {
+  .dp-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+}
+
+.dp-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .dp-grid-3 { grid-template-columns: 1fr; gap: 16px; }
+}
+
+.dp-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .dp-grid-2 { grid-template-columns: 1fr; gap: 14px; }
+}
+
+.dp-grid-2-1 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .dp-grid-2-1 { grid-template-columns: 1fr; gap: 14px; }
+}
+
+.dp-grid-1-2 {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 24px;
+}
+@media (max-width: 768px) {
+  .dp-grid-1-2 { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* ── Dashboard Page Padding ── */
+.dp-page-pad {
+  padding: 28px 36px 120px 36px;
+}
+@media (max-width: 768px) {
+  .dp-page-pad {
+    padding: 16px 14px 100px 14px;
+  }
+}
+
+/* ── Dashboard Floating Input Bar ── */
+.dp-input-bar {
+  position: fixed;
+  bottom: 0;
+  left: 260px;
+  right: 0;
+  padding: 16px 36px 20px;
+  background: linear-gradient(to top, #050505 60%, transparent);
+  z-index: 50;
+  transition: left 0.3s;
+}
+@media (max-width: 768px) {
+  .dp-input-bar {
+    left: 0 !important;
+    padding: 12px 14px 80px 14px; /* extra bottom pad for mobile bottom nav */
+  }
+}
+
+/* ── Navbar Mobile ── */
+.dp-navbar-search {
+  display: flex;
+}
+@media (max-width: 640px) {
+  .dp-navbar-search { display: none; }
+  .dp-navbar-ask-btn { display: none; }
+}
+@media (max-width: 768px) {
+  .dp-notif-dropdown { max-width: calc(100vw - 32px); right: -60px; }
+  .dp-profile-dropdown { max-width: 200px; }
+}
+
+/* ── Mobile Typography ── */
+@media (max-width: 480px) {
+  .dp-h1-responsive { font-size: 1.5rem !important; }
+  .dp-h2-responsive { font-size: 1.25rem !important; }
+}
+
 /* ── Markdown Content ── */
 .markdown-content p { margin-bottom: 12px; }
 .markdown-content p:last-child { margin-bottom: 0; }

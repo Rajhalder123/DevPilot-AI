@@ -8,6 +8,7 @@ export interface User {
     name: string;
     email: string;
     avatar?: string;
+    role?: 'user' | 'admin';
     skills?: string[];
     bio?: string;
     location?: string;

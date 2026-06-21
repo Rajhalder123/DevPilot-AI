@@ -40,7 +40,7 @@ const statusIcon = (status: string) => {
 
 export default function RoadmapPage() {
     return (
-        <div style={{ padding: '28px 36px 120px 36px', flex: 1, overflowY: 'auto' }} className="hide-scrollbar">
+        <div style={{ flex: 1, overflowY: 'auto' }} className="dp-page-pad hide-scrollbar">
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 32 }}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'var(--d-badge-bg)', color: 'var(--d-badge-text)', padding: '6px 12px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 700, marginBottom: 12, textTransform: 'uppercase', letterSpacing: 0.5 }}>
                     <FiMap size={12} /> Career Roadmap
@@ -186,3 +186,6 @@ export default function RoadmapPage() {
         </div>
     );
 }
+
+
+

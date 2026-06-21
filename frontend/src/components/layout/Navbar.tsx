@@ -33,8 +33,8 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
 
     return (
         <header style={{
-            height: 66, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            padding: '0 28px', position: 'sticky', top: 0, zIndex: 990,
+            height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: '0 16px', position: 'sticky', top: 0, zIndex: 990,
             background: 'var(--d-nav)', borderBottom: '1px solid var(--d-nav-border)',
             transition: 'background 0.3s ease, border-color 0.3s ease',
         }}>
@@ -46,7 +46,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             </button>
 
             {/* Search */}
-            <div style={{ flex: 1, display: 'flex', justifyContent: 'center', padding: '0 20px' }}>
+            <div className="dp-navbar-search" style={{ flex: 1, justifyContent: 'center', padding: '0 12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'var(--d-card)', border: '1px solid var(--d-border)', borderRadius: 8, padding: '8px 14px', width: '100%', maxWidth: 480, transition: 'all 0.3s' }}>
                     <FiSearch size={15} color="var(--d-muted)" />
                     <input type="text" value={query} onChange={e => setQuery(e.target.value)}
@@ -61,7 +61,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             {/* Right Actions */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
                 {/* Ask AI */}
-                <button style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--d-accent)', border: '1px solid var(--d-border)', color: 'var(--d-accent-text)', padding: '7px 14px', borderRadius: 8, fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s', whiteSpace: 'nowrap' }}>
+                <button className="dp-navbar-ask-btn" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--d-accent)', border: '1px solid var(--d-border)', color: 'var(--d-accent-text)', padding: '7px 14px', borderRadius: 8, fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s', whiteSpace: 'nowrap' }}>
                     <FiZap size={13} /> Ask DevPilot AI
                 </button>
 
@@ -106,6 +106,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                                 initial={{ opacity: 0, y: 10, scale: 0.95 }} 
                                 animate={{ opacity: 1, y: 0, scale: 1 }} 
                                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                className="dp-notif-dropdown"
                                 style={{ position: 'absolute', top: 40, right: 0, width: 320, background: 'var(--d-card)', border: '1px solid var(--d-border)', borderRadius: 16, boxShadow: '0 10px 40px rgba(0,0,0,0.3)', padding: '16px', zIndex: 1000 }}
                             >
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>

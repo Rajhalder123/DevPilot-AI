@@ -46,9 +46,9 @@ export default function PricingPage() {
     const [annual, setAnnual] = useState(false);
 
     return (
-        <div style={{ padding: '40px 24px', maxWidth: 1100, margin: '0 auto' }}>
+        <div style={{ padding: '40px 20px', maxWidth: 1100, margin: '0 auto' }}>
             {/* Header */}
-            <div style={{ textAlign: 'center', marginBottom: 48 }}>
+            <div style={{ textAlign: 'center', marginBottom: 40 }}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '5px 14px', background: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.2)', borderRadius: 100, fontSize: '0.72rem', fontWeight: 700, color: '#A78BFA', marginBottom: 16, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
                     <FiZap size={11} /> Simple Pricing
                 </div>
@@ -71,7 +71,7 @@ export default function PricingPage() {
             </div>
 
             {/* Plans */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, alignItems: 'start' }}>
+            <div className="dp-grid-3">
                 {plans.map((plan, i) => (
                     <motion.div
                         key={plan.id}
@@ -97,9 +97,9 @@ export default function PricingPage() {
                             <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: plan.badge ? '#A78BFA' : '#fff', marginBottom: 6 }}>{plan.name}</h3>
                             <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 8 }}>
                                 <span style={{ fontSize: '2.4rem', fontWeight: 900, color: '#fff', letterSpacing: '-1px', fontFamily: 'var(--font-outfit)' }}>
-                                    {annual && plan.price !== '$0' && plan.price !== 'Custom' ? `$${Math.round(parseInt(plan.price.slice(1)) * 0.8)}` : plan.price}
+                                    {annual && plan.price !== '$0' && plan.price !== 'Custom' ? `$${Math.round(parseInt(plan.price.slice(1)) * 12 * 0.8)}` : plan.price}
                                 </span>
-                                <span style={{ fontSize: '0.88rem', color: '#71717A' }}>{plan.period}</span>
+                                <span style={{ fontSize: '0.88rem', color: '#71717A' }}>{annual && plan.period === '/month' ? '/year' : plan.period}</span>
                             </div>
                             <p style={{ fontSize: '0.85rem', color: '#71717A', lineHeight: 1.6 }}>{plan.desc}</p>
                         </div>
