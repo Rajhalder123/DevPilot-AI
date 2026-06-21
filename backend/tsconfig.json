@@ -14,8 +14,8 @@
         "resolveJsonModule": true,
         "declaration": true,
         "declarationMap": true,
-        "sourceMap": true,
-        "moduleResolution": "node16"
+        "ignoreDeprecations": "5.0",
+        "moduleResolution": "node"
     },
     "include": [
         "src/**/*"
